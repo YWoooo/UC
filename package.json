@@ -11,7 +11,9 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@types/validator": "^13.0.0",
     "nuxt": "^2.0.0",
+    "validator": "^13.0.0",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^8.4.2"
