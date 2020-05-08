@@ -24,7 +24,7 @@
         />
         <div class="errMsg" v-if="!isValid.password">{{errMsg.password}}</div>
       </div>
-      <div class="submit" :class="{disabled: true}">Login</div>
+      <div class="submit" :class="{disabled: isDisabled}">Login</div>
     </div>
     <div class="btn">Register</div>
     <div class="btn">Foeget password?</div>
@@ -47,10 +47,18 @@ export default class LoginForm extends Vue {
     email: false,
     password: false
   };
-  private errMsg = {
+  private errMsg: { [key: string]: string } = {
     email: "",
     password: ""
   };
+  private get isDisabled() {
+    for (const item in this.errMsg) {
+      if (this.errMsg[item] && this.errMsg[item].length !== 0) {
+        return true;
+      }
+    }
+    return false;
+  }
   private validate(target: keyof loginData) {
     if (testCases[target] !== undefined) {
       this.errMsg[target] = "";
