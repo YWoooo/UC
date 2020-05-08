@@ -24,7 +24,7 @@
         />
         <div class="errMsg" v-if="!isValid.password">{{errMsg.password}}</div>
       </div>
-      <div class="submit" :class="{disabled: isDisabled}">Login</div>
+      <div class="submit" :class="{disabled: isDisabled}" @click="handleSubmit">Login</div>
     </div>
     <div class="btn">Register</div>
     <div class="btn">Foeget password?</div>
@@ -68,6 +68,18 @@ export default class LoginForm extends Vue {
           break;
         }
       }
+    }
+  }
+  private handleSubmit() {
+    this.validate("email");
+    this.validate("password");
+
+    if (this.isDisabled === false) {
+      const sendData = {
+        email: this.email,
+        password: this.password
+      };
+      console.log(sendData);
     }
   }
   private mounted() {}
