@@ -26,7 +26,9 @@
       </div>
       <div class="submit" :class="{disabled: isDisabled}" @click="handleSubmit">Login</div>
     </div>
-    <div class="btn">Register</div>
+    <nuxt-link to="/register">
+      <div class="btn">Register</div>
+    </nuxt-link>
     <div class="btn">Foeget password?</div>
   </section>
 </template>
@@ -34,7 +36,6 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { testCaseInterface, testCases } from "@/components/login/testCases";
-import isEmail from "validator/lib/isEmail";
 interface loginData {
   email: string;
   password: string;
