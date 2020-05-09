@@ -29,7 +29,7 @@
     <nuxt-link to="/register">
       <div class="btn">Register</div>
     </nuxt-link>
-    <div class="btn">Foeget password?</div>
+    <div class="btn">Forgot password?</div>
   </section>
 </template>
 <script lang='ts'>
@@ -90,7 +90,11 @@ export default class LoginForm extends Vue {
 @import "~/style/index.scss";
 .login-form {
   @include clearfix;
-  margin-top: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 100vh;
   padding: 0 24px;
 }
 .form {
@@ -105,20 +109,10 @@ export default class LoginForm extends Vue {
   height: 60px;
 }
 .input {
-  width: 100%;
-  outline-style: none;
-  margin-bottom: 4px;
-  border-style: none;
-  border-bottom: 1px solid $color-black;
-  padding: 8px 0;
-  &::placeholder {
-    opacity: 0.5;
-  }
+  @include input-item;
 }
 .errMsg {
-  color: $color-red;
-  text-align: left;
-  font-size: 12px;
+  @include input-errmsg;
 }
 .submit {
   @include btn(36px, $color-black, $color-white);
@@ -128,9 +122,8 @@ export default class LoginForm extends Vue {
   opacity: 0.1;
 }
 .btn {
-  float: right;
-  clear: both;
+  text-align: right;
   margin-top: 8px;
-  padding: 4px 8px;
+  padding: 4px 0;
 }
 </style>

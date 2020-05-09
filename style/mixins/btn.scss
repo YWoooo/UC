@@ -1,11 +1,3 @@
-@mixin clearfix {
-    &::after {
-        content: "";
-        display: block;
-        clear: both;
-    }
-}
-
 @mixin btn($height, $background, $color) {
     height: $height;
     border-radius: 2px;

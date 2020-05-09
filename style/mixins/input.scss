@@ -1,0 +1,17 @@
+@mixin input-item($width: 100%) {
+    width: $width;
+    outline-style: none;
+    margin-bottom: 4px;
+    border-style: none;
+    border-bottom: 1px solid $color-black;
+    padding: 8px 0;
+    &::placeholder {
+        opacity: 0.5;
+    }
+}
+
+@mixin input-errmsg {
+    color: $color-red;
+    text-align: left;
+    font-size: 12px;
+}
