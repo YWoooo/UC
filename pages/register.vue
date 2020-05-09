@@ -17,4 +17,17 @@ export default Vue.extend({
 
 <style lang='scss' scoped>
 @import "~/style/index.scss";
+.register {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 100vh;
+}
+@media screen and (min-width: 768px) {
+  .register {
+    width: 500px;
+    margin: 0 auto;
+  }
+}
 </style>

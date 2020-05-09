@@ -88,12 +88,8 @@ export default class RegisterForm extends Vue {
 @import "~/style/index.scss";
 .register-form {
   @include clearfix;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-wrap: wrap;
-  height: 100vh;
   padding: 0 24px;
+  font-size: $font-size-xs;
 }
 .form {
   text-align: center;
@@ -123,5 +119,16 @@ export default class RegisterForm extends Vue {
   text-align: right;
   margin-top: 8px;
   padding: 4px 0;
+}
+@media screen and (min-width: 768px) {
+  .register-form {
+    font-size: $font-size-md;
+  }
+  .title {
+    font-size: 48px;
+  }
+  .register-form-item {
+    height: 80px;
+  }
 }
 </style>
