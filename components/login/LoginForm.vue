@@ -1,7 +1,7 @@
 <template>
   <section class="login-form">
+    <h1 class="title">Login</h1>
     <div class="form">
-      <h1 class="title">This is a UC.</h1>
       <div class="login-form-item">
         <input
           class="input"
@@ -35,8 +35,8 @@
 <script lang='ts'>
 import Vue from "vue";
 import Component from "vue-class-component";
-import { testCaseInterface, testCases } from "@/components/login/testCases";
-interface loginData {
+import { testCaseInterface, testCases } from "@/utils/testCases";
+interface LoginDataInterface {
   email: string;
   password: string;
 }
@@ -60,7 +60,7 @@ export default class LoginForm extends Vue {
     }
     return false;
   }
-  private validate(target: keyof loginData) {
+  private validate(target: keyof LoginDataInterface) {
     if (testCases[target] !== undefined) {
       this.errMsg[target] = "";
       for (const item of testCases[target]) {
@@ -83,19 +83,14 @@ export default class LoginForm extends Vue {
       console.log(sendData);
     }
   }
-  private mounted() {}
 }
 </script>
 <style lang='scss' scoped>
 @import "~/style/index.scss";
 .login-form {
   @include clearfix;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-wrap: wrap;
-  height: 100vh;
   padding: 0 24px;
+  font-size: $font-size-xs;
 }
 .form {
   text-align: center;
@@ -125,5 +120,16 @@ export default class LoginForm extends Vue {
   text-align: right;
   margin-top: 8px;
   padding: 4px 0;
+}
+@media screen and (min-width: 768px) {
+  .login-form {
+    font-size: $font-size-md;
+  }
+  .title {
+    font-size: 48px;
+  }
+  .login-form-item {
+    height: 80px;
+  }
 }
 </style>

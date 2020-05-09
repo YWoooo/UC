@@ -1,7 +1,7 @@
 <template>
   <section class="register-form">
+    <h1 class="title">Register</h1>
     <div class="form">
-      <h1 class="title">This is a UC.</h1>
       <div class="register-form-item">
         <input
           class="input"
@@ -34,36 +34,53 @@
 <script lang='ts'>
 import Vue from "vue";
 import Component from "vue-class-component";
+import { testCaseInterface, testCases } from "@/utils/testCases";
+interface RegisterDataInterface {
+  email: string;
+  password: string;
+}
 @Component
 export default class RegisterForm extends Vue {
   private email: string = "";
-  private phone: string = "";
   private password: string = "";
-  private isDisabled: boolean = false;
   private isValid = {
     email: false,
-    phone: false,
     password: false
   };
   private errMsg: { [key: string]: string } = {
     email: "",
-    phone: "",
     password: ""
   };
-  private validate(target: string) {
-    console.log("hi");
-    // if (testCases[target] !== undefined) {
-    //   this.errMsg[target] = "";
-    //   for (const item of testCases[target]) {
-    //     if (item.rule(this[target]) === item.showMsgWhen) {
-    //       this.errMsg[target] = item.msg;
-    //       break;
-    //     }
-    //   }
-    // }
+  private get isDisabled() {
+    for (const item in this.errMsg) {
+      if (this.errMsg[item] && this.errMsg[item].length !== 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+  private validate(target: keyof RegisterDataInterface) {
+    if (testCases[target] !== undefined) {
+      this.errMsg[target] = "";
+      for (const item of testCases[target]) {
+        if (item.rule(this[target]) === item.showMsgWhen) {
+          this.errMsg[target] = item.msg;
+          break;
+        }
+      }
+    }
   }
   private handleSubmit() {
-    console.log("hi");
+    this.validate("email");
+    this.validate("password");
+
+    if (this.isDisabled === false) {
+      const sendData = {
+        email: this.email,
+        password: this.password
+      };
+      console.log(sendData);
+    }
   }
 }
 </script>
