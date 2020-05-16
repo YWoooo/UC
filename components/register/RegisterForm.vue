@@ -82,6 +82,12 @@ export default class RegisterForm extends Vue {
       console.log(sendData);
     }
   }
+  private mounted() {
+    this.$api.user.register({
+      email: "test6@gmail.com",
+      password: "Abc123"
+    });
+  }
 }
 </script>
 <style lang='scss' scoped>
