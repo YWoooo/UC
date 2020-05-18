@@ -70,7 +70,11 @@ export default class RegisterForm extends Vue {
       }
     }
   }
-  private handleSubmit() {
+  private clearForm() {
+    this.email = "";
+    this.password = "";
+  }
+  private async handleSubmit() {
     this.validate("email");
     this.validate("password");
 
@@ -79,14 +83,13 @@ export default class RegisterForm extends Vue {
         email: this.email,
         password: this.password
       };
-      console.log(sendData);
+      try {
+        const res = await this.$api.user.register(sendData);
+      } catch (e) {
+        console.log("handleSubmit() in RegisterFomr.vue: ", e);
+      }
+      this.clearForm();
     }
-  }
-  private mounted() {
-    this.$api.user.register({
-      email: "test6@gmail.com",
-      password: "Abc123"
-    });
   }
 }
 </script>
