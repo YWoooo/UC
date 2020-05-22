@@ -35,6 +35,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { testCaseInterface, testCases } from "@/utils/testCases";
+import { gAlertStore } from "~/store";
 interface RegisterDataInterface {
   email: string;
   password: string;
@@ -90,6 +91,12 @@ export default class RegisterForm extends Vue {
       }
       this.clearForm();
     }
+  }
+  private mounted() {
+    gAlertStore.sendAlert({
+      type: "info",
+      msg: "this is a send alert and 3"
+    });
   }
 }
 </script>

@@ -1,8 +1,24 @@
 <template>
-  <div>
-    <nuxt />
-  </div>
+  <v-app>
+    <div>
+      <nuxt />
+    </div>
+    <GAlert />
+  </v-app>
 </template>
+
+<script lang='ts'>
+import Vue from "vue";
+import Component from "vue-class-component";
+import GAlert from "@/components/global/GAlert.vue";
+
+@Component({
+  components: {
+    GAlert
+  }
+})
+export default class defaultLayout extends Vue {}
+</script>
 
 <style>
 html {
