@@ -24,7 +24,10 @@
             @blur="validate('password')"
             @keypress="handleKeypress"
           />
-          <div class="input-slot" @click="togglePassword">lala</div>
+          <div class="input-slot" @click="togglePassword">
+            <i class="las la-eye" v-if="passwordInputType === 'password'"></i>
+            <i class="las la-eye-slash" v-else></i>
+          </div>
         </div>
         <div class="errMsg" v-if="!isValid.password">{{errMsg.password}}</div>
       </div>
