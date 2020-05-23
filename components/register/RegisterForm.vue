@@ -1,8 +1,8 @@
 <template>
   <section class="register-form">
-    <h1 class="title">Register</h1>
+    <h1 class="f-title">Register</h1>
     <div class="form">
-      <div class="register-form-item">
+      <div class="form-item">
         <input
           class="input"
           type="email"
@@ -13,21 +13,25 @@
         />
         <div class="errMsg" v-if="!isValid.email">{{errMsg.email}}</div>
       </div>
-      <div class="register-form-item">
-        <input
-          class="input"
-          type="password"
-          placeholder="Password"
-          v-model="password"
-          @input="validate('password')"
-          @blur="validate('password')"
-        />
+      <div class="form-item">
+        <div class="form-item-inner">
+          <input
+            class="input-password"
+            :type="passwordInputType"
+            placeholder="Password"
+            v-model="password"
+            @input="validate('password')"
+            @blur="validate('password')"
+            @keypress="handleKeypress"
+          />
+          <div class="input-slot" @click="togglePassword">lala</div>
+        </div>
         <div class="errMsg" v-if="!isValid.password">{{errMsg.password}}</div>
       </div>
       <div class="submit" :class="{disabled: isDisabled}" @click="handleSubmit">Register</div>
     </div>
     <nuxt-link to="/login">
-      <div class="btn">Login</div>
+      <span class="btn">Login</span>
     </nuxt-link>
   </section>
 </template>
@@ -42,8 +46,9 @@ interface RegisterDataInterface {
 }
 @Component
 export default class RegisterForm extends Vue {
-  private email: string = "";
-  private password: string = "";
+  private email = "";
+  private password = "";
+  private passwordInputType = "password";
   private isValid = {
     email: false,
     password: false
@@ -53,12 +58,17 @@ export default class RegisterForm extends Vue {
     password: ""
   };
   private get isDisabled() {
+    if (!this.email || !this.password) return true;
     for (const item in this.errMsg) {
       if (this.errMsg[item] && this.errMsg[item].length !== 0) {
         return true;
       }
     }
     return false;
+  }
+  private togglePassword() {
+    this.passwordInputType =
+      this.passwordInputType === "password" ? "text" : "password";
   }
   private validate(target: keyof RegisterDataInterface) {
     if (testCases[target] !== undefined) {
@@ -71,11 +81,10 @@ export default class RegisterForm extends Vue {
       }
     }
   }
-  private clearForm() {
-    this.email = "";
-    this.password = "";
+  private handleKeypress(e: KeyboardEvent) {
+    if (e.keyCode === 13) this.handleSubmit(e);
   }
-  private async handleSubmit() {
+  private async handleSubmit(e: Event) {
     this.validate("email");
     this.validate("password");
 
@@ -86,17 +95,33 @@ export default class RegisterForm extends Vue {
       };
       try {
         const res = await this.$api.user.register(sendData);
+        this.handleRes(res.data.code);
       } catch (e) {
-        console.log("handleSubmit() in RegisterFomr.vue: ", e);
+        gAlertStore.sendAlert({
+          type: "error",
+          msg: "There is an error, please try again later."
+        });
       }
-      this.clearForm();
     }
   }
-  private mounted() {
-    gAlertStore.sendAlert({
-      type: "info",
-      msg: "this is a send alert and 3"
-    });
+  private handleRes(code: number) {
+    switch (code) {
+      case 1:
+        this.$router.push("/home");
+        break;
+      case -21:
+        gAlertStore.sendAlert({
+          type: "error",
+          msg: "This Email is already registered."
+        });
+        break;
+      default:
+        gAlertStore.sendAlert({
+          type: "error",
+          msg: "There is an error, please try again later."
+        });
+        break;
+    }
   }
 }
 </script>
@@ -110,16 +135,30 @@ export default class RegisterForm extends Vue {
 .form {
   text-align: center;
 }
-.title {
+.f-title {
   margin-bottom: 24px;
   font-size: 36px;
   font-weight: 300;
 }
-.register-form-item {
+.form-item {
   height: 60px;
+}
+.form-item-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $color-black;
 }
 .input {
   @include input-item;
+}
+.input-password {
+  @include input-item(calc(100% - 56px));
+  border-style: none;
+}
+.input-slot {
+  display: inline-block;
+  width: 32px;
 }
 .errMsg {
   @include input-errmsg;
@@ -132,6 +171,7 @@ export default class RegisterForm extends Vue {
   opacity: 0.1;
 }
 .btn {
+  float: right;
   text-align: right;
   margin-top: 8px;
   padding: 4px 0;
@@ -140,10 +180,10 @@ export default class RegisterForm extends Vue {
   .register-form {
     font-size: $font-size-md;
   }
-  .title {
+  .f-title {
     font-size: 48px;
   }
-  .register-form-item {
+  .form-item {
     height: 80px;
   }
 }

@@ -11,6 +11,11 @@ const isEmptyTest: testCaseInterface = {
     showMsgWhen: true,
     msg: 'Required.'
 }
+const isPassword = (password: string) => {
+    // at least one lowercase, one uppercase, one number, 6-15
+    const rule = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*^.{6,15}$)/
+    return rule.test(password)
+}
 export const testCases: { [key: string]: testCaseInterface[] } = {
     email: [
         isEmptyTest,
@@ -19,5 +24,11 @@ export const testCases: { [key: string]: testCaseInterface[] } = {
             showMsgWhen: false,
             msg: 'Wrong format.'
         }],
-    password: [isEmptyTest,]
+    password: [
+        isEmptyTest,
+        {
+            rule: isPassword,
+            showMsgWhen: false,
+            msg: '6-15 digit, with uppercase, lowercase, and number.'
+        }]
 }

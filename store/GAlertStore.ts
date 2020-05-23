@@ -7,12 +7,12 @@ import IGAlert from '@/interfaces/IGAlert'
     namespaced: true,
 })
 export default class GAlertStore extends VuexModule {
-    type = 'info'
-    msg = 'this is a g alert store wolalala'
-    isShow = false
+    public type = 'error'
+    public msg = 'this is a g alert store wolalala'
+    public isShow = false
     @Mutation
-    toggleAlert() {
-        this.isShow = !this.isShow
+    close() {
+        this.isShow = false
     }
     @Mutation
     setAlert(options: IGAlert) {
@@ -23,6 +23,6 @@ export default class GAlertStore extends VuexModule {
     @Action
     sendAlert(options: IGAlert) {
         this.context.commit('setAlert', options)
-        setTimeout(() => this.context.commit('toggleAlert'), 3000);
+        setTimeout(() => this.context.commit('close'), 8000);
     }
 }
