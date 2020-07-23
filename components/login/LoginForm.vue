@@ -46,11 +46,11 @@ export default class LoginForm extends Vue {
   private password: string = "";
   private isValid = {
     email: false,
-    password: false
+    password: false,
   };
   private errMsg: { [key: string]: string } = {
     email: "",
-    password: ""
+    password: "",
   };
   private get isDisabled() {
     for (const item in this.errMsg) {
@@ -78,10 +78,13 @@ export default class LoginForm extends Vue {
     if (this.isDisabled === false) {
       const sendData = {
         email: this.email,
-        password: this.password
+        password: this.password,
       };
       console.log(sendData);
     }
+  }
+  private mounted() {
+    this.$alert("error", "aaaaa");
   }
 }
 </script>

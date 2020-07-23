@@ -11,13 +11,8 @@
 import Vue from "vue";
 import { Component, Mixins } from "vue-property-decorator";
 import checkLogin from "@/mixins/checkLogin.vue";
-import GAlert from "@/components/global/GAlert.vue";
 
-@Component({
-  components: {
-    GAlert,
-  },
-})
+@Component
 export default class defaultLayout extends Mixins(checkLogin) {
   private created() {
     this.checkLogin();

@@ -34,7 +34,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["~/plugins/api.ts"],
+  plugins: [
+    "~/plugins/api.ts",
+    "~/plugins/registerAll.ts",
+    "~/plugins/alert.ts",
+  ],
   /*
    ** Nuxt.js dev-modules
    */
