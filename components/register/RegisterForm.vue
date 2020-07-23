@@ -43,6 +43,7 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { testCaseInterface, testCases } from "@/utils/testCases";
 import { gAlertStore } from "~/store";
+import cookie from "cookiejs";
 interface RegisterDataInterface {
   email: string;
   password: string;
@@ -98,7 +99,7 @@ export default class RegisterForm extends Vue {
       };
       try {
         const res = await this.$api.user.register(sendData);
-        this.handleRes(res.data.code);
+        this.handleRes(res.data);
       } catch (e) {
         gAlertStore.sendAlert({
           type: "error",
@@ -107,10 +108,11 @@ export default class RegisterForm extends Vue {
       }
     }
   }
-  private handleRes(code: number) {
-    switch (code) {
+  private handleRes(resData: any) {
+    switch (resData.code) {
       case 1:
-        this.$router.push("/home");
+        cookie.set("sessionId", resData.sessionId, 1);
+        this.$router.push("/");
         break;
       case -21:
         gAlertStore.sendAlert({

@@ -9,7 +9,8 @@
 
 <script lang='ts'>
 import Vue from "vue";
-import Component from "vue-class-component";
+import { Component, Mixins } from "vue-property-decorator";
+import checkLogin from "@/mixins/checkLogin.vue";
 import GAlert from "@/components/global/GAlert.vue";
 
 @Component({
@@ -17,7 +18,11 @@ import GAlert from "@/components/global/GAlert.vue";
     GAlert
   }
 })
-export default class defaultLayout extends Vue {}
+export default class defaultLayout extends Mixins(checkLogin) {
+  private created() {
+    this.checkLogin();
+  }
+}
 </script>
 
 <style>

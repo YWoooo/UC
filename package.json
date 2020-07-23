@@ -14,6 +14,7 @@
     "@types/axios": "^0.14.0",
     "@types/validator": "^13.0.0",
     "axios": "^0.19.2",
+    "cookiejs": "^1.0.26",
     "nuxt": "^2.0.0",
     "qs": "^6.9.4",
     "validator": "^13.0.0",
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",
     "@nuxtjs/vuetify": "^1.11.2",
+    "@types/cookiejs": "^1.2.0",
     "node-sass": "^4.14.0",
     "sass-loader": "^8.0.2"
   }
