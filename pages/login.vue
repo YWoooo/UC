@@ -5,34 +5,42 @@
       <div class="form-item">
         <div class="label">Email</div>
         <div class="input-inner">
-          <input class="input" type="email" />
+          <input class="input" type="email" v-model="formData.email" />
         </div>
-        <div class="err">errerreerr</div>
+        <div class="errMsg">{{errMsg.email}}</div>
       </div>
       <div class="form-item">
         <div class="label">Password</div>
         <div class="input-inner">
-          <input class="input" type="password" />
-          <div class="input-slot">
-            <i class="las la-eye"></i>
-            <!-- <i class="las la-eye-slash"></i> -->
+          <input class="input" :type="showPassword ? 'text':'password'" v-model="formData.password" />
+          <div class="input-slot" @click="showPassword = !showPassword">
+            <i class="las la-eye" v-if="!showPassword"></i>
+            <i class="las la-eye-slash" v-else></i>
           </div>
         </div>
-        <div class="err"></div>
+        <div class="errMsg">{{errMsg.password}}</div>
       </div>
     </div>
     <div class="submit">Login</div>
   </div>
 </template>
 <script lang="ts">
-import Vue from "vue";
-import LoginForm from "~/components/login/LoginForm.vue";
-export default Vue.extend({
-  components: {
-    LoginForm,
-  },
-  layout: "notLogin",
-});
+import { Component, Vue } from "nuxt-property-decorator";
+@Component
+export default class login extends Vue {
+  public showPassword = false;
+  public formData = {
+    email: "123",
+    password: "aaa",
+  };
+  public errMsg = {
+    email: "aaaaaaaaas",
+    password: "",
+  };
+  public layout() {
+    return "notLogin";
+  }
+}
 </script>
 <style lang='scss' scoped>
 @import "~/assets/styles/index.scss";
@@ -78,7 +86,10 @@ export default Vue.extend({
   flex-shrink: 0;
   font-size: 20px;
 }
-.err {
+.errMsg {
+  height: 16px;
+  margin-top: 4px;
+  line-height: 16px;
   font-size: 16px;
 }
 .submit {
