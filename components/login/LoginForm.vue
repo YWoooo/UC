@@ -84,7 +84,7 @@ export default class LoginForm extends Vue {
     }
   }
   private mounted() {
-    this.$alert("error", "aaaaa");
+    //this.$alert("error", "aaaaa");
   }
 }
 </script>
