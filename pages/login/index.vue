@@ -5,14 +5,26 @@
       <div class="form-item">
         <div class="label">Email</div>
         <div class="input-inner">
-          <input class="input" type="email" v-model="formData.email" />
+          <input
+            class="input"
+            type="email"
+            v-model="formData.email"
+            @input="validateEmail"
+            @blur="validateEmail"
+          />
         </div>
         <div class="errMsg">{{errMsg.email}}</div>
       </div>
       <div class="form-item">
         <div class="label">Password</div>
         <div class="input-inner">
-          <input class="input" :type="showPassword ? 'text':'password'" v-model="formData.password" />
+          <input
+            class="input"
+            :type="showPassword ? 'text':'password'"
+            v-model="formData.password"
+            @input="validatePassword"
+            @blur="validatePassword"
+          />
           <div class="input-slot" @click="showPassword = !showPassword">
             <i class="las la-eye" v-if="!showPassword"></i>
             <i class="las la-eye-slash" v-else></i>
@@ -21,24 +33,61 @@
         <div class="errMsg">{{errMsg.password}}</div>
       </div>
     </div>
-    <div class="submit">Login</div>
+    <v-btn
+      class="submit"
+      block
+      :color="'black'"
+      :depressed="true"
+      :loading="isBtnLoading"
+      :disabled="isSubmitDisabled"
+      @click="submit"
+    >Login</v-btn>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
+import isEmail from "validator/lib/isEmail";
+import { regs } from "~/utils/regs";
 @Component
-export default class login extends Vue {
+export default class Login extends Vue {
   public showPassword = false;
+  public isBtnLoading = false;
   public formData = {
-    email: "123",
-    password: "aaa",
-  };
-  public errMsg = {
-    email: "aaaaaaaaas",
+    email: "",
     password: "",
   };
+  public errMsg = {
+    email: "",
+    password: "",
+  };
+  public get isSubmitDisabled() {
+    if (!this.formData.email || !this.formData.password) {
+      return true;
+    }
+    return Object.values(this.errMsg).some((e) => e !== "");
+  }
   public layout() {
     return "notLogin";
+  }
+  public validateEmail() {
+    if (!this.formData.email) return (this.errMsg.email = "Required.");
+    this.errMsg.email = isEmail(this.formData.email)
+      ? ""
+      : "Wrong format of email.";
+  }
+  public validatePassword() {
+    if (!this.formData.password) return (this.errMsg.password = "Required.");
+    this.errMsg.password = regs.password.test(this.formData.password)
+      ? ""
+      : "6-15 digit, with uppercase, lowercase, and number.";
+  }
+  public submit() {
+    if (this.isSubmitDisabled) return;
+    this.isBtnLoading = true;
+    const sendData = {
+      email: this.formData.email,
+      password: this.formData.password,
+    };
   }
 }
 </script>
@@ -52,7 +101,7 @@ export default class login extends Vue {
   I add a _ avoid these css.
  */
 ._title {
-  margin-top: 40px;
+  margin-top: 60px;
   text-align: center;
   font-size: 28px;
 }
@@ -94,10 +143,8 @@ export default class login extends Vue {
 }
 .submit {
   margin-top: 60px;
-  padding: 8px 0;
-  background: black;
-  color: white;
-  text-align: center;
+  padding: 24px 0 !important;
   font-size: 20px;
+  color: white;
 }
 </style>
