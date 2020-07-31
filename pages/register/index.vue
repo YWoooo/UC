@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="register">
     <div>
       <div class="_title">This is a UC</div>
       <div class="form">
@@ -15,6 +15,23 @@
             />
           </div>
           <div class="errMsg">{{errMsg.email}}</div>
+        </div>
+        <div class="form-item">
+          <div class="label">Verification Code</div>
+          <div class="flex">
+            <div class="input input-short">
+              <input
+                class="input-inner"
+                type="text"
+                v-model="formData.verificationCode"
+                maxlength="6"
+                @input="validateVerificationCode"
+                @blur="validateVerificationCode"
+              />
+            </div>
+            <v-btn class="get" outlined :color="'black'" :depressed="true">Get</v-btn>
+          </div>
+          <div class="errMsg">{{errMsg.verificationCode}}</div>
         </div>
         <div class="form-item">
           <div class="label">Password</div>
@@ -43,51 +60,70 @@
       :loading="isBtnLoading"
       :disabled="isSubmitDisabled"
       @click="submit"
-    >Login</v-btn>
+    >Register</v-btn>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Watch } from "nuxt-property-decorator";
 import isEmail from "validator/lib/isEmail";
 import { regs } from "~/utils/regs";
+import { numberOnly } from "~/utils/numberOnly";
 @Component
 export default class Login extends Vue {
   public showPassword = false;
   public isBtnLoading = false;
   public formData = {
     email: "",
+    verificationCode: "",
     password: "",
   };
   public errMsg = {
     email: "",
+    verificationCode: "",
     password: "",
   };
   public get isSubmitDisabled() {
-    if (!this.formData.email || !this.formData.password) {
+    if (Object.values(this.formData).some((e) => e === "")) {
       return true;
     }
     return Object.values(this.errMsg).some((e) => e !== "");
+  }
+  @Watch("formData.verificationCode")
+  public onVerificationCodeChanged() {
+    this.formData.verificationCode = numberOnly(this.formData.verificationCode);
   }
   public layout() {
     return "notLogin";
   }
   public validateEmail() {
-    if (!this.formData.email) return (this.errMsg.email = "Required.");
+    if (!this.formData.email) {
+      return (this.errMsg.email = "Required.");
+    }
     this.errMsg.email = isEmail(this.formData.email)
       ? ""
       : "Wrong format of email.";
   }
+  public validateVerificationCode() {
+    if (!this.formData.verificationCode) {
+      return (this.errMsg.verificationCode = "Required.");
+    }
+  }
   public validatePassword() {
-    if (!this.formData.password) return (this.errMsg.password = "Required.");
+    if (!this.formData.password) {
+      return (this.errMsg.password = "Required.");
+    }
     this.errMsg.password = regs.password.test(this.formData.password)
       ? ""
       : "6-15 digit, with uppercase, lowercase, and number.";
   }
   public submit() {
-    if (this.isSubmitDisabled) return;
+    if (this.isSubmitDisabled) {
+      return;
+    }
     this.isBtnLoading = true;
     const sendData = {
       email: this.formData.email,
+      verificationCode: +this.formData.verificationCode,
       password: this.formData.password,
     };
   }
@@ -95,7 +131,7 @@ export default class Login extends Vue {
 </script>
 <style lang='scss' scoped>
 @import "~/assets/styles/index.scss";
-.login {
+.register {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -115,13 +151,18 @@ export default class Login extends Vue {
   margin-top: 40px;
 }
 .form-item {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
   padding: 6px 0;
 }
 .label {
+  width: 100%;
   font-size: 16px;
 }
 .input {
   display: flex;
+  width: 100%;
   border-bottom: 1px solid black;
 }
 .input-inner {
@@ -139,6 +180,7 @@ export default class Login extends Vue {
   font-size: 20px;
 }
 .errMsg {
+  width: 100%;
   height: 16px;
   margin-top: 4px;
   line-height: 16px;
@@ -150,5 +192,17 @@ export default class Login extends Vue {
   padding: 24px 0 !important;
   font-size: 20px;
   color: white;
+}
+.input-short {
+  box-sizing: border-box;
+  width: unset;
+  margin-right: 24px;
+}
+.get {
+  width: 100px;
+  color: white;
+}
+.flex {
+  display: flex;
 }
 </style>
