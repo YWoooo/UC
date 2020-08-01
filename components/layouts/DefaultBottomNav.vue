@@ -4,7 +4,7 @@
       v-for="item in btnDatas"
       :key="item.label"
       :value="item.routeName"
-      @click="$router.push(item.routeName)"
+      @click="goTo(item.routeName)"
     >
       <span>{{ item.label }}</span>
       <v-icon>{{ item.icon }}</v-icon>
@@ -14,9 +14,8 @@
 <script lang='ts'>
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import { layoutStore } from "~/store";
 @Component
-export default class DefaultNav extends Vue {
+export default class DefaultBottomNav extends Vue {
   public btnDatas = [
     {
       label: "Home",
@@ -34,6 +33,9 @@ export default class DefaultNav extends Vue {
       routeName: "settings",
     },
   ];
+  public goTo(routeName: string) {
+    this.$router.push(routeName);
+  }
 }
 </script>
 <style lang="scss" scoped>

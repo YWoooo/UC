@@ -1,9 +1,15 @@
 <template>
-  <div class="overview">This is a overview</div>
+  <div class>
+    This is a wallet
+    <WalletCard />
+  </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-@Component
+import WalletCard from "@/components/wallet/WalletCard.vue";
+@Component({
+  components: { WalletCard },
+})
 export default class WalletOverview extends Vue {}
 </script>
 <style lang='scss' scoped>

@@ -1,8 +1,11 @@
 <template>
   <v-app>
     <div class="view">
-      <nuxt />
-      <defaultNav />
+      <DefaultAppBar />
+      <div class="nuxt">
+        <nuxt />
+      </div>
+      <DefaultBottomNav />
     </div>
     <GAlert />
   </v-app>
@@ -11,10 +14,11 @@
 <script lang='ts'>
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import DefaultNav from "@/layouts/components/DefaultNav.vue";
+import DefaultAppBar from "@/components/layouts/DefaultAppBar.vue";
+import DefaultBottomNav from "@/components/layouts/DefaultBottomNav.vue";
 
 @Component({
-  components: { DefaultNav },
+  components: { DefaultBottomNav, DefaultAppBar },
 })
 export default class defaultLayout extends Vue {}
 </script>
@@ -24,5 +28,8 @@ export default class defaultLayout extends Vue {}
   flex-direction: column;
   justify-content: space-between;
   min-height: 100%;
+}
+.nuxt {
+  flex: 1;
 }
 </style>

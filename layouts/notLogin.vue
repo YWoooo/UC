@@ -10,7 +10,7 @@
 <script lang='ts'>
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import NotLoginNav from "@/layouts/components/NotLoginNav.vue";
+import NotLoginNav from "@/components/layouts/NotLoginNav.vue";
 @Component({
   components: { NotLoginNav },
 })
