@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <div>
-      <notLoginNav />
+      <NotLoginNav />
       <nuxt />
     </div>
     <GAlert />
@@ -10,9 +10,9 @@
 <script lang='ts'>
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import notLoginNav from "@/layouts/components/notLoginNav.vue";
+import NotLoginNav from "@/layouts/components/NotLoginNav.vue";
 @Component({
-  components: { notLoginNav },
+  components: { NotLoginNav },
 })
 export default class notLogin extends Vue {}
 </script>
