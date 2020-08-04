@@ -38,6 +38,7 @@ export default {
     "~/plugins/api.ts",
     "~/plugins/registerAll.ts",
     "~/plugins/alert.ts",
+    "~/plugins/vuetify.ts",
   ],
   /*
    ** Nuxt.js dev-modules
