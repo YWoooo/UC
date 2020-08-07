@@ -23,11 +23,16 @@ import DefaultBottomNav from "@/components/layouts/DefaultBottomNav.vue";
 export default class defaultLayout extends Vue {}
 </script>
 <style lang="scss" scoped>
+@import "~/assets/styles/index.scss";
 .view {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 100%;
+  background-color: $color-bg;
+  color: $color-font;
+  font-weight: 300;
+  letter-spacing: 1.3px;
 }
 .nuxt {
   flex: 1;

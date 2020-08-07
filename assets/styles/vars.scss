@@ -1,7 +1,13 @@
-$color-font: #000000;
+$color-green: #33cc00;
+$color-grey: #262626;
+$color-white: #f2f2f2;
 $color-black: #000000;
-$color-white: #ffffff;
-$color-red: red;
+
+$color-bg: #204060;
+$color-bg-darker: #19334d;
+
+$color-font: $color-white;
+$color-font-darker: #7094db;
 
 $font-size-xs: 16px;
 $font-size-md: 20px;

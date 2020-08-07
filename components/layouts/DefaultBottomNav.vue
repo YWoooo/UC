@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-navigation :value="$route.name" color="purple lighten-1">
+  <v-bottom-navigation :value="$route.name" background-color="#19334d">
     <v-btn
       v-for="item in btnDatas"
       :key="item.label"
