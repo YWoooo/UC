@@ -8,5 +8,4 @@ export default Vue.extend({});
 </script>
 
 <style lang='scss' scoped>
-@import "~/style/index.scss";
 </style>

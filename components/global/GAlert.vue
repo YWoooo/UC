@@ -26,7 +26,7 @@ export default class GAlert extends Vue {
 }
 </script>
 <style lang='scss' scoped>
-@import "~/style/index.scss";
+@import "~/assets/styles/index.scss";
 .v-alert {
   position: fixed;
   top: 24px;
