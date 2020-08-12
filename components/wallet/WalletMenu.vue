@@ -1,7 +1,7 @@
 <template>
   <div class>
     <div class="menu">
-      <nuxt-link v-for="item in menu1Data" :key="item.label" :to="item.routeName">
+      <nuxt-link v-for="item in menu1Data" :key="item.label" :to="{name: item.routeName}">
         <div class="menu-item">
           <span>{{item.label}}</span>
           <v-icon class="icon">mdi-arrow-right</v-icon>
@@ -9,7 +9,7 @@
       </nuxt-link>
     </div>
     <div class="menu">
-      <nuxt-link v-for="item in menu2Data" :key="item.label" :to="item.routeName">
+      <nuxt-link v-for="item in menu2Data" :key="item.label" :to="{name: item.routeName}">
         <div class="menu-item">
           <span>{{item.label}}</span>
           <v-icon class="icon">mdi-arrow-right</v-icon>
@@ -17,7 +17,7 @@
       </nuxt-link>
     </div>
     <div class="menu">
-      <nuxt-link v-for="item in menu3Data" :key="item.label" :to="item.routeName">
+      <nuxt-link v-for="item in menu3Data" :key="item.label" :to="{name: item.routeName}">
         <div class="menu-item">
           <span>{{item.label}}</span>
           <v-icon class="icon">mdi-arrow-right</v-icon>
@@ -39,7 +39,7 @@ export default class WalletMenu extends Vue {
 <style lang='scss' scoped>
 @import "~/assets/styles/index.scss";
 .menu {
-  margin: 0 20px;
+  margin: 0 $normal-spacing;
   & + & {
     margin-top: 24px;
   }

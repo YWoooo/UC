@@ -1,0 +1,84 @@
+<template>
+  <div class="deposit-amount">
+    <div class="options">
+      <div
+        class="option"
+        v-for="(item, index) in options"
+        :key="index"
+        @click="onOptionClick(item)"
+      >${{item.toLocaleString()}}</div>
+    </div>
+    <input
+      class="input"
+      type="text"
+      v-model="amount"
+      placeholder="Deposit amount (USD)"
+      maxlength="20"
+    />
+    <div class="errMsg">{{errMsg}}</div>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Vue, Watch } from "nuxt-property-decorator";
+import { numberOnly } from "@/utils/numberOnly";
+@Component
+export default class DepositAmount extends Vue {
+  public amount = "";
+  public errMsg = "Required.";
+  public options = [100, 300, 500, 1000, 3000];
+  @Watch("amount")
+  public onAmountChanged() {
+    const amountNumber = +numberOnly(this.amount);
+    this.amount = this.setAmountString(amountNumber);
+    this.$emit("change", amountNumber);
+  }
+  public setAmountString(amount: number) {
+    return "$" + amount.toLocaleString();
+  }
+  public onOptionClick(option: number) {
+    this.amount = option.toString();
+  }
+}
+</script>
+
+<style lang='scss' scoped>
+@import "~/assets/styles/index.scss";
+.deposit-amount {
+  margin-top: 40px;
+}
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.option {
+  width: 30%;
+  margin-bottom: 16px;
+  border: 1px solid $color-white;
+  border-radius: 36px;
+  padding: 4px;
+  text-align: center;
+  &:nth-of-type(3n + 2) {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+.input {
+  width: 100%;
+  border-bottom: 1px solid $color-white;
+  padding-bottom: 6px;
+  font-size: 20px;
+  &:focus {
+    outline-style: none;
+  }
+  &::placeholder {
+    color: inherit;
+    opacity: 0.6;
+  }
+}
+.errMsg {
+  margin-top: 4px;
+  color: $color-err;
+}
+</style>

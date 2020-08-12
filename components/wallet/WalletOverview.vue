@@ -17,7 +17,7 @@ export default class WalletCard extends Vue {
 @import "~/assets/styles/index.scss";
 .overview {
   margin-top: 36px;
-  padding: 20px;
+  padding: $normal-spacing;
   text-align: center;
 }
 .balance-value {
