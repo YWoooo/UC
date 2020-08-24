@@ -11,9 +11,10 @@
     <input
       class="input"
       type="text"
-      v-model="amount"
+      v-model="amountString"
       placeholder="Deposit amount (USD)"
-      maxlength="20"
+      maxlength="10"
+      @keypress.enter="submit"
     />
     <div class="errMsg">{{errMsg}}</div>
   </div>
@@ -21,23 +22,28 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "nuxt-property-decorator";
+import { depositStore } from "~/store";
 import { numberOnly } from "@/utils/numberOnly";
+
 @Component
 export default class DepositAmount extends Vue {
-  public amount = "";
-  public errMsg = "Required.";
+  public amountString = "";
+  public errMsg = "";
   public options = [100, 300, 500, 1000, 3000];
-  @Watch("amount")
+  @Watch("amountString")
   public onAmountChanged() {
-    const amountNumber = +numberOnly(this.amount);
-    this.amount = this.setAmountString(amountNumber);
-    this.$emit("change", amountNumber);
+    const amountNumber = +numberOnly(this.amountString);
+    this.amountString = this.formatAmountString(amountNumber);
+    depositStore.setAmount(amountNumber);
   }
-  public setAmountString(amount: number) {
+  public formatAmountString(amount: number) {
     return "$" + amount.toLocaleString();
   }
   public onOptionClick(option: number) {
-    this.amount = option.toString();
+    this.amountString = option.toString();
+  }
+  public submit() {
+    this.$emit("submit");
   }
 }
 </script>

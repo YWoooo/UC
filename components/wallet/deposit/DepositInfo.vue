@@ -1,16 +1,21 @@
 <template>
   <div class="deposit-info">
-    <div class="amount">$ {{amount}}</div>
+    <div class="amount" v-if="amount<=0">-</div>
+    <div class="amount" v-else>$ {{amount.toLocaleString()}}</div>
     <div class="subtitle">Deposit amount ({{ccy}})</div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
+import { depositStore } from "~/store";
+
 @Component
 export default class DepositInfo extends Vue {
-  public amount = 8866.88;
   public ccy = "USD";
+  public get amount() {
+    return depositStore.amount;
+  }
 }
 </script>
 

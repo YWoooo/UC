@@ -3,23 +3,27 @@
     <v-btn
       class="submit"
       block
-      :loading="state.isBtnLoading"
-      :disabled="state.idBtnDisabled"
+      :loading="isBtnLoading"
+      :disabled="isBtnDisabled"
       @click="submit"
     >Submit</v-btn>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
+import { depositStore } from "~/store";
+
 @Component
 export default class DepositSubmit extends Vue {
-  public state = {
-    idBtnDisabled: false,
-    isBtnLoading: false,
-  };
+  public get isBtnDisabled() {
+    return depositStore.isBtnDisabled;
+  }
+  public get isBtnLoading() {
+    return depositStore.isBtnLoading;
+  }
   public submit() {
-    console.log("submit");
+    this.$emit("submit");
   }
 }
 </script>
