@@ -16,7 +16,6 @@
       maxlength="10"
       @keypress.enter="submit"
     />
-    <div class="errMsg">{{errMsg}}</div>
   </div>
 </template>
 
@@ -28,7 +27,6 @@ import { numberOnly } from "@/utils/numberOnly";
 @Component
 export default class DepositAmount extends Vue {
   public amountString = "";
-  public errMsg = "";
   public options = [100, 300, 500, 1000, 3000];
   @Watch("amountString")
   public onAmountChanged() {
@@ -82,9 +80,5 @@ export default class DepositAmount extends Vue {
     color: inherit;
     opacity: 0.6;
   }
-}
-.errMsg {
-  margin-top: 4px;
-  color: $color-err;
 }
 </style>
