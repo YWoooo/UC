@@ -130,8 +130,7 @@ export default class Login extends Vue {
 }
 </script>
 <style lang='scss' scoped>
-@import '~/assets/styles/index.scss';
-
+@import "~/assets/styles/index.scss";
 .register {
   display: flex;
   flex-direction: column;
@@ -149,36 +148,30 @@ export default class Login extends Vue {
   margin-top: 60px;
   text-align: center;
 }
-
 .form {
   margin-top: 40px;
 }
-
 .form-item {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 6px 0;
 }
-
 .label {
   font-size: 16px;
   width: 100%;
 }
-
 .input {
   border-bottom: 1px solid black;
   display: flex;
   width: 100%;
 }
-
 .input-inner {
   font-size: 20px;
   margin-bottom: 4px;
   outline-style: none;
   width: 100%;
 }
-
 .input-slot {
   align-items: center;
   display: inline-flex;
@@ -187,7 +180,6 @@ export default class Login extends Vue {
   justify-content: center;
   width: 60px;
 }
-
 .errMsg {
   font-size: 16px;
   height: 16px;
@@ -195,7 +187,6 @@ export default class Login extends Vue {
   margin-top: 4px;
   width: 100%;
 }
-
 .submit {
   color: white;
   flex: 0;
@@ -203,18 +194,15 @@ export default class Login extends Vue {
   margin: 60px auto;
   padding: 24px 0 !important;
 }
-
 .input-short {
   box-sizing: border-box;
   margin-right: 24px;
   width: unset;
 }
-
 .get {
   color: white;
   width: 100px;
 }
-
 .flex {
   display: flex;
 }
