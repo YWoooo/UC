@@ -1,8 +1,8 @@
 @mixin btn($height, $background, $color) {
-    height: $height;
-    border-radius: 2px;
-    background-color: $background;
-    color: $color;
-    text-align: center;
-    line-height: $height;
+  background-color: $background;
+  border-radius: 2px;
+  color: $color;
+  height: $height;
+  line-height: $height;
+  text-align: center;
 }

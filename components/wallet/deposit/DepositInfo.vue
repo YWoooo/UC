@@ -20,16 +20,19 @@ export default class DepositInfo extends Vue {
 </script>
 
 <style lang='scss' scoped>
-@import "~/assets/styles/index.scss";
+@import '~/assets/styles/index.scss';
+
 .deposit-info {
   margin-top: 30%;
   text-align: center;
 }
+
 .amount {
   font-size: 48px;
 }
+
 .subtitle {
-  margin-top: 20px;
   font-size: 12px;
+  margin-top: 20px;
 }
 </style>

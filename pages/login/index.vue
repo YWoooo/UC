@@ -94,61 +94,71 @@ export default class Login extends Vue {
 }
 </script>
 <style lang='scss' scoped>
-@import "~/assets/styles/index.scss";
+@import '~/assets/styles/index.scss';
+
 .login {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: calc(100vh - 48px);
+  justify-content: space-between;
   padding: 0 24px;
 }
+
 /**
   Since '.title' is already used by veutify, with some !important css,
   I add a _ avoid these css.
  */
 ._title {
+  font-size: 28px;
   margin-top: 60px;
   text-align: center;
-  font-size: 28px;
 }
+
 .form {
   margin-top: 40px;
 }
+
 .form-item {
   padding: 6px 0;
 }
+
 .label {
   font-size: 16px;
 }
+
 .input {
-  display: flex;
   border-bottom: 1px solid black;
+  display: flex;
 }
+
 .input-inner {
-  width: 100%;
-  outline-style: none;
-  margin-bottom: 4px;
   font-size: 20px;
+  margin-bottom: 4px;
+  outline-style: none;
+  width: 100%;
 }
+
 .input-slot {
-  display: inline-flex;
-  justify-content: center;
   align-items: center;
-  width: 60px;
+  display: inline-flex;
   flex-shrink: 0;
   font-size: 20px;
+  justify-content: center;
+  width: 60px;
 }
+
 .errMsg {
-  height: 16px;
-  margin-top: 4px;
-  line-height: 16px;
   font-size: 16px;
+  height: 16px;
+  line-height: 16px;
+  margin-top: 4px;
 }
+
 .submit {
+  color: white;
   flex: 0;
+  font-size: 20px;
   margin: 60px auto;
   padding: 24px 0 !important;
-  font-size: 20px;
-  color: white;
 }
 </style>

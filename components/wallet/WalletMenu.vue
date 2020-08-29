@@ -37,24 +37,28 @@ export default class WalletMenu extends Vue {
 }
 </script>
 <style lang='scss' scoped>
-@import "~/assets/styles/index.scss";
+@import '~/assets/styles/index.scss';
+
 .menu {
   margin: 0 $normal-spacing;
+
   & + & {
     margin-top: 24px;
   }
 }
+
 .menu-item {
-  width: 100%;
+  background: $color-bg-darker;
+  border-radius: 4px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
   display: flex;
+  font-size: 18px;
   justify-content: space-between;
   margin-bottom: 4px;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
   padding: 8px 12px;
-  font-size: 18px;
-  background: $color-bg-darker;
+  width: 100%;
 }
+
 .icon {
   color: inherit;
   opacity: 0.7;

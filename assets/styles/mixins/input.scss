@@ -1,18 +1,19 @@
 @mixin input-item($width: 100%) {
-    width: $width;
-    outline-style: none;
-    margin-bottom: 4px;
-    border-style: none;
-    border-bottom: 1px solid $color-black;
-    padding: 8px 0;
-    font-size: inherit;
-    &::placeholder {
-        opacity: 0.5;
-    }
+  border-bottom: 1px solid $color-black;
+  border-style: none;
+  font-size: inherit;
+  margin-bottom: 4px;
+  outline-style: none;
+  padding: 8px 0;
+  width: $width;
+
+  &::placeholder {
+    opacity: 0.5;
+  }
 }
 
 @mixin input-errmsg {
-    color: $color-red;
-    text-align: left;
-    font-size: 0.8em;
+  color: $color-red;
+  font-size: 0.8em;
+  text-align: left;
 }

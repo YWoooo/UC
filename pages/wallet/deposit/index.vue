@@ -33,12 +33,13 @@ export default class Deposit extends Vue {
 </script>
 
 <style lang='scss' scoped>
-@import "~/assets/styles/index.scss";
+@import '~/assets/styles/index.scss';
+
 .deposit {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 100%;
+  justify-content: space-between;
   padding: $normal-spacing;
 }
 </style>

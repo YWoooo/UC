@@ -130,78 +130,91 @@ export default class Login extends Vue {
 }
 </script>
 <style lang='scss' scoped>
-@import "~/assets/styles/index.scss";
+@import '~/assets/styles/index.scss';
+
 .register {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: calc(100vh - 48px);
+  justify-content: space-between;
   padding: 0 24px;
 }
+
 /**
   Since '.title' is already used by veutify, with some !important css,
   I add a _ avoid these css.
  */
 ._title {
+  font-size: 28px;
   margin-top: 60px;
   text-align: center;
-  font-size: 28px;
 }
+
 .form {
   margin-top: 40px;
 }
+
 .form-item {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: space-between;
   padding: 6px 0;
 }
+
 .label {
-  width: 100%;
   font-size: 16px;
+  width: 100%;
 }
+
 .input {
+  border-bottom: 1px solid black;
   display: flex;
   width: 100%;
-  border-bottom: 1px solid black;
 }
+
 .input-inner {
-  width: 100%;
-  outline-style: none;
-  margin-bottom: 4px;
   font-size: 20px;
+  margin-bottom: 4px;
+  outline-style: none;
+  width: 100%;
 }
+
 .input-slot {
-  display: inline-flex;
-  justify-content: center;
   align-items: center;
-  width: 60px;
+  display: inline-flex;
   flex-shrink: 0;
   font-size: 20px;
+  justify-content: center;
+  width: 60px;
 }
+
 .errMsg {
-  width: 100%;
-  height: 16px;
-  margin-top: 4px;
-  line-height: 16px;
   font-size: 16px;
+  height: 16px;
+  line-height: 16px;
+  margin-top: 4px;
+  width: 100%;
 }
+
 .submit {
+  color: white;
   flex: 0;
+  font-size: 20px;
   margin: 60px auto;
   padding: 24px 0 !important;
-  font-size: 20px;
-  color: white;
 }
+
 .input-short {
   box-sizing: border-box;
-  width: unset;
   margin-right: 24px;
+  width: unset;
 }
+
 .get {
-  width: 100px;
   color: white;
+  width: 100px;
 }
+
 .flex {
   display: flex;
 }

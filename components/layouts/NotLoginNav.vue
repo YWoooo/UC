@@ -11,15 +11,18 @@ import { Component } from "vue-property-decorator";
 export default class notLogin extends Vue {}
 </script>
 <style lang="scss" scoped>
-@import "~/assets/styles/index.scss";
+@import '~/assets/styles/index.scss';
+
 .nav {
   padding: 12px;
   text-align: right;
 }
+
 .nav-item {
   display: inline-block;
   text-decoration: none;
   transition: $common-transition;
+
   &:hover {
     border-bottom: 1px solid $color-font;
   }

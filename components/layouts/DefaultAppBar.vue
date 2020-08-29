@@ -25,13 +25,16 @@ export default class DefaultAppBar extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "~/assets/styles/index.scss";
+@import '~/assets/styles/index.scss';
+
 .app-bar {
   flex: 0;
 }
+
 .back {
   margin-right: 12px;
 }
+
 .title {
   text-transform: capitalize;
 }
