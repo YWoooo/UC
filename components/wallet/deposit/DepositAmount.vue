@@ -8,13 +8,13 @@
         @click="onOptionClick(item)"
       >${{item.toLocaleString()}}</div>
     </div>
-    <input
-      class="input"
-      type="text"
+    <TheInput
       v-model="amountString"
-      placeholder="Deposit amount (USD)"
-      maxlength="10"
-      @keypress.enter="submit"
+      :isNumberOnly="true"
+      :isDollar="true"
+      :placeholder="'Deposit amount (USD)'"
+      :maxLength="10"
+      @enter="submit"
     />
   </div>
 </template>
@@ -22,20 +22,18 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "nuxt-property-decorator";
 import { depositStore } from "~/store";
-import { numberOnly } from "@/utils/numberOnly";
+import TheInput from "@/components/global/the-input/index.vue";
 
-@Component
+@Component({
+  components: { TheInput },
+})
 export default class DepositAmount extends Vue {
-  public amountString = "";
+  public amountString = "1";
   public options = [100, 300, 500, 1000, 3000];
   @Watch("amountString")
   public onAmountChanged() {
-    const amountNumber = +numberOnly(this.amountString);
-    this.amountString = this.formatAmountString(amountNumber);
-    depositStore.setAmount(amountNumber);
-  }
-  public formatAmountString(amount: number) {
-    return "$" + amount.toLocaleString();
+    const amountString = this.amountString;
+    depositStore.setAmount(+amountString.replace(/\D/g, ""));
   }
   public onOptionClick(option: number) {
     this.amountString = option.toString();

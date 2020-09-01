@@ -1,9 +1,10 @@
 <template>
   <div class="input-wrapper">
+    <span v-if="isDollar">$</span>
     <input
-      type="text"
+      :type="type"
       class="input"
-      :value="value"
+      :value="localValue"
       :placeholder="placeholder"
       :maxLength="maxLength"
       @input="onInput"
@@ -19,7 +20,13 @@ import { numberOnly } from "@/utils/numberOnly";
 @Component
 export default class TheInput extends Vue {
   @Prop({ required: true })
-  public value!: string | number;
+  public value!: string;
+
+  @Prop({ required: false, default: false })
+  public isNumberOnly!: boolean;
+
+  @Prop({ required: false, default: false })
+  public isDollar!: boolean;
 
   @Prop({ required: false, default: "" })
   public placeholder!: string;
@@ -27,17 +34,26 @@ export default class TheInput extends Vue {
   @Prop({ required: false, default: 10 })
   public maxLength!: number;
 
+  public localValue = "";
+  public type = "text";
+  public numberOnly = numberOnly;
+
+  public mounted() {
+    if (this.isNumberOnly) {
+      this.type = "tel";
+    }
+  }
+
   public onInput(event: InputEvent) {
-    let value = (event.currentTarget as HTMLInputElement).value;
-    this.$emit("input", value);
+    let value: string = (event.currentTarget as HTMLInputElement).value;
+    this.localValue = this.isNumberOnly
+      ? (+numberOnly(value)).toLocaleString()
+      : value;
+    this.$emit("input", this.localValue);
   }
 
   public onEnter() {
     this.$emit("enter");
-  }
-
-  public numberOnly(value: string): string {
-    return numberOnly(value);
   }
 }
 </script>
@@ -45,7 +61,9 @@ export default class TheInput extends Vue {
 <style lang='scss' scoped>
 @import "~/assets/styles/index.scss";
 .input-wrapper {
+  align-items: center;
   border-bottom: 1px solid $color-black;
+  display: flex;
 }
 .input {
   border-style: none;
