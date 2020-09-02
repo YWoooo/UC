@@ -1,6 +1,6 @@
 <template>
   <div class="input-wrapper">
-    <span v-if="isDollar">$</span>
+    <span v-if="isDollar && isLocalValue">$</span>
     <input
       :type="type"
       class="input"
@@ -38,6 +38,10 @@ export default class TheInput extends Vue {
   public type = "text";
   public numberOnly = numberOnly;
 
+  public get isLocalValue() {
+    return this.localValue && this.localValue !== "0";
+  }
+
   public mounted() {
     if (this.isNumberOnly) {
       this.type = "tel";
@@ -45,7 +49,7 @@ export default class TheInput extends Vue {
   }
 
   public onInput(event: InputEvent) {
-    let value: string = (event.currentTarget as HTMLInputElement).value;
+    const value: string = (event.currentTarget as HTMLInputElement).value;
     this.localValue = this.isNumberOnly
       ? (+numberOnly(value)).toLocaleString()
       : value;
