@@ -10,6 +10,7 @@
       @input="onInput"
       @keypress.enter="onEnter"
     />
+    <span class="clear-btn" v-show="isLocalValue" @click="clearValue">&#9932;</span>
   </div>
 </template>
 
@@ -56,6 +57,11 @@ export default class TheInput extends Vue {
     this.$emit("input", this.localValue);
   }
 
+  public clearValue() {
+    this.localValue = "";
+    this.$emit("input", this.localValue);
+  }
+
   public onEnter() {
     this.$emit("enter");
   }
@@ -79,5 +85,8 @@ export default class TheInput extends Vue {
   &::placeholder {
     opacity: 0.6;
   }
+}
+.clear-btn {
+  cursor: pointer;
 }
 </style>
