@@ -14,6 +14,7 @@
       :isDollar="true"
       :placeholder="'Deposit amount (USD)'"
       :maxLength="10"
+      :errMsg="errMsg"
       @enter="submit"
     />
   </div>
@@ -28,12 +29,17 @@ import TheInput from "@/components/global/the-input/index.vue";
   components: { TheInput },
 })
 export default class DepositAmount extends Vue {
-  public amountString = "1";
+  public amountString = "";
+  public errMsg = "";
   public options = [100, 300, 500, 1000, 3000];
   @Watch("amountString")
   public onAmountChanged() {
     const amountString = this.amountString;
-    depositStore.setAmount(+amountString.replace(/\D/g, ""));
+    const amountNumber = +amountString.replace(/\D/g, "");
+    depositStore.setAmount(amountNumber);
+    if (amountNumber <= 0) {
+      this.errMsg = "Required.";
+    }
   }
   public onOptionClick(option: number) {
     this.amountString = option.toString();

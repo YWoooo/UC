@@ -1,16 +1,19 @@
 <template>
-  <div class="input-wrapper">
-    <span v-if="isDollar && isLocalValue">$</span>
-    <input
-      :type="type"
-      class="input"
-      :value="localValue"
-      :placeholder="placeholder"
-      :maxLength="maxLength"
-      @input="onInput"
-      @keypress.enter="onEnter"
-    />
-    <span class="clear-btn" v-show="isLocalValue" @click="clearValue">&#9932;</span>
+  <div>
+    <div class="input-wrapper">
+      <span v-if="isDollar && isLocalValue">$</span>
+      <input
+        :type="type"
+        class="input"
+        :value="localValue"
+        :placeholder="placeholder"
+        :maxLength="maxLength"
+        @input="onInput"
+        @keypress.enter="onEnter"
+      />
+      <span class="clear-btn" v-show="isLocalValue" @click="clearValue">&#9932;</span>
+    </div>
+    <div class="err-msg">{{ errMsg }}</div>
   </div>
 </template>
 
@@ -34,6 +37,9 @@ export default class TheInput extends Vue {
 
   @Prop({ required: false, default: 10 })
   public maxLength!: number;
+
+  @Prop({ required: false, default: "" })
+  public errMsg!: string;
 
   public localValue = "";
   public type = "text";
@@ -88,5 +94,8 @@ export default class TheInput extends Vue {
 }
 .clear-btn {
   cursor: pointer;
+}
+.err-msg {
+  color: $color-err;
 }
 </style>
