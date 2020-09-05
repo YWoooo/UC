@@ -112,5 +112,6 @@ export default class TheInput extends Vue {
 }
 .err-msg {
   color: $color-err;
+  height: 24px;
 }
 </style>
