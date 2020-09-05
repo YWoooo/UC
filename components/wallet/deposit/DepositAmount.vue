@@ -33,17 +33,17 @@ export default class DepositAmount extends Vue {
   public amountString = "";
   public errMsg = "";
   public options = [100, 300, 500, 1000, 3000];
+  public get amountNumber() {
+    return +this.amountString.replace(/\D/g, "");
+  }
   @Watch("amountString")
   public onAmountChanged() {
-    const amountString = this.amountString;
-    const amountNumber = +amountString.replace(/\D/g, "");
-    depositStore.setAmount(amountNumber);
-    if (amountNumber <= 0) {
-      this.errMsg = "Required.";
-    }
+    depositStore.setAmount(this.amountNumber);
+    this.errMsg = this.amountNumber <= 0 ? "Required." : "";
   }
   public onOptionClick(option: number) {
     this.amountString = option.toString();
+    depositStore.setAmount(this.amountNumber);
   }
   public submit() {
     this.$emit("submit");
