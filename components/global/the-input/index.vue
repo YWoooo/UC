@@ -2,6 +2,7 @@
   <div>
     <div class="input-wrapper">
       <span v-if="isDollar && isLocalValue">$</span>
+      <!-- BUG: Still can input non-digit words. -->
       <input
         :type="type"
         class="input"
