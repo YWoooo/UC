@@ -1,7 +1,6 @@
 <template>
   <div class="deposit-amount">
     <div class="options">
-      <!-- BUG: When option is clicked, this input won't show the value reactivly. -->
       <div
         class="option"
         v-for="(item, index) in options"

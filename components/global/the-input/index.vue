@@ -42,8 +42,6 @@ export default class TheInput extends Vue {
   public errMsg!: string;
 
   public localValue = "";
-  public type = "text";
-  public numberOnly = numberOnly;
 
   public get inputType() {
     return this.isNumberOnly ? "tel" : "text";
@@ -53,12 +51,21 @@ export default class TheInput extends Vue {
     return this.localValue && this.localValue !== "0";
   }
 
-  public onInput(event: InputEvent) {
-    const value: string = (event.currentTarget as HTMLInputElement).value;
+  public setLocalValue(value: string) {
     this.localValue = this.isNumberOnly
       ? (+numberOnly(value)).toLocaleString()
       : value;
     this.$emit("input", this.localValue);
+  }
+
+  public onInput(event: InputEvent) {
+    const value: string = (event.currentTarget as HTMLInputElement).value;
+    this.setLocalValue(value);
+  }
+
+  @Watch("value")
+  public onValueFromParent() {
+    this.setLocalValue(this.value);
   }
 
   public clearValue() {
