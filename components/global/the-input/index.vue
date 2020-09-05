@@ -2,11 +2,10 @@
   <div>
     <div class="input-wrapper">
       <span v-if="isDollar && isLocalValue">$</span>
-      <!-- BUG: Still can input non-digit words. -->
       <input
-        :type="type"
+        :type="inputType"
         class="input"
-        :value="localValue"
+        v-model="localValue"
         :placeholder="placeholder"
         :maxLength="maxLength"
         @input="onInput"
@@ -46,14 +45,12 @@ export default class TheInput extends Vue {
   public type = "text";
   public numberOnly = numberOnly;
 
-  public get isLocalValue() {
-    return this.localValue && this.localValue !== "0";
+  public get inputType() {
+    return this.isNumberOnly ? "tel" : "text";
   }
 
-  public mounted() {
-    if (this.isNumberOnly) {
-      this.type = "tel";
-    }
+  public get isLocalValue() {
+    return this.localValue && this.localValue !== "0";
   }
 
   public onInput(event: InputEvent) {
