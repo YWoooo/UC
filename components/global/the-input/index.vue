@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="label" v-if="label">{{label}}</div>
     <div class="input-wrapper">
       <span v-if="isDollar && isLocalValue">$</span>
       <input
@@ -23,8 +24,14 @@ import { numberOnly } from "@/utils/numberOnly";
 
 @Component
 export default class TheInput extends Vue {
+  @Prop({ required: false, default: "" })
+  public label!: string;
+
   @Prop({ required: true })
   public value!: string;
+
+  @Prop({ required: false, default: "text" })
+  public type!: "text" | "tel" | "email" | "password";
 
   @Prop({ required: false, default: false })
   public isNumberOnly!: boolean;
@@ -44,7 +51,7 @@ export default class TheInput extends Vue {
   public localValue = "";
 
   public get inputType() {
-    return this.isNumberOnly ? "tel" : "text";
+    return this.isNumberOnly ? "tel" : this.type;
   }
 
   public get isLocalValue() {
@@ -81,6 +88,9 @@ export default class TheInput extends Vue {
 
 <style lang='scss' scoped>
 @import "~/assets/styles/index.scss";
+.label {
+  font-size: 16px;
+}
 .input-wrapper {
   align-items: center;
   border-bottom: 1px solid $color-black;

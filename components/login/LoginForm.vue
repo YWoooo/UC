@@ -1,18 +1,7 @@
 <template>
   <div class="form">
     <div class="form-item">
-      <div class="label">Email</div>
-      <TheInput v-model="formData.email" :errMsg="errMsg.email" />
-      <!-- <div class="input">
-        <input
-          class="input-inner"
-          type="email"
-          v-model="formData.email"
-          @input="validateEmail"
-          @blur="validateEmail"
-        />
-      </div>-->
-      <div class="errMsg">{{errMsg.email}}</div>
+      <TheInput :label="'Email'" v-model="formData.email" :type="'email'" :errMsg="errMsg.email" />
     </div>
     <div class="form-item">
       <div class="label">Password</div>
