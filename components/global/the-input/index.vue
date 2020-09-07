@@ -27,7 +27,7 @@ export default class TheInput extends Vue {
   @Prop({ required: false, default: "" })
   public label!: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false, default: "" })
   public value!: string;
 
   @Prop({ required: false, default: "text" })
