@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="label" v-if="label">{{label}}</div>
+    <div class="label" v-if="label">{{ label }}</div>
     <div class="input-wrapper">
       <span v-if="isDollar && isLocalValue">$</span>
       <input
@@ -12,7 +12,11 @@
         @input="onInput"
         @keypress.enter="onEnter"
       />
-      <span class="clear-btn" v-show="isLocalValue" @click="clearValue">&#9932;</span>
+      <span class="input-icon" @click="togglePwd" v-if="type === 'password'">
+        <v-icon v-if="inputType === 'password'">mdi-eye-outline</v-icon>
+        <v-icon v-else>mdi-eye-off-outline</v-icon>
+      </span>
+      <span class="input-icon" v-show="isLocalValue" @click="clearValue">&#9932;</span>
     </div>
     <div class="err-msg">{{ errMsg }}</div>
   </div>
@@ -42,16 +46,21 @@ export default class TheInput extends Vue {
   @Prop({ required: false, default: "" })
   public placeholder!: string;
 
-  @Prop({ required: false, default: 10 })
+  @Prop({ required: false, default: 30 })
   public maxLength!: number;
 
   @Prop({ required: false, default: "" })
   public errMsg!: string;
 
+  public localType = "";
   public localValue = "";
 
   public get inputType() {
-    return this.isNumberOnly ? "tel" : this.type;
+    return this.localType
+      ? this.localType
+      : this.isNumberOnly
+      ? "tel"
+      : this.type;
   }
 
   public get isLocalValue() {
@@ -83,6 +92,10 @@ export default class TheInput extends Vue {
   public onEnter() {
     this.$emit("enter");
   }
+
+  public togglePwd() {
+    this.localType = this.inputType === "password" ? "text" : "password";
+  }
 }
 </script>
 
@@ -107,8 +120,9 @@ export default class TheInput extends Vue {
     opacity: 0.6;
   }
 }
-.clear-btn {
+.input-icon {
   cursor: pointer;
+  margin-left: 12px;
 }
 .err-msg {
   color: $color-err;
