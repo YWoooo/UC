@@ -1,23 +1,19 @@
 <template>
-  <v-btn
-    class="submit"
-    block
-    :color="'black'"
-    :depressed="true"
-    :loading="isBtnLoading"
-    :disabled="isSubmitDisabled"
-    @click="submit"
-  >Login</v-btn>
+  <TheSubmit :isBtnLoading="isBtnLoading" :isDisabled="isSubmitDisabled" @submit="submit" />
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
+import TheSubmit from "@/components/global/the-submit/index.vue";
 
-@Component
+@Component({
+  components: { TheSubmit },
+})
 export default class LoginSubmit extends Vue {
-  public isBtnLoading = true;
-  public isSubmitDisabled = true;
+  public isBtnLoading = false;
+  public isSubmitDisabled = false;
   public submit() {
+    console.log(123123);
     // if (this.isSubmitDisabled) return;
     // this.isBtnLoading = true;
     // const sendData = {
@@ -27,14 +23,3 @@ export default class LoginSubmit extends Vue {
   }
 }
 </script>
-
-<style lang='scss' scoped>
-@import "~/assets/styles/index.scss";
-.submit {
-  color: white;
-  flex: 0;
-  font-size: 20px;
-  margin: 60px auto;
-  padding: 24px 0 !important;
-}
-</style>
