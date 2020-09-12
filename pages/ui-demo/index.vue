@@ -1,8 +1,8 @@
 <template>
   <div class="ui-demo">
     This is a ui-demo page.
-    <br />The input
-    <TheInput v-model="theInputValue" />
+    <TheInput :label="'The input'" />
+    <TheInput :label="'The short input'" :isShort="true" :btnText="'GET'" />
   </div>
 </template>
 
@@ -13,9 +13,7 @@ import TheInput from "@/components/global/the-input/index.vue";
 @Component({
   components: { TheInput },
 })
-export default class UiDemo extends Vue {
-  public theInputValue = "aaa";
-}
+export default class UiDemo extends Vue {}
 </script>
 
 <style lang='scss' scoped>

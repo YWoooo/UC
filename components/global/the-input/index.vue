@@ -1,23 +1,33 @@
 <template>
   <div>
     <div class="label" v-if="label">{{ label }}</div>
-    <div class="input-wrapper">
-      <span v-if="isDollar && isLocalValue">$</span>
-      <input
-        :type="inputType"
-        class="input"
-        v-model="localValue"
-        :placeholder="placeholder"
-        :maxLength="maxLength"
-        @input="onInput"
-        @keypress.enter="onEnter"
-      />
-      <span class="input-icon" @click="togglePwd" v-if="type === 'password'">
-        <v-icon v-if="inputType === 'password'">mdi-eye-outline</v-icon>
-        <v-icon v-else>mdi-eye-off-outline</v-icon>
-      </span>
-      <!-- TODO: show clear btn only on focus. -->
-      <span class="input-icon" v-show="isLocalValue" @click="clearValue">&#9932;</span>
+    <div class="input-outer">
+      <div class="input-wrapper">
+        <span v-if="isDollar && isLocalValue">$</span>
+        <input
+          :type="inputType"
+          class="input"
+          v-model="localValue"
+          :placeholder="placeholder"
+          :maxLength="maxLength"
+          @input="onInput"
+          @keypress.enter="onEnter"
+        />
+        <span class="input-icon" @click="togglePwd" v-if="type === 'password'">
+          <v-icon v-if="inputType === 'password'">mdi-eye-outline</v-icon>
+          <v-icon v-else>mdi-eye-off-outline</v-icon>
+        </span>
+        <!-- TODO: show clear btn only on focus. -->
+        <span class="input-icon" v-show="isLocalValue" @click="clearValue">&#9932;</span>
+      </div>
+      <v-btn
+        class="input-btn"
+        v-if="isShort"
+        :depressed="true"
+        :loading="isBtnLoading"
+        :disabled="isBtnDisabled"
+        @click="onBtnClick"
+      >{{ btnText }}</v-btn>
     </div>
     <div class="err-msg">{{ errMsg }}</div>
   </div>
@@ -47,11 +57,23 @@ export default class TheInput extends Vue {
   @Prop({ required: false, default: "" })
   public placeholder!: string;
 
+  @Prop({ required: false, default: "" })
+  public errMsg!: string;
+
   @Prop({ required: false, default: 30 })
   public maxLength!: number;
 
+  @Prop({ required: false, default: false })
+  public isShort!: boolean;
+
   @Prop({ required: false, default: "" })
-  public errMsg!: string;
+  public btnText!: string;
+
+  @Prop({ required: false, default: false })
+  public isBtnLoading!: boolean;
+
+  @Prop({ required: false, default: false })
+  public isBtnDisabled!: boolean;
 
   public localType = "";
   public localValue = "";
@@ -97,6 +119,10 @@ export default class TheInput extends Vue {
   public togglePwd() {
     this.localType = this.inputType === "password" ? "text" : "password";
   }
+
+  public onBtnClick() {
+    console.log("onBtnClick");
+  }
 }
 </script>
 
@@ -105,10 +131,15 @@ export default class TheInput extends Vue {
 .label {
   font-size: 16px;
 }
+.input-outer {
+  align-items: flex-end;
+  display: flex;
+}
 .input-wrapper {
   align-items: center;
   border-bottom: 1px solid $color-black;
   display: flex;
+  width: 100%;
 }
 .input {
   border-style: none;
@@ -124,6 +155,13 @@ export default class TheInput extends Vue {
 .input-icon {
   cursor: pointer;
   margin-left: 12px;
+}
+.input-btn {
+  background: $color-black !important;
+  color: $color-white;
+  height: 42px;
+  margin-left: $normal-spacing;
+  width: 100px;
 }
 .err-msg {
   color: $color-err;
