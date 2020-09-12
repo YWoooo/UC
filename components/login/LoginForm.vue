@@ -1,5 +1,5 @@
 <template>
-  <div class="form">
+  <div class="login-form">
     <div class="form-item">
       <TheInput :label="'Email'" v-model="formData.email" :type="'email'" :errMsg="errMsg.email" />
     </div>
@@ -17,6 +17,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "nuxt-property-decorator";
+import { loginStore } from "~/store";
 import TheInput from "@/components/global/the-input/index.vue";
 import isEmail from "validator/lib/isEmail";
 import { regs } from "~/utils/regs";
@@ -34,21 +35,43 @@ export default class LoginForm extends Vue {
     email: "",
     password: "",
   };
-  @Watch("formData.email")
-  public validateEmail() {
-    if (!this.formData.email) {
-      return (this.errMsg.email = "Required.");
-    }
-    this.errMsg.email = isEmail(this.formData.email)
-      ? ""
-      : "Wrong format of email.";
+  public get isFormValid() {
+    const isEmpty = Object.values(this.formData).some((e) => !e);
+    if (isEmpty) return false;
+    const isFormValid = Object.values(this.errMsg).every((e) => !e);
+    return isFormValid;
   }
+
+  @Watch("formData.email")
+  public onEmail() {
+    const { email } = this.formData;
+    loginStore.setFormData({
+      key: "email",
+      val: email,
+    });
+    this.validateEmail();
+    loginStore.setIsFormValid(this.isFormValid);
+  }
+  public validateEmail() {
+    const { email } = this.formData;
+    if (!email) return (this.errMsg.email = "Required.");
+    this.errMsg.email = isEmail(email) ? "" : "Wrong format of email.";
+  }
+
   @Watch("formData.password")
+  public onPassword() {
+    const { password } = this.formData;
+    loginStore.setFormData({
+      key: "password",
+      val: password,
+    });
+    this.validatePassword();
+    loginStore.setIsFormValid(this.isFormValid);
+  }
   public validatePassword() {
-    if (!this.formData.password) {
-      return (this.errMsg.password = "Required.");
-    }
-    this.errMsg.password = regs.password.test(this.formData.password)
+    const { password } = this.formData;
+    if (!password) return (this.errMsg.password = "Required.");
+    this.errMsg.password = regs.password.test(password)
       ? ""
       : "6-15 digit, with uppercase, lowercase, and number.";
   }

@@ -26,15 +26,13 @@ export default class Deposit extends Vue {
     const sendData = {
       amount: depositStore.amount,
     };
-    console.log(sendData);
-    this.$alert("success", "Deposit success.");
+    this.$alert("success", `Deposit ${depositStore.amount} success.`);
   }
 }
 </script>
 
 <style lang='scss' scoped>
-@import '~/assets/styles/index.scss';
-
+@import "~/assets/styles/index.scss";
 .deposit {
   display: flex;
   flex-direction: column;

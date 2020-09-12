@@ -1,25 +1,26 @@
 <template>
-  <TheSubmit :isBtnLoading="isBtnLoading" :isDisabled="isSubmitDisabled" @submit="submit" />
+  <div class="login-submit">
+    <TheSubmit :isBtnLoading="isBtnLoading" :isDisabled="isDisabled" @submit="submit" />
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
+import { loginStore } from "~/store";
 import TheSubmit from "@/components/global/the-submit/index.vue";
 
 @Component({
   components: { TheSubmit },
 })
-export default class LoginSubmit extends Vue {
-  public isBtnLoading = false;
-  public isSubmitDisabled = false;
+export default class LoginForm extends Vue {
+  public get isBtnLoading() {
+    return loginStore.isBtnLoading;
+  }
+  public get isDisabled() {
+    return !loginStore.isFormValid;
+  }
   public submit() {
-    console.log(123123);
-    // if (this.isSubmitDisabled) return;
-    // this.isBtnLoading = true;
-    // const sendData = {
-    //   email: this.formData.email,
-    //   password: this.formData.password,
-    // };
+    this.$emit("submit");
   }
 }
 </script>

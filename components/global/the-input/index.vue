@@ -16,6 +16,7 @@
         <v-icon v-if="inputType === 'password'">mdi-eye-outline</v-icon>
         <v-icon v-else>mdi-eye-off-outline</v-icon>
       </span>
+      <!-- TODO: show clear btn only on focus. -->
       <span class="input-icon" v-show="isLocalValue" @click="clearValue">&#9932;</span>
     </div>
     <div class="err-msg">{{ errMsg }}</div>
