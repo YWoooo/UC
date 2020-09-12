@@ -1,6 +1,11 @@
 <template>
   <div class="login-submit">
-    <TheSubmit :isBtnLoading="isBtnLoading" :isDisabled="isDisabled" @submit="submit" />
+    <TheSubmit
+      :text="'Login'"
+      :isBtnLoading="isBtnLoading"
+      :isDisabled="isDisabled"
+      @submit="submit"
+    />
   </div>
 </template>
 

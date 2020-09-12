@@ -1,17 +1,13 @@
 <template>
   <div class="login-form">
-    <div class="form-item">
-      <TheInput :label="'Email'" v-model="formData.email" :type="'email'" :errMsg="errMsg.email" />
-    </div>
-    <div class="form-item">
-      <TheInput
-        :label="'Password'"
-        v-model="formData.password"
-        :type="'password'"
-        :errMsg="errMsg.password"
-        :maxLength="15"
-      />
-    </div>
+    <TheInput :label="'Email'" v-model="formData.email" :type="'email'" :errMsg="errMsg.email" />
+    <TheInput
+      :label="'Password'"
+      v-model="formData.password"
+      :type="'password'"
+      :errMsg="errMsg.password"
+      :maxLength="15"
+    />
   </div>
 </template>
 
@@ -80,7 +76,7 @@ export default class LoginForm extends Vue {
 
 <style lang='scss' scoped>
 @import "~/assets/styles/index.scss";
-.form {
+.login-form {
   margin-top: 40px;
 }
 </style>
