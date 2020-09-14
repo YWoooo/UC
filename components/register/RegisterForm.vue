@@ -3,10 +3,10 @@
     <TheInput :label="'Email'" v-model="formData.email" :type="'email'" :errMsg="errMsg.email" />
     <TheInput
       :label="'Validation Code'"
-      v-model="formData.verificationCode"
+      v-model="formData.validationCode"
       :isNumberOnly="true"
       :isLocaleString="false"
-      :errMsg="errMsg.verificationCode"
+      :errMsg="errMsg.validationCode"
       :maxLength="6"
       :isBtn="true"
       :btnText="'GET'"
@@ -36,12 +36,12 @@ export default class RegisterForm extends Vue {
   public showPassword = false;
   public formData = {
     email: "",
-    verificationCode: "",
+    validationCode: "",
     password: "",
   };
   public errMsg = {
     email: "",
-    verificationCode: "",
+    validationCode: "",
     password: "",
   };
   public get isFormValid() {
@@ -67,13 +67,19 @@ export default class RegisterForm extends Vue {
     this.errMsg.email = isEmail(email) ? "" : "Wrong format of email.";
   }
 
-  @Watch("formData.verificationCode")
-  public onVerificationCodeChanged() {
-    this.formData.verificationCode = numberOnly(this.formData.verificationCode);
+  @Watch("formData.validationCode")
+  public onValidationCode() {
+    const { validationCode } = this.formData;
+    registerStore.setFormData({
+      key: "validationCode",
+      val: validationCode,
+    });
+    this.validateValidationCode();
+    registerStore.setIsFormValid(this.isFormValid);
   }
-  public validateVerificationCode() {
-    if (!this.formData.verificationCode) {
-      return (this.errMsg.verificationCode = "Required.");
+  public validateValidationCode() {
+    if (!this.formData.validationCode) {
+      return (this.errMsg.validationCode = "Required.");
     }
   }
 

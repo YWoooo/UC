@@ -11,6 +11,7 @@
     <TheInput
       v-model="amountString"
       :isNumberOnly="true"
+      :isLocaleString="true"
       :isDollar="true"
       :placeholder="'Deposit amount (USD)'"
       :maxLength="10"

@@ -54,7 +54,7 @@ export default class TheInput extends Vue {
   @Prop({ required: false, default: false })
   public isDollar!: boolean;
 
-  @Prop({ required: false, default: true })
+  @Prop({ required: false, default: false })
   public isLocaleString!: boolean;
 
   @Prop({ required: false, default: "" })
