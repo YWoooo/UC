@@ -1,23 +1,16 @@
 <template>
   <div class="register-form">
     <TheInput :label="'Email'" v-model="formData.email" :type="'email'" :errMsg="errMsg.email" />
-    <div class="form-item">
-      <div class="label">Verification Code</div>
-      <div class="flex">
-        <div class="input input-short">
-          <input
-            class="input-inner"
-            type="text"
-            v-model="formData.verificationCode"
-            maxlength="6"
-            @input="validateVerificationCode"
-            @blur="validateVerificationCode"
-          />
-        </div>
-        <v-btn class="get" outlined :color="'black'" :depressed="true">Get</v-btn>
-      </div>
-      <div class="errMsg">{{errMsg.verificationCode}}</div>
-    </div>
+    <TheInput
+      :label="'Validation Code'"
+      v-model="formData.verificationCode"
+      :isNumberOnly="true"
+      :isLocaleString="false"
+      :errMsg="errMsg.verificationCode"
+      :maxLength="6"
+      :isBtn="true"
+      :btnText="'GET'"
+    />
     <TheInput
       :label="'Password'"
       v-model="formData.password"

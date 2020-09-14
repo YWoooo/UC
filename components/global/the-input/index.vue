@@ -22,7 +22,7 @@
       </div>
       <v-btn
         class="input-btn"
-        v-if="isShort"
+        v-if="isBtn"
         :depressed="true"
         :loading="isBtnLoading"
         :disabled="isBtnDisabled"
@@ -54,6 +54,9 @@ export default class TheInput extends Vue {
   @Prop({ required: false, default: false })
   public isDollar!: boolean;
 
+  @Prop({ required: false, default: true })
+  public isLocaleString!: boolean;
+
   @Prop({ required: false, default: "" })
   public placeholder!: string;
 
@@ -64,7 +67,7 @@ export default class TheInput extends Vue {
   public maxLength!: number;
 
   @Prop({ required: false, default: false })
-  public isShort!: boolean;
+  public isBtn!: boolean;
 
   @Prop({ required: false, default: "" })
   public btnText!: string;
@@ -76,7 +79,7 @@ export default class TheInput extends Vue {
   public isBtnDisabled!: boolean;
 
   public localType = "";
-  public localValue = "";
+  public localValue: string = "";
 
   public get inputType() {
     return this.localType
@@ -91,10 +94,14 @@ export default class TheInput extends Vue {
   }
 
   public setLocalValue(value: string) {
-    this.localValue = this.isNumberOnly
-      ? (+numberOnly(value)).toLocaleString()
-      : value;
-    this.$emit("input", this.localValue);
+    this.localValue = value;
+    if (this.isNumberOnly) {
+      this.localValue = numberOnly(this.localValue);
+    }
+    if (this.isLocaleString) {
+      this.localValue = (+this.localValue).toLocaleString();
+    }
+    this.$emit("input", this.localValue); // Always emit string I suggest, just in case.
   }
 
   public onInput(event: InputEvent) {
@@ -157,8 +164,9 @@ export default class TheInput extends Vue {
   margin-left: 12px;
 }
 .input-btn {
-  background: $color-black !important;
-  color: $color-white;
+  background: transparent !important;
+  border: 1px solid $color-black;
+  color: $color-black;
   height: 42px;
   margin-left: $normal-spacing;
   width: 100px;
