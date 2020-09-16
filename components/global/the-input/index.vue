@@ -11,14 +11,19 @@
           :placeholder="placeholder"
           :maxLength="maxLength"
           @input="onInput"
+          @focus="isClearBtnShow = true"
+          @blur="isClearBtnShow = false"
           @keypress.enter="onEnter"
         />
         <span class="input-icon" @click="togglePwd" v-if="type === 'password'">
           <v-icon v-if="inputType === 'password'">mdi-eye-outline</v-icon>
           <v-icon v-else>mdi-eye-off-outline</v-icon>
         </span>
-        <!-- TODO: show clear btn only on focus. -->
-        <span class="input-icon" v-show="isLocalValue" @click="clearValue">&#9932;</span>
+        <span
+          class="input-icon"
+          v-show="isLocalValue && isClearBtnShow"
+          @mousedown="clearValue"
+        >&#9932;</span>
       </div>
       <v-btn
         class="input-btn"
@@ -80,6 +85,7 @@ export default class TheInput extends Vue {
 
   public localType = "";
   public localValue: string = "";
+  public isClearBtnShow = false;
 
   public get inputType() {
     return this.localType
@@ -115,6 +121,7 @@ export default class TheInput extends Vue {
   }
 
   public clearValue() {
+    console.log(11111111111);
     this.localValue = "";
     this.$emit("input", this.localValue);
   }
@@ -128,7 +135,7 @@ export default class TheInput extends Vue {
   }
 
   public onBtnClick() {
-    console.log("onBtnClick");
+    this.$emit("btnClick");
   }
 }
 </script>
@@ -170,6 +177,7 @@ export default class TheInput extends Vue {
   height: 42px;
   margin-left: $normal-spacing;
   width: 100px;
+  z-index: 9999;
 }
 .err-msg {
   color: $color-err;
