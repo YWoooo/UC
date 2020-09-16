@@ -2,42 +2,33 @@
   <div class="register">
     <div>
       <div class="_title">This is a UC</div>
-      <RegisterForm />
+      <RegisterForm @submit="submit" />
     </div>
-    <!-- <v-btn
-      class="submit"
-      block
-      :color="'black'"
-      :depressed="true"
-      :loading="isBtnLoading"
-      :disabled="isSubmitDisabled"
-      @click="submit"
-    >Register</v-btn>-->
+    <RegisterSubmit @submit="submit" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
+import { registerStore } from "~/store";
 import RegisterForm from "@/components/register/RegisterForm.vue";
+import RegisterSubmit from "@/components/register/RegisterSubmit.vue";
 
-@Component({
-  components: { RegisterForm },
-})
+@Component({ components: { RegisterForm, RegisterSubmit } })
 export default class Login extends Vue {
   public layout() {
     return "notLogin";
   }
-  // public submit() {
-  //   if (this.isSubmitDisabled) {
-  //     return;
-  //   }
-  //   this.isBtnLoading = true;
-  //   const sendData = {
-  //     email: this.formData.email,
-  //     verificationCode: +this.formData.verificationCode,
-  //     password: this.formData.password,
-  //   };
-  // }
+  public submit() {
+    const { email, validationCode, password } = registerStore.formData;
+    const sendData = {
+      email,
+      validationCode,
+      password,
+    };
+    registerStore.setIsBtnLoading(true);
+    console.log(sendData);
+  }
 }
 </script>
 <style lang='scss' scoped>

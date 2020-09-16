@@ -1,12 +1,10 @@
 <template>
-  <div class="login-submit">
-    <TheSubmit
-      :text="'Login'"
-      :isBtnLoading="isBtnLoading"
-      :isDisabled="isDisabled"
-      @submit="submit"
-    />
-  </div>
+  <TheSubmit
+    :text="'Login'"
+    :isBtnLoading="isBtnLoading"
+    :isDisabled="isDisabled"
+    @submit="submit"
+  />
 </template>
 
 <script lang="ts">
@@ -17,7 +15,7 @@ import TheSubmit from "@/components/global/the-submit/index.vue";
 @Component({
   components: { TheSubmit },
 })
-export default class LoginForm extends Vue {
+export default class LoginSubmit extends Vue {
   public get isBtnLoading() {
     return loginStore.isBtnLoading;
   }

@@ -17,6 +17,7 @@
       :type="'password'"
       :errMsg="errMsg.password"
       :maxLength="15"
+      @enter="submit"
     />
   </div>
 </template>
@@ -27,7 +28,6 @@ import { registerStore } from "~/store";
 import TheInput from "@/components/global/the-input/index.vue";
 import isEmail from "validator/lib/isEmail";
 import { regs } from "~/utils/regs";
-import { numberOnly } from "~/utils/numberOnly";
 
 @Component({
   components: { TheInput },
@@ -99,6 +99,10 @@ export default class RegisterForm extends Vue {
     this.errMsg.password = regs.password.test(password)
       ? ""
       : "6-15 digit, with uppercase, lowercase, and number.";
+  }
+
+  public submit() {
+    this.$emit("submit");
   }
 }
 </script>

@@ -41,5 +41,6 @@ export default class TheSubmit extends Vue {
   font-size: 20px;
   margin: 60px auto;
   padding: 24px 0 !important;
+  text-transform: unset;
 }
 </style>

@@ -7,6 +7,7 @@
       :type="'password'"
       :errMsg="errMsg.password"
       :maxLength="15"
+      @enter="submit"
     />
   </div>
 </template>
@@ -70,6 +71,10 @@ export default class LoginForm extends Vue {
     this.errMsg.password = regs.password.test(password)
       ? ""
       : "6-15 digit, with uppercase, lowercase, and number.";
+  }
+
+  public submit() {
+    this.$emit("submit");
   }
 }
 </script>

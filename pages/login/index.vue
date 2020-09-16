@@ -2,7 +2,7 @@
   <div class="login">
     <div>
       <div class="_title">This is a UC</div>
-      <LoginForm />
+      <LoginForm @submit="submit" />
     </div>
     <LoginSubmit @submit="submit" />
   </div>
