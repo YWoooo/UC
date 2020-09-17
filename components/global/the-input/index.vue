@@ -16,14 +16,18 @@
           @keypress.enter="onEnter"
         />
         <span class="input-icon" @click="togglePwd" v-if="type === 'password'">
-          <v-icon v-if="inputType === 'password'">mdi-eye-outline</v-icon>
-          <v-icon v-else>mdi-eye-off-outline</v-icon>
+          <transition mode="out-in">
+            <v-icon key="eye" v-if="inputType === 'password'">mdi-eye-outline</v-icon>
+            <v-icon key="eye-off" v-if="inputType === 'text'">mdi-eye-off-outline</v-icon>
+          </transition>
         </span>
-        <span
-          class="input-icon"
-          v-show="isLocalValue && isClearBtnShow"
-          @mousedown="clearValue"
-        >&#9932;</span>
+        <transition>
+          <span
+            class="input-icon"
+            v-show="isLocalValue && isClearBtnShow"
+            @mousedown="clearValue"
+          >&#9932;</span>
+        </transition>
       </div>
       <v-btn
         class="input-btn"
@@ -121,7 +125,6 @@ export default class TheInput extends Vue {
   }
 
   public clearValue() {
-    console.log(11111111111);
     this.localValue = "";
     this.$emit("input", this.localValue);
   }
