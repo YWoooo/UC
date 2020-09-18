@@ -62,7 +62,7 @@ export default class DepositAmount extends Vue {
   width: 100%;
 }
 .option {
-  border: 1px solid $color-white;
+  border: 1px solid $color-black;
   border-radius: 36px;
   margin-bottom: 16px;
   padding: 4px;

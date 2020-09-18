@@ -15,9 +15,7 @@ import DepositInfo from "@/components/wallet/deposit/DepositInfo.vue";
 import DepositAmount from "@/components/wallet/deposit/DepositAmount.vue";
 import DepositSubmit from "@/components/wallet/deposit/DepositSubmit.vue";
 
-@Component({
-  components: { DepositInfo, DepositAmount, DepositSubmit },
-})
+@Component({ components: { DepositInfo, DepositAmount, DepositSubmit } })
 export default class Deposit extends Vue {
   public submit() {
     if (depositStore.isBtnDisabled || depositStore.isBtnLoading) {

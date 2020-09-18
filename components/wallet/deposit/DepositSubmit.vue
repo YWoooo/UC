@@ -1,20 +1,15 @@
 <template>
   <div class="deposit-submit">
-    <v-btn
-      class="submit"
-      block
-      :loading="isBtnLoading"
-      :disabled="isBtnDisabled"
-      @click="submit"
-    >Submit</v-btn>
+    <TheSubmit :isBtnLoading="isBtnLoading" :isDisabled="isBtnDisabled" @submit="submit" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 import { depositStore } from "~/store";
+import TheSubmit from "@/components/global/the-submit/index.vue";
 
-@Component
+@Component({ components: { TheSubmit } })
 export default class DepositSubmit extends Vue {
   public get isBtnDisabled() {
     return depositStore.isBtnDisabled;
@@ -27,18 +22,3 @@ export default class DepositSubmit extends Vue {
   }
 }
 </script>
-
-<style lang='scss' scoped>
-@import '~/assets/styles/index.scss';
-
-.deposit-submit {
-  margin-bottom: 20px;
-}
-
-::v-deep .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
-  background: $color-success;
-  color: $color-white;
-  font-size: 20px;
-  height: 48px;
-}
-</style>

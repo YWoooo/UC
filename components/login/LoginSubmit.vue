@@ -12,9 +12,7 @@ import { Component, Vue } from "nuxt-property-decorator";
 import { loginStore } from "~/store";
 import TheSubmit from "@/components/global/the-submit/index.vue";
 
-@Component({
-  components: { TheSubmit },
-})
+@Component({ components: { TheSubmit } })
 export default class LoginSubmit extends Vue {
   public get isBtnLoading() {
     return loginStore.isBtnLoading;

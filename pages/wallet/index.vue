@@ -16,8 +16,7 @@ import WalletMenu from "@/components/wallet/WalletMenu.vue";
 export default class Wallet extends Vue {}
 </script>
 <style lang='scss' scoped>
-@import '~/assets/styles/index.scss';
-
+@import "~/assets/styles/index.scss";
 .wallet {
   display: flex;
   flex-direction: column;

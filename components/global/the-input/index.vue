@@ -38,7 +38,11 @@
         @click="onBtnClick"
       >{{ btnText }}</v-btn>
     </div>
-    <div class="err-msg">{{ errMsg }}</div>
+    <div class="err-msg">
+      <transition>
+        <div v-if="errMsg">{{ errMsg }}</div>
+      </transition>
+    </div>
   </div>
 </template>
 
