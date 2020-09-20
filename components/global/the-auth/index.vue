@@ -5,23 +5,17 @@
       <div class="inner">
         <div class="sub">To protect your account, please verify your identity first.</div>
         <div class="tabs">
-          <div class="tab" :class="{tabActive: formData.type === 1}">
+          <div class="tab" :class="{tabActive: formData.type === 1}" @click="formData.type = 1">
             <v-icon>mdi-email-outline</v-icon>
           </div>
-          <div class="tab" :class="{tabActive: formData.type === 2}">
+          <div class="tab" :class="{tabActive: formData.type === 2}" @click="formData.type = 2">
             <v-icon>mdi-cellphone-iphone</v-icon>
           </div>
         </div>
-        <TheInput v-model="formData.email" :isReadOnly="true" />
-        <TheInput
-          v-model="formData.validationCode"
-          :isNumberOnly="true"
-          :isLocaleString="false"
-          :errMsg="errMsg.validationCode"
-          :maxLength="6"
-          :isBtn="true"
-          :btnText="'GET'"
-        />
+        <Transition mode="out-in">
+          <The-email-auth key="email" v-if="formData.type === 1" :email="formData.email" />
+          <The-phone-auth key="phone" v-else :phone="formData.phone" />
+        </Transition>
         <TheSubmit
           :text="'Verify'"
           :isBtnLoading="submitState.isBtnLoading"
@@ -34,11 +28,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "nuxt-property-decorator";
-import TheInput from "@/components/global/the-input/index.vue";
+import { Component, Vue, Watch } from "nuxt-property-decorator";
+import TheEmailAuth from "./the-email-auth.vue";
+import ThePhoneAuth from "./the-phone-auth.vue";
 import TheSubmit from "@/components/global/the-submit/index.vue";
 
-@Component({ components: { TheInput, TheSubmit } })
+@Component({ components: { TheEmailAuth, ThePhoneAuth, TheSubmit } })
 export default class TheAuth extends Vue {
   public isShow = true;
   public formData = {
@@ -49,9 +44,14 @@ export default class TheAuth extends Vue {
     validationCode: "",
   };
   public errMsg = {
-    email: "",
     validationCode: "",
   };
+  @Watch("formData.validationCode")
+  public onValidationCode() {
+    if (!this.formData.validationCode) {
+      this.errMsg.validationCode = "Required.";
+    }
+  }
   public inputBtnState = {
     isBtnLoading: false,
     isBtnDisabled: false,
@@ -75,8 +75,6 @@ export default class TheAuth extends Vue {
   font-size: $font-size-bg;
   font-size: 32px;
 }
-.inner {
-}
 .sub {
   margin-bottom: 24px;
   padding: 12px 0;
@@ -90,6 +88,7 @@ export default class TheAuth extends Vue {
   border: 1px solid $color-black;
   border-radius: 36px;
   color: $color-white;
+  cursor: pointer;
   display: inline-flex;
   height: 32px;
   justify-content: center;
@@ -99,7 +98,6 @@ export default class TheAuth extends Vue {
 }
 .tabActive {
   background: transparent;
-  opacity: 1;
   opacity: 0.8;
 }
 </style>
