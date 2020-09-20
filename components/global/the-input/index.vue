@@ -2,7 +2,7 @@
   <div>
     <div class="label" v-if="label">{{ label }}</div>
     <div class="input-outer">
-      <div class="input-wrapper">
+      <div class="input-wrapper" :class="{ inputReadOnly: isReadOnly }">
         <span v-if="isDollar && isLocalValue">$</span>
         <input
           :type="inputType"
@@ -196,6 +196,9 @@ export default class TheInput extends Vue {
   margin-left: $normal-spacing;
   width: 100px;
   z-index: 9999;
+}
+.inputReadOnly {
+  opacity: 0.4;
 }
 .err-msg {
   color: $color-err;
