@@ -8,6 +8,7 @@
           :type="inputType"
           class="input"
           v-model="localValue"
+          :readonly="isReadOnly"
           :placeholder="placeholder"
           :maxLength="maxLength"
           @input="onInput"
@@ -22,11 +23,7 @@
           </transition>
         </span>
         <transition>
-          <span
-            class="input-icon"
-            v-show="isLocalValue && isClearBtnShow"
-            @mousedown="clearValue"
-          >&#9932;</span>
+          <span class="input-icon" v-show="isClearBtn" @mousedown="clearValue">&#9932;</span>
         </transition>
       </div>
       <v-btn
@@ -70,6 +67,9 @@ export default class TheInput extends Vue {
   @Prop({ required: false, default: false })
   public isLocaleString!: boolean;
 
+  @Prop({ required: false, default: false })
+  public isReadOnly!: boolean;
+
   @Prop({ required: false, default: "" })
   public placeholder!: string;
 
@@ -105,6 +105,16 @@ export default class TheInput extends Vue {
 
   public get isLocalValue() {
     return this.localValue && this.localValue !== "0";
+  }
+
+  public get isClearBtn() {
+    return !this.isReadOnly && this.isLocalValue && this.isClearBtnShow;
+  }
+
+  public mounted() {
+    if (this.value) {
+      this.setLocalValue(this.value);
+    }
   }
 
   public setLocalValue(value: string) {
@@ -150,7 +160,7 @@ export default class TheInput extends Vue {
 <style lang='scss' scoped>
 @import "~/assets/styles/index.scss";
 .label {
-  font-size: 16px;
+  font-size: $font-size-normal;
 }
 .input-outer {
   align-items: flex-end;
@@ -181,6 +191,7 @@ export default class TheInput extends Vue {
   background: transparent !important;
   border: 1px solid $color-black;
   color: $color-black;
+  font-size: $font-size-normal;
   height: 42px;
   margin-left: $normal-spacing;
   width: 100px;
@@ -188,6 +199,7 @@ export default class TheInput extends Vue {
 }
 .err-msg {
   color: $color-err;
+  font-size: $font-size-sm;
   height: 24px;
 }
 </style>

@@ -8,6 +8,7 @@
       <DefaultBottomNav />
     </div>
     <GAlert />
+    <TheAuth />
   </v-app>
 </template>
 
@@ -16,12 +17,12 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import DefaultAppBar from "@/components/layouts/DefaultAppBar.vue";
 import DefaultBottomNav from "@/components/layouts/DefaultBottomNav.vue";
+import TheAuth from "@/components/global/the-auth/index.vue";
 
-@Component({
-  components: { DefaultBottomNav, DefaultAppBar },
-})
+@Component({ components: { DefaultBottomNav, DefaultAppBar, TheAuth } })
 export default class defaultLayout extends Vue {}
 </script>
+
 <style lang="scss" scoped>
 @import "~/assets/styles/index.scss";
 .view {

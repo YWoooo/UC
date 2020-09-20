@@ -26,9 +26,7 @@ import { Component, Vue, Watch } from "nuxt-property-decorator";
 import { depositStore } from "~/store";
 import TheInput from "@/components/global/the-input/index.vue";
 
-@Component({
-  components: { TheInput },
-})
+@Component({ components: { TheInput } })
 export default class DepositAmount extends Vue {
   public amountString = "";
   public errMsg = "";
