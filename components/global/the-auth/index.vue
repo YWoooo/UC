@@ -14,7 +14,7 @@
         </div>
         <Transition mode="out-in">
           <keep-alive v-if="isEmailAuth">
-            <The-email-auth key="email" :email="formData.email" @change="setValidationCode" />
+            <The-email-auth key="email" :email="formData.email" @change="setvaliCode" />
           </keep-alive>
           <keep-alive v-else>
             <The-phone-auth key="phone" :phone="formData.phone" />
@@ -46,19 +46,19 @@ export default class TheAuth extends Vue {
     email: "test1@gmail.com",
     phoneAreaCode: "886",
     phone: "912345678",
-    validationCode: "",
+    valiCode: "",
   };
   public get isEmailAuth() {
     return this.formData.type === 1;
   }
   public get isDisabled() {
-    return !this.formData.validationCode;
+    return !this.formData.valiCode;
   }
   public setAuthType(type: 1 | 2) {
     this.formData.type = type;
   }
-  public setValidationCode(code: string) {
-    this.formData.validationCode = code;
+  public setvaliCode(code: string) {
+    this.formData.valiCode = code;
   }
   public submit() {
     console.log(this.formData);
