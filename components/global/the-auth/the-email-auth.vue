@@ -8,6 +8,8 @@
       :errMsg="errMsg"
       :maxLength="6"
       :isBtn="true"
+      :isBtnLoading="isBtnLoading"
+      :isBtnDisabled="isBtnDisabled"
       :btnText="'GET'"
     />
   </div>
@@ -21,21 +23,26 @@ import TheInput from "@/components/global/the-input/index.vue";
 export default class TheEmailAuth extends Vue {
   @Prop({ required: true })
   public email!: string;
+
   public validationCode = "";
   public errMsg = "";
+  public isBtnLoading = false;
+  public isBtnDisabled = false;
+
   @Watch("validationCode")
   public onValidationCode() {
+    this.$emit("change", this.validationCode);
+    this.verify();
+  }
+
+  public verify() {
+    this.errMsg = "";
     if (!this.validationCode) {
-      this.errMsg = "Required.";
+      return (this.errMsg = "Required.");
+    }
+    if (this.validationCode.length < 6) {
+      return (this.errMsg = "Should be 6 numbers.");
     }
   }
-  public inputBtnState = {
-    isBtnLoading: false,
-    isBtnDisabled: false,
-  };
 }
 </script>
-
-<style lang='scss' scoped>
-@import "~/assets/styles/index.scss";
-</style>

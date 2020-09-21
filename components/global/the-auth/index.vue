@@ -5,21 +5,25 @@
       <div class="inner">
         <div class="sub">To protect your account, please verify your identity first.</div>
         <div class="tabs">
-          <div class="tab" :class="{tabActive: formData.type === 1}" @click="formData.type = 1">
+          <div class="tab" :class="{tabActive: isEmailAuth}" @click="setAuthType(1)">
             <v-icon>mdi-email-outline</v-icon>
           </div>
-          <div class="tab" :class="{tabActive: formData.type === 2}" @click="formData.type = 2">
+          <div class="tab" :class="{tabActive: !isEmailAuth}" @click="setAuthType(2)">
             <v-icon>mdi-cellphone-iphone</v-icon>
           </div>
         </div>
         <Transition mode="out-in">
-          <The-email-auth key="email" v-if="formData.type === 1" :email="formData.email" />
-          <The-phone-auth key="phone" v-else :phone="formData.phone" />
+          <keep-alive v-if="isEmailAuth">
+            <The-email-auth key="email" :email="formData.email" @change="setValidationCode" />
+          </keep-alive>
+          <keep-alive v-else>
+            <The-phone-auth key="phone" :phone="formData.phone" />
+          </keep-alive>
         </Transition>
         <TheSubmit
           :text="'Verify'"
-          :isBtnLoading="submitState.isBtnLoading"
-          :isDisabled="submitState.isDisabled"
+          :isBtnLoading="isBtnLoading"
+          :isDisabled="isDisabled"
           @submit="submit"
         />
       </div>
@@ -36,6 +40,7 @@ import TheSubmit from "@/components/global/the-submit/index.vue";
 @Component({ components: { TheEmailAuth, ThePhoneAuth, TheSubmit } })
 export default class TheAuth extends Vue {
   public isShow = true;
+  public isBtnLoading = false;
   public formData = {
     type: 1, // 1: email, 2: phone
     email: "test1@gmail.com",
@@ -43,24 +48,21 @@ export default class TheAuth extends Vue {
     phone: "912345678",
     validationCode: "",
   };
-  public errMsg = {
-    validationCode: "",
-  };
-  @Watch("formData.validationCode")
-  public onValidationCode() {
-    if (!this.formData.validationCode) {
-      this.errMsg.validationCode = "Required.";
-    }
+  public get isEmailAuth() {
+    return this.formData.type === 1;
   }
-  public inputBtnState = {
-    isBtnLoading: false,
-    isBtnDisabled: false,
-  };
-  public submitState = {
-    isBtnLoading: false,
-    isBtnDisabled: false,
-  };
-  public submit() {}
+  public get isDisabled() {
+    return !this.formData.validationCode;
+  }
+  public setAuthType(type: 1 | 2) {
+    this.formData.type = type;
+  }
+  public setValidationCode(code: string) {
+    this.formData.validationCode = code;
+  }
+  public submit() {
+    console.log(this.formData);
+  }
 }
 </script>
 
