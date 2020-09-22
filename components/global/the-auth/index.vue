@@ -17,7 +17,7 @@
             <The-email-auth key="email" :email="formData.email" @change="setvaliCode" />
           </keep-alive>
           <keep-alive v-else>
-            <The-phone-auth key="phone" :phone="formData.phone" />
+            <The-phone-auth key="phone" :phone="formData.phone" @change="setvaliCode" />
           </keep-alive>
         </Transition>
         <TheSubmit

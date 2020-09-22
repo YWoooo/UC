@@ -1,41 +1,22 @@
 <template>
   <div>
     <TheInput v-model="phone" :isReadOnly="true" />
-    <TheInput
-      v-model="validationCode"
-      :isNumberOnly="true"
-      :isLocaleString="false"
-      :errMsg="errMsg"
-      :maxLength="6"
-      :isBtn="true"
-      :btnText="'GET'"
-    />
+    <TheInputValicode @change="onValiCode" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from "nuxt-property-decorator";
+import { Component, Vue, Prop } from "nuxt-property-decorator";
 import TheInput from "@/components/global/the-input/index.vue";
+import TheInputValicode from "@/components/global/the-input-valicode/index.vue";
 
-@Component({ components: { TheInput } })
+@Component({ components: { TheInput, TheInputValicode } })
 export default class ThePhoneAuth extends Vue {
   @Prop({ required: true })
   public phone!: string;
-  public validationCode = "";
-  public errMsg = "";
-  @Watch("validationCode")
-  public onValidationCode() {
-    if (!this.validationCode) {
-      this.errMsg = "Required.";
-    }
+
+  public onValiCode(code: string) {
+    this.$emit("change", code);
   }
-  public inputBtnState = {
-    isBtnLoading: false,
-    isBtnDisabled: false,
-  };
 }
 </script>
-
-<style lang='scss' scoped>
-@import "~/assets/styles/index.scss";
-</style>
