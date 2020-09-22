@@ -18,7 +18,7 @@ import { Component, Vue, Watch } from "nuxt-property-decorator";
 import TheInput from "@/components/global/the-input/index.vue";
 
 @Component({ components: { TheInput } })
-export default class TheValiCodeGetter extends Vue {
+export default class TheInputValicode extends Vue {
   public valiCode = "";
   public errMsg = "";
   public isBtnLoading = false;
@@ -44,6 +44,9 @@ export default class TheValiCodeGetter extends Vue {
     }
   }
   public getCode() {
+    if (this.isBtnDisabled) {
+      return;
+    }
     this.countDown();
   }
   public countDown() {
