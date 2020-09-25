@@ -1,4 +1,6 @@
+export type TheAlertType = 'success' | 'info' | 'warning' | 'error'
+
 export default interface IGAlert {
-    type: string
+    type: TheAlertType
     msg: string
 }
