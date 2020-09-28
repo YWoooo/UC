@@ -1,40 +1,42 @@
 <template>
-  <v-dialog :value="isShow" @click:outside="closeAuth">
-    <div class="the-auth">
-      <div class="header">Verification</div>
-      <div class="inner">
-        <div class="sub">
-          To protect your account, please verify your identity first.
-        </div>
-        <div class="tabs">
-          <div
-            class="tab"
-            :class="{ tabActive: isEmailAuth }"
-            @click="setAuthType(1)"
-          >
-            <v-icon>mdi-email-outline</v-icon>
+  <div v-if="isShow">
+    <v-dialog :value="isShow" @click:outside="closeAuth">
+      <div class="the-auth">
+        <div class="header">Verification</div>
+        <div class="inner">
+          <div class="sub">
+            To protect your account, please verify your identity first.
           </div>
-          <div
-            class="tab"
-            :class="{ tabActive: !isEmailAuth }"
-            @click="setAuthType(2)"
-          >
-            <v-icon>mdi-cellphone-iphone</v-icon>
+          <div class="tabs">
+            <div
+              class="tab"
+              :class="{ tabActive: isEmailAuth }"
+              @click="setAuthType(1)"
+            >
+              <v-icon>mdi-email-outline</v-icon>
+            </div>
+            <div
+              class="tab"
+              :class="{ tabActive: !isEmailAuth }"
+              @click="setAuthType(2)"
+            >
+              <v-icon>mdi-cellphone-iphone</v-icon>
+            </div>
           </div>
+          <Transition mode="out-in">
+            <The-email-auth key="email" v-if="isEmailAuth" />
+            <The-phone-auth key="phone" v-else />
+          </Transition>
+          <TheSubmit
+            :text="'Verify'"
+            :isBtnLoading="isBtnLoading"
+            :isDisabled="isDisabled"
+            @submit="submit"
+          />
         </div>
-        <Transition mode="out-in">
-          <The-email-auth key="email" v-if="isEmailAuth" />
-          <The-phone-auth key="phone" v-else />
-        </Transition>
-        <TheSubmit
-          :text="'Verify'"
-          :isBtnLoading="isBtnLoading"
-          :isDisabled="isDisabled"
-          @submit="submit"
-        />
       </div>
-    </div>
-  </v-dialog>
+    </v-dialog>
+  </div>
 </template>
 
 <script lang="ts">
