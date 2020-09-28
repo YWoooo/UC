@@ -10,7 +10,10 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
+// Stores.
+import { theAuthStore } from "~/store";
 import { withdrawalStore } from "~/store";
+// Components.
 import WithdrawalInfo from "@/components/wallet/withdrawal/WithdrawalInfo.vue";
 import WithdrawalAmount from "@/components/wallet/withdrawal/WithdrawalAmount.vue";
 import WithdrawalSubmit from "@/components/wallet/withdrawal/WithdrawalSubmit.vue";
@@ -26,7 +29,13 @@ export default class Withdrawal extends Vue {
     const sendData = {
       amount: withdrawalStore.amount,
     };
-    this.$alert("success", `Withdrawal ${withdrawalStore.amount} success.`);
+    theAuthStore.askAuth(this.withdrawal);
+  }
+  public withdrawal() {
+    const sendData = {
+      amount: withdrawalStore.amount,
+    };
+    this.$alert("success", `Deposit $${withdrawalStore.amount} success.`);
   }
 }
 </script>

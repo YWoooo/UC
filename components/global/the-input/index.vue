@@ -18,12 +18,18 @@
         />
         <span class="input-icon" @click="togglePwd" v-if="type === 'password'">
           <transition mode="out-in">
-            <v-icon key="eye" v-if="inputType === 'password'">mdi-eye-outline</v-icon>
-            <v-icon key="eye-off" v-if="inputType === 'text'">mdi-eye-off-outline</v-icon>
+            <v-icon key="eye" v-if="inputType === 'password'"
+              >mdi-eye-outline</v-icon
+            >
+            <v-icon key="eye-off" v-if="inputType === 'text'"
+              >mdi-eye-off-outline</v-icon
+            >
           </transition>
         </span>
         <transition>
-          <span class="input-icon" v-show="isClearBtn" @mousedown="clearValue">&#9932;</span>
+          <span class="input-icon" v-show="isClearBtn" @mousedown="clearValue"
+            >&#9932;</span
+          >
         </transition>
       </div>
       <v-btn
@@ -33,7 +39,8 @@
         :loading="isBtnLoading"
         :disabled="isBtnDisabled"
         @click="onBtnClick"
-      >{{ btnText }}</v-btn>
+        >{{ btnText }}</v-btn
+      >
     </div>
     <div class="err-msg">
       <transition>

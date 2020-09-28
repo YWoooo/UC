@@ -15,6 +15,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "nuxt-property-decorator";
+import { theAuthStore } from "~/store";
 import TheInput from "@/components/global/the-input/index.vue";
 
 @Component({ components: { TheInput } })
@@ -29,12 +30,18 @@ export default class TheInputValicode extends Vue {
   public get btnText() {
     return this.cd > 0 ? `${this.cd}s` : "Get";
   }
+  public getCode() {
+    if (this.isBtnDisabled) {
+      return;
+    }
+    this.countDown();
+  }
   @Watch("valiCode")
   public onvaliCode() {
-    this.$emit("change", this.valiCode);
-    this.verify();
+    theAuthStore.setCode(this.valiCode);
+    this.testValiCode();
   }
-  public verify() {
+  public testValiCode() {
     this.errMsg = "";
     if (!this.valiCode) {
       return (this.errMsg = "Required.");
@@ -43,12 +50,7 @@ export default class TheInputValicode extends Vue {
       return (this.errMsg = "Should be 6 numbers.");
     }
   }
-  public getCode() {
-    if (this.isBtnDisabled) {
-      return;
-    }
-    this.countDown();
-  }
+
   public countDown() {
     this.cd = 10;
     const timer = setInterval(() => {

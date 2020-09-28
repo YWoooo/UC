@@ -2,6 +2,7 @@ import { Store } from 'vuex'
 import { getModule } from 'vuex-module-decorators'
 
 import GAlert from '~/store/GAlertStore'
+import TheAuthStore from '~/store/TheAuthStore'
 import LayoutStore from '~/store/LayoutStore'
 import LoginStore from '~/store/LoginStore'
 import RegisterStore from '~/store/RegisterStore'
@@ -9,6 +10,7 @@ import DepositStore from '~/store/DepositStore'
 import WithdrawalStore from '~/store/WithdrawalStore'
 
 let gAlertStore: GAlert
+let theAuthStore: TheAuthStore
 let layoutStore: LayoutStore
 let loginStore: LoginStore
 let registerStore: RegisterStore
@@ -17,6 +19,7 @@ let withdrawalStore: WithdrawalStore
 
 function initialiseStores(store: Store<any>): void {
     gAlertStore = getModule(GAlert, store)
+    theAuthStore = getModule(TheAuthStore, store)
     layoutStore = getModule(LayoutStore, store)
     loginStore = getModule(LoginStore, store)
     registerStore = getModule(RegisterStore, store)
@@ -27,6 +30,7 @@ function initialiseStores(store: Store<any>): void {
 export {
     initialiseStores,
     gAlertStore,
+    theAuthStore,
     layoutStore,
     loginStore,
     registerStore,

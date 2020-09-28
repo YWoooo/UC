@@ -6,7 +6,8 @@
     :loading="isBtnLoading"
     :disabled="isDisabled"
     @click="submit"
-  >{{ text }}</v-btn>
+    >{{ text }}</v-btn
+  >
 </template>
 
 <script lang="ts">

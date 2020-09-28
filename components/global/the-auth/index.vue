@@ -1,24 +1,30 @@
 <template>
-  <v-dialog v-model="isShow">
+  <v-dialog :value="isShow" @click:outside="closeAuth">
     <div class="the-auth">
       <div class="header">Verification</div>
       <div class="inner">
-        <div class="sub">To protect your account, please verify your identity first.</div>
+        <div class="sub">
+          To protect your account, please verify your identity first.
+        </div>
         <div class="tabs">
-          <div class="tab" :class="{tabActive: isEmailAuth}" @click="setAuthType(1)">
+          <div
+            class="tab"
+            :class="{ tabActive: isEmailAuth }"
+            @click="setAuthType(1)"
+          >
             <v-icon>mdi-email-outline</v-icon>
           </div>
-          <div class="tab" :class="{tabActive: !isEmailAuth}" @click="setAuthType(2)">
+          <div
+            class="tab"
+            :class="{ tabActive: !isEmailAuth }"
+            @click="setAuthType(2)"
+          >
             <v-icon>mdi-cellphone-iphone</v-icon>
           </div>
         </div>
         <Transition mode="out-in">
-          <keep-alive v-if="isEmailAuth">
-            <The-email-auth key="email" :email="formData.email" @change="setvaliCode" />
-          </keep-alive>
-          <keep-alive v-else>
-            <The-phone-auth key="phone" :phone="formData.phone" @change="setvaliCode" />
-          </keep-alive>
+          <The-email-auth key="email" v-if="isEmailAuth" />
+          <The-phone-auth key="phone" v-else />
         </Transition>
         <TheSubmit
           :text="'Verify'"
@@ -32,36 +38,49 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "nuxt-property-decorator";
-import TheEmailAuth from "./the-email-auth.vue";
-import ThePhoneAuth from "./the-phone-auth.vue";
+import { Component, Vue } from "nuxt-property-decorator";
+import { theAuthStore } from "~/store";
+import TheEmailAuth from "./components/the-email-auth.vue";
+import ThePhoneAuth from "./components/the-phone-auth.vue";
 import TheSubmit from "@/components/global/the-submit/index.vue";
 
 @Component({ components: { TheEmailAuth, ThePhoneAuth, TheSubmit } })
 export default class TheAuth extends Vue {
-  public isShow = true;
   public isBtnLoading = false;
-  public formData = {
-    type: 1, // 1: email, 2: phone
-    email: "test1@gmail.com",
-    phoneAreaCode: "886",
-    phone: "912345678",
-    valiCode: "",
-  };
+  public authType = 1;
+  public get isShow() {
+    return theAuthStore.isShow;
+  }
   public get isEmailAuth() {
-    return this.formData.type === 1;
+    return this.authType === 1;
   }
   public get isDisabled() {
-    return !this.formData.valiCode;
+    return theAuthStore.isDisabled;
+  }
+  public closeAuth() {
+    theAuthStore.closeAuth();
   }
   public setAuthType(type: 1 | 2) {
-    this.formData.type = type;
-  }
-  public setvaliCode(code: string) {
-    this.formData.valiCode = code;
+    this.authType = type;
   }
   public submit() {
-    console.log(this.formData);
+    const sendData = this.packing();
+    this.onPass();
+  }
+  public packing() {
+    return {
+      type: this.authType,
+      email: "test1@gmail.com",
+      phone: "919927419",
+      code: theAuthStore.valicode,
+    };
+  }
+  public onPass() {
+    theAuthStore.onPass();
+  }
+  public onFail() {
+    this.$alert("error", "Please input the right verification code.");
+    theAuthStore.setCode("");
   }
 }
 </script>

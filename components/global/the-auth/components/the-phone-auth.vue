@@ -1,22 +1,17 @@
 <template>
   <div>
     <TheInput v-model="phone" :isReadOnly="true" />
-    <TheInputValicode @change="onValiCode" />
+    <TheInputValicode />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
 import TheInput from "@/components/global/the-input/index.vue";
-import TheInputValicode from "@/components/global/the-input-valicode/index.vue";
+import TheInputValicode from "./the-input-valicode.vue";
 
 @Component({ components: { TheInput, TheInputValicode } })
 export default class ThePhoneAuth extends Vue {
-  @Prop({ required: true })
-  public phone!: string;
-
-  public onValiCode(code: string) {
-    this.$emit("change", code);
-  }
+  public phone = "911927419";
 }
 </script>
