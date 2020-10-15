@@ -1,12 +1,17 @@
 <template>
-  <div class="the-select">
+  <div v-show="isVisible" class="the-select">
     <uc-btm-sheet
       v-if="isMobile"
       :label="label"
       :options="options"
       @change="onChange"
     />
-    <uc-select v-else />
+    <uc-select 
+      v-else
+      :label="label"
+      :options="options"
+      @change="onChange"
+    />
   </div>
 </template>
 
@@ -24,10 +29,13 @@ export default class TheSelect extends Vue {
   @Prop({ required: true, default: [] })
   public options!: Option[];
 
+  // TODO: fix the deleying of visibility.
+  public isVisible = false;
   public isMobile = true;
 
   public mounted() {
     this.setIsMobile();
+    this.isVisible = true;
   }
 
   public setIsMobile() {
