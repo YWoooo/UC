@@ -57,7 +57,7 @@ export default class UcBtmSheet extends Vue {
   color: $color-black;
   display: flex;
   font-size: $font-size-normal;
-  height: 36px;
+  height: 37px;
   padding: 6px 0;
   width: 100%;
 }

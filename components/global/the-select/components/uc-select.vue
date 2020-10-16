@@ -32,13 +32,23 @@ export default class UcSelect extends Vue {
 .label {
   font-size: $font-size-normal;
 }
-::v-deep .v-text-field {
-  padding-top: 6px;
-}
-::v-deep .v-select__selections {
+::v-deep .v-select {
+  color: $color-black;
   height: 36px;
+  padding: 6px 0;
+}
+::v-deep .v-select__slot {
+  height: 30px;
 }
 ::v-deep .v-select__selection--comma {
-  margin: 0;
+  margin: 6px 0 10px;
+}
+::v-deep .theme--light.v-select .v-select__selection--comma {
+  color: $color-black;
+}
+::v-deep .theme--light.v-text-field > .v-input__control > .v-input__slot {
+  &::before {
+    border-color: $color-black;
+  }
 }
 </style>
