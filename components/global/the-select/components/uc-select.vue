@@ -2,10 +2,11 @@
   <div class="uc-select">
     <div class="label">{{ label }}</div>
     <v-select 
+      :value="defaultOption"
       :items="options"
       item-text="label"
       item-value="value"
-      @change="onChange"></v-select>
+      @change="onChange" />
   </div>
 </template>
 
@@ -20,6 +21,9 @@ export default class UcSelect extends Vue {
 
   @Prop({ required: true, default: [] })
   public options!: Option[];
+
+  @Prop({ required: false })
+  public defaultOption!: Option;
 
   public onChange(val: any) {
     this.$emit("change", val);

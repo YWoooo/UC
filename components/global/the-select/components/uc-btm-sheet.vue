@@ -31,16 +31,27 @@ export default class UcBtmSheet extends Vue {
   @Prop({ required: true, default: [] })
   public options!: Option[];
 
+  @Prop({ required: false })
+  public defaultOption!: Option;
+
   public isVisible = false;
   public choosenLabel: string = '';
 
-  public toggle() {
-    this.isVisible = !this.isVisible;
+  public mounted() {
+    if (this.defaultOption) {
+      this.setValue(this.defaultOption)
+    }
   }
 
   public onChange(option: Option) {
     this.toggle();
-    this.$emit("change", option.value);
+    this.setValue(option)
+  }  
+  public toggle() {
+    this.isVisible = !this.isVisible;
+  }
+  public setValue(option: Option) {
+    this.$emit('change', option.value)
     this.choosenLabel = option.label
   }
 }
@@ -69,7 +80,7 @@ export default class UcBtmSheet extends Vue {
 .option {
   align-items: center;
   display: flex;
-  font-size: $font-size-bg;
+  font-size: 20px;
   height: 80px;
   justify-content: center;
   position: relative;
