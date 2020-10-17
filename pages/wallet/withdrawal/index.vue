@@ -42,11 +42,8 @@ export default class Withdrawal extends Vue {
 
 <style lang='scss' scoped>
 @import "~/assets/styles/index.scss";
+@import "~/assets/styles/mixins/layout-app.scss";
 .withdrawal {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: space-between;
-  padding: $normal-spacing;
+  @include layout-app;
 }
 </style>
