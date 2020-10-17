@@ -49,7 +49,7 @@ import TheSubmit from "@/components/global/the-submit/index.vue";
 @Component({ components: { TheEmailAuth, ThePhoneAuth, TheSubmit } })
 export default class TheAuth extends Vue {
   public isBtnLoading = false;
-  public authType = 2;
+  public authType = 1;
   public get isShow() {
     return theAuthStore.isShow;
   }

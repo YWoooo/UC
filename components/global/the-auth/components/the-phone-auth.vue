@@ -4,7 +4,6 @@
       :areaCode.sync="areaCode"
       :phone.sync="phone"
       :isReadOnly="true" />
-    <!-- <TheInput v-model="phone" :isReadOnly="true" /> -->
     <TheInputValicode />
   </div>
 </template>
