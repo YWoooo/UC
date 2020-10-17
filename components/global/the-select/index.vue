@@ -1,10 +1,14 @@
 <template>
-  <div v-show="isVisible" class="the-select">
+  <div 
+    v-show="isVisible" 
+    class="the-select"
+    :class="{ readOnly: isReadOnly }">
     <uc-btm-sheet
       v-if="isMobile"
       :label="label"
       :options="options"
       :defaultOption="defaultOption"
+      :isReadOnly="isReadOnly"
       @change="onChange"
     />
     <uc-select 
@@ -12,6 +16,7 @@
       :label="label"
       :options="options"
       :defaultOption="defaultOption"
+      :isReadOnly="isReadOnly"
       @change="onChange"
     />
   </div>
@@ -37,6 +42,9 @@ export default class TheSelect extends Vue {
   @Prop({ required: false })
   public defaultOption!: Option;
 
+  @Prop({ required: false, default: false })
+  public isReadOnly!: boolean;
+
   // TODO: fix the deleying of visibility.
   public isVisible = false;
   public isMobile = true;
@@ -55,3 +63,10 @@ export default class TheSelect extends Vue {
   }
 }
 </script>
+
+<style lang='scss' scoped>
+@import "~/assets/styles/index.scss";
+.readOnly {
+  opacity: 0.4;
+}
+</style>

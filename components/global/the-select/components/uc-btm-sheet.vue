@@ -34,6 +34,9 @@ export default class UcBtmSheet extends Vue {
   @Prop({ required: false })
   public defaultOption!: Option;
 
+  @Prop({ required: false, default: false })
+  public isReadOnly!: boolean;
+
   public isVisible = false;
   public choosenLabel: string = '';
 
@@ -48,6 +51,10 @@ export default class UcBtmSheet extends Vue {
     this.setValue(option)
   }  
   public toggle() {
+    console.log(this.isReadOnly)
+    if (this.isReadOnly) {
+      return
+    }
     this.isVisible = !this.isVisible;
   }
   public setValue(option: Option) {

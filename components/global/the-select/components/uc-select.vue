@@ -1,11 +1,12 @@
 <template>
-  <div class="uc-select">
+  <div class="uc-select" :class="{ ucReadOnly: isReadOnly }">
     <div class="label">{{ label }}</div>
     <v-select 
       :value="defaultOption"
       :items="options"
       item-text="label"
       item-value="value"
+      :disabled="isReadOnly"
       @change="onChange" />
   </div>
 </template>
@@ -24,6 +25,9 @@ export default class UcSelect extends Vue {
 
   @Prop({ required: false })
   public defaultOption!: Option;
+
+  @Prop({ required: false, default: false })
+  public isReadOnly!: boolean;
 
   public onChange(val: any) {
     this.$emit("change", val);
@@ -54,5 +58,8 @@ export default class UcSelect extends Vue {
   &::before {
     border-color: $color-black;
   }
+}
+.ucReadOnly {
+  border-bottom: 1px solid $color-black;
 }
 </style>
