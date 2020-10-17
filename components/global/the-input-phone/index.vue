@@ -1,9 +1,10 @@
 <template>
-  <div class="the-input-phone">
+  <div class="the-input-phone" >
     <div class="area-codes">
       <TheSelect 
         v-model="areaCodeLocal"
         :options="areaCodes"
+        :isReadOnly="isReadOnly"
         :defaultOption="{ 
           label: `+${areaCode}`, 
           value: areaCode 
@@ -14,7 +15,7 @@
       v-model="phoneLocal"
       type="tel"
       isNumberOnly="true"
-      :errMsg="errMsgPhone" />
+      :isReadOnly="isReadOnly" />
   </div>
 </template>
 
@@ -32,6 +33,9 @@ export default class ThePhoneAuth extends Vue {
 
   @Prop({ required: true, default: '' })
   public phone!: string;
+
+  @Prop({ required: false, default: false })
+  public isReadOnly!: boolean;
 
   public areaCodes = AreaCodes;
   public areaCodeLocal = ""
