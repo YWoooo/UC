@@ -51,7 +51,6 @@ export default class UcBtmSheet extends Vue {
     this.setValue(option)
   }  
   public toggle() {
-    console.log(this.isReadOnly)
     if (this.isReadOnly) {
       return
     }

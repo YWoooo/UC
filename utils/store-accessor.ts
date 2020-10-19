@@ -8,6 +8,7 @@ import LoginStore from '~/store/LoginStore'
 import RegisterStore from '~/store/RegisterStore'
 import DepositStore from '~/store/DepositStore'
 import WithdrawalStore from '~/store/WithdrawalStore'
+import TransferStore from '~/store/TransferStore'
 
 let gAlertStore: GAlert
 let theAuthStore: TheAuthStore
@@ -16,6 +17,7 @@ let loginStore: LoginStore
 let registerStore: RegisterStore
 let depositStore: DepositStore
 let withdrawalStore: WithdrawalStore
+let transferStore: TransferStore
 
 function initialiseStores(store: Store<any>): void {
     gAlertStore = getModule(GAlert, store)
@@ -25,6 +27,7 @@ function initialiseStores(store: Store<any>): void {
     registerStore = getModule(RegisterStore, store)
     depositStore = getModule(DepositStore, store)
     withdrawalStore = getModule(WithdrawalStore, store)
+    transferStore = getModule(TransferStore, store)
 }
 
 export {
@@ -36,4 +39,5 @@ export {
     registerStore,
     depositStore,
     withdrawalStore,
+    transferStore
 }

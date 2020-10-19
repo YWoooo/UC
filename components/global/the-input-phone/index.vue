@@ -5,6 +5,7 @@
         v-model="areaCodeLocal"
         :options="areaCodes"
         :isReadOnly="isReadOnly"
+        :isAlignCenter="true"
         :defaultOption="{ 
           label: `+${areaCode}`, 
           value: areaCode 
@@ -72,10 +73,6 @@ export default class ThePhoneAuth extends Vue {
 .area-codes {
   margin-right: $normal-spacing;
   width: 60px;
-  ::v-deep .input-inner {
-    display: inline-block;
-    text-align: center;
-  }
 }
 .the-input {
   flex: 1;
