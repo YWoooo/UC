@@ -2,7 +2,9 @@
   <div 
     v-show="isVisible" 
     class="the-select"
-    :class="{ readOnly: isReadOnly }">
+    :class="{ 
+      readOnly: isReadOnly,
+      alignCenter: isAlignCenter }">
     <uc-btm-sheet
       v-if="isMobile"
       :label="label"
@@ -45,6 +47,9 @@ export default class TheSelect extends Vue {
   @Prop({ required: false, default: false })
   public isReadOnly!: boolean;
 
+  @Prop({ required: false, default: false })
+  public isAlignCenter!: false;
+
   // TODO: fix the deleying of visibility.
   public isVisible = false;
   public isMobile = true;
@@ -68,5 +73,11 @@ export default class TheSelect extends Vue {
 @import "~/assets/styles/index.scss";
 .readOnly {
   opacity: 0.4;
+}
+.align-center {
+  ::v-deep .input-inner {
+    display: inline-block;
+    text-align: center;
+  }
 }
 </style>
