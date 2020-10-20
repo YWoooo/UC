@@ -1,8 +1,10 @@
 <template>
   <div class="transfer">
-    <TransferInfo />
-    <TransferAccounts />
-    <TransferAmount />
+    <div>
+      <TransferInfo />
+      <TransferAccounts />
+      <TransferAmount />
+    </div>
     <TransferSubmit />
   </div>
 </template>
@@ -17,9 +19,7 @@ import TransferAmount from "@/components/wallet/transfer/TransferAmount.vue";
 import TransferSubmit from "@/components/wallet/transfer/TransferSubmit.vue";
 
 @Component({ components: { TransferInfo, TransferAccounts, TransferAmount, TransferSubmit } })
-export default class Transfer extends Vue {
-
-}
+export default class Transfer extends Vue {}
 </script>
 
 <style lang='scss' scoped>

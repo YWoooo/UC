@@ -1,12 +1,18 @@
 <template>
   <div class="transfer-accounts">
     <the-select 
-        class="account"
-        :options="accountList"/>
+      class="account"
+      v-model="fromAccount"
+      :options="fromAccountList"
+      :msg="fromAccountMsg"
+      @change="onFromAccountChange" />
     &rarr;
-    <the-select 
-        class="account"
-        :options="accountList"/>
+    <the-select
+      class="account"
+      v-model="toAccount"
+      :options="toAccountList"
+      :msg="toAccountMsg"
+      @change="onToAccountChange" />
   </div>
 </template>
 
@@ -18,25 +24,47 @@ import TheSelect from '@/components/global/the-select/index.vue';
 @Component({ components: { TheSelect }})
 export default class TransferInfo extends Vue {
   public ccy = "USD";
+  public fromAccountMsg = ''
+  public toAccountMsg = ''
   public accountList = [
-      { label: 'TEST123', value: 'TEST123' },
-      { label: 'TEST223', value: 'TEST223' },
-      { label: 'TEST323', value: 'TEST323' },
-      { label: 'TEST423', value: 'TEST423' },
-      { label: 'TEST523', value: 'TEST523' },
-      { label: 'TEST623', value: 'TEST623' },
-      { label: 'TEST723', value: 'TEST723' },
-      { label: 'TEST823', value: 'TEST823' },
+    { label: 'TEST123 (USD)', value: 'TEST123', balance: 123 },
+    { label: 'TEST223 (USD)', value: 'TEST223', balance: 1234 },
+    { label: 'TEST323 (USD)', value: 'TEST323', balance: 12345 },
+    { label: 'TEST423 (USD)', value: 'TEST423', balance: 123456 },
+    { label: 'TEST523 (USD)', value: 'TEST523', balance: 123 },
+    { label: 'TEST623 (USD)', value: 'TEST623', balance: 12 },
+    { label: 'TEST723 (USD)', value: 'TEST723', balance: 12 },
+    { label: 'TEST823 (USD)', value: 'TEST823', balance: 123 },
   ]
   
   public get fromAccount() {
     return transferStore.fromAccount;
   }
+  public set fromAccount(account: string) {
+    transferStore.setFromAccount(account)
+  }
+
   public get toAccount() {
     return transferStore.toAccount;
   }
-  public get amount() {
-    return transferStore.amount;
+  public set toAccount(account: string) {
+    transferStore.setToAccount(account)
+  }
+
+  public get fromAccountList() {
+    return this.accountList.filter((e) => e.value !== this.toAccount)
+  }
+  public get toAccountList() {
+    return this.accountList.filter((e) => e.value !== this.fromAccount)
+  }
+
+  public onFromAccountChange(account: string) {
+    const fromAccount = this.accountList.find((e) => e.value === account)
+    this.fromAccountMsg = `Balance: ${fromAccount?.balance.toLocaleString()}`
+  }
+  public onToAccountChange(account: string) {
+    const toAccount = this.accountList.find((e) => e.value === account)
+    this.toAccountMsg = `Balance: ${toAccount?.balance.toLocaleString()}`
   }
 }
 </script>
@@ -47,12 +75,9 @@ export default class TransferInfo extends Vue {
   align-items: center;
   display: flex;
   justify-content: space-between;
+  margin-top: 40px;
 }
 .account {
-  width: 40%;
-  ::v-deep .input-inner {
-    display: inline-block;
-    text-align: center;
-  }
+  width: 45%;
 }
 </style>
