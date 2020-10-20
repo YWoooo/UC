@@ -10,6 +10,7 @@
       :label="label"
       :options="options"
       :defaultOption="defaultOption"
+      :msg="msg"
       :isReadOnly="isReadOnly"
       @change="onChange"
     />
@@ -18,6 +19,7 @@
       :label="label"
       :options="options"
       :defaultOption="defaultOption"
+      :msg="msg"
       :isReadOnly="isReadOnly"
       @change="onChange"
     />
@@ -43,6 +45,9 @@ export default class TheSelect extends Vue {
 
   @Prop({ required: false })
   public defaultOption!: Option;
+
+  @Prop({ required: false, default: '' })
+  public msg!: string;
 
   @Prop({ required: false, default: false })
   public isReadOnly!: boolean;

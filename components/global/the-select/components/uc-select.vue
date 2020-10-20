@@ -8,6 +8,7 @@
       item-value="value"
       :disabled="isReadOnly"
       @change="onChange" />
+    <div class="msg">{{ msg }}</div>
   </div>
 </template>
 
@@ -25,6 +26,9 @@ export default class UcSelect extends Vue {
 
   @Prop({ required: false })
   public defaultOption!: Option;
+
+  @Prop({ required: false, default: '' })
+  public msg!: string;
 
   @Prop({ required: false, default: false })
   public isReadOnly!: boolean;
@@ -61,5 +65,9 @@ export default class UcSelect extends Vue {
 }
 .ucReadOnly {
   border-bottom: 1px solid $color-black;
+}
+.msg {
+  font-size: $font-size-sm;
+  margin-top: 4px;
 }
 </style>

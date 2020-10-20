@@ -3,6 +3,7 @@
     <div class="dummy-input" @click="toggle">
       <div class="label">{{ label }}</div>
       <div class="input-inner">{{ choosenLabel }}</div>
+      <div class="msg">{{ msg }}</div>
     </div>
     <v-bottom-sheet v-model="isVisible">
       <v-sheet class="options">
@@ -33,6 +34,9 @@ export default class UcBtmSheet extends Vue {
 
   @Prop({ required: false })
   public defaultOption!: Option;
+
+  @Prop({ required: false, default: '' })
+  public msg!: string;
 
   @Prop({ required: false, default: false })
   public isReadOnly!: boolean;
@@ -77,6 +81,10 @@ export default class UcBtmSheet extends Vue {
   height: 37px;
   padding: 6px 0;
   width: 100%;
+}
+.msg {
+  font-size: $font-size-sm;
+  margin-top: 4px;
 }
 .options {
   max-height: 80vh;
