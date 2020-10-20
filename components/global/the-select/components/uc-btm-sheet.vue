@@ -84,6 +84,7 @@ export default class UcBtmSheet extends Vue {
 }
 .msg {
   font-size: $font-size-sm;
+  height: 18px;
   margin-top: 4px;
 }
 .options {
