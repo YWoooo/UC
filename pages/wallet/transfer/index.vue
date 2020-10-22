@@ -3,9 +3,9 @@
     <div>
       <TransferInfo />
       <TransferAccounts />
-      <TransferAmount />
+      <TransferAmount @submit="submit" />
     </div>
-    <TransferSubmit />
+    <TransferSubmit @submit="submit" />
   </div>
 </template>
 
@@ -19,7 +19,20 @@ import TransferAmount from "@/components/wallet/transfer/TransferAmount.vue";
 import TransferSubmit from "@/components/wallet/transfer/TransferSubmit.vue";
 
 @Component({ components: { TransferInfo, TransferAccounts, TransferAmount, TransferSubmit } })
-export default class Transfer extends Vue {}
+export default class Transfer extends Vue {
+  public submit() {
+    if (transferStore.isBtnDisabled || transferStore.isBtnLoading) {
+      return;
+    }
+    const sendData = {
+      fromAccount: transferStore.fromAccount,
+      toAccount: transferStore.toAccount,
+      amount: transferStore.amount,
+    };
+    this.$alert("success", `Transfer ${transferStore.amount} success.`);
+    console.log(sendData)
+  }
+}
 </script>
 
 <style lang='scss' scoped>
