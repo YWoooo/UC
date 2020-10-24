@@ -1,9 +1,13 @@
-export interface INameOfRoutes {
+export interface NameOfRoutes {
     walletdeposit: string;
     wallet: string;
+    walletwithdrawal: string;
+    wallettransfer: string;
 }
 
-export const nameOfRoutes: INameOfRoutes = {
+export const nameOfRoutes: NameOfRoutes = {
     wallet: 'Wallet',
-    walletdeposit: 'Deposit'
+    walletdeposit: 'Deposit',
+    walletwithdrawal: 'Withdrawal',
+    wallettransfer: "Transfer"
 }

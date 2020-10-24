@@ -9,13 +9,13 @@
 
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import { INameOfRoutes, nameOfRoutes } from "./defaultAppBarData";
+import { NameOfRoutes, nameOfRoutes } from "./defaultAppBarData";
 @Component
 export default class DefaultAppBar extends Vue {
   public nameOfRoutes = nameOfRoutes;
   public get title() {
     return this.$route.name
-      ? nameOfRoutes[this.$route.name.replace("-", "") as keyof INameOfRoutes]
+      ? nameOfRoutes[this.$route.name.replace("-", "") as keyof NameOfRoutes]
       : "";
   }
   public back() {
