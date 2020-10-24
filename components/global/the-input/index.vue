@@ -167,6 +167,7 @@ export default class TheInput extends Vue {
 <style lang='scss' scoped>
 @import "~/assets/styles/index.scss";
 .label {
+  color: $color-primary;
   font-size: $font-size-normal;
 }
 .input-outer {
@@ -175,13 +176,13 @@ export default class TheInput extends Vue {
 }
 .input-wrapper {
   align-items: center;
-  border-bottom: 1px solid $color-black;
+  border-bottom: 1px solid $color-border;
   display: flex;
   width: 100%;
 }
 .input {
   border-style: none;
-  color: $color-black;
+  color: $color-font-normal;
   font-size: $font-size-normal;
   outline-style: none;
   padding: 6px 0;
@@ -191,13 +192,14 @@ export default class TheInput extends Vue {
   }
 }
 .input-icon {
+  color: inherit;
   cursor: pointer;
   margin-left: 12px;
 }
 .input-btn {
   background: transparent !important;
-  border: 1px solid $color-black;
-  color: $color-black;
+  border: 1px solid $color-border;
+  color: $color-font-normal;
   font-size: $font-size-normal;
   height: 42px;
   margin-left: $normal-spacing;
@@ -208,7 +210,7 @@ export default class TheInput extends Vue {
   opacity: 0.4;
 }
 .err-msg {
-  color: $color-err;
+  color: $color-error;
   font-size: $font-size-sm;
   height: 24px;
 }

@@ -17,11 +17,9 @@ import { Component, Vue, Watch } from "nuxt-property-decorator";
 import { loginStore } from "~/store";
 import TheInput from "@/components/global/the-input/index.vue";
 import isEmail from "validator/lib/isEmail";
-import { regs } from "~/utils/regs";
+import { regs } from "@/utils/regs";
 
-@Component({
-  components: { TheInput },
-})
+@Component({ components: { TheInput }})
 export default class LoginForm extends Vue {
   public showPassword = false;
   public formData = {

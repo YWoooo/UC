@@ -26,13 +26,12 @@ export default class defaultLayout extends Vue {}
 <style lang="scss" scoped>
 @import "~/assets/styles/index.scss";
 .view {
-  background-color: $color-bg;
-  color: $color-font;
+  background-color: $color-background;
+  color: $color-font-normal;
   display: flex;
   flex-direction: column;
   font-weight: 400;
   justify-content: space-between;
-  letter-spacing: 1.3px;
   min-height: 100%;
 }
 .nuxt {

@@ -6,8 +6,7 @@
     :loading="isBtnLoading"
     :disabled="isDisabled"
     @click="submit"
-    >{{ text }}</v-btn
-  >
+    >{{ text }}</v-btn>
 </template>
 
 <script lang="ts">
@@ -36,8 +35,8 @@ export default class TheSubmit extends Vue {
 <style lang='scss' scoped>
 @import "~/assets/styles/index.scss";
 .submit {
-  background: $color-black !important;
-  color: $color-white;
+  background: $color-primary !important;
+  color: $color-font-white;
   flex: 0;
   font-size: 20px;
   margin: 60px auto;

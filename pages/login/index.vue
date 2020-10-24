@@ -14,9 +14,7 @@ import { loginStore } from "~/store";
 import LoginForm from "@/components/login/LoginForm.vue";
 import LoginSubmit from "@/components/login/LoginSubmit.vue";
 
-@Component({
-  components: { LoginForm, LoginSubmit },
-})
+@Component({ components: { LoginForm, LoginSubmit }})
 export default class Login extends Vue {
   public layout() {
     return "notLogin";
@@ -28,7 +26,6 @@ export default class Login extends Vue {
       password,
     };
     loginStore.setIsBtnLoading(true);
-    console.log(sendData);
   }
 }
 </script>
