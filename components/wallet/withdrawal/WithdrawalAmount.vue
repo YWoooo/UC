@@ -62,7 +62,7 @@ export default class WithdrawalAmount extends Vue {
   width: 100%;
 }
 .option {
-  border: 1px solid $color-black;
+  border: 1px solid $color-border;
   border-radius: 36px;
   height: 34px;
   margin-bottom: 16px;

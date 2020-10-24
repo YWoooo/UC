@@ -29,7 +29,7 @@ export default class DepositInfo extends Vue {
   font-size: 48px;
 }
 .subtitle {
-  font-size: 12px;
-  margin-top: 20px;
+  font-size: $font-size-small;
+  margin-top: $normal-spacing;
 }
 </style>
