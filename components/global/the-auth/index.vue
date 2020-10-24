@@ -90,12 +90,12 @@ export default class TheAuth extends Vue {
 <style lang='scss' scoped>
 @import "~/assets/styles/index.scss";
 .the-auth {
-  background: $color-white;
+  background: $color-background;
   font-size: $font-size-normal;
   padding: 48px 20px 1px;
 }
 .header {
-  font-size: $font-size-bg;
+  font-size: $font-size-title;
   font-size: 32px;
 }
 .sub {

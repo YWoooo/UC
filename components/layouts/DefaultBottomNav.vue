@@ -1,6 +1,10 @@
 <template>
-  <v-bottom-navigation :value="$route.name" background-color="#19334d">
+  <v-bottom-navigation 
+    class="bottom-nav"
+    :value="$route.name" 
+    background-color="#fff">
     <v-btn
+      class="btn"
       v-for="item in btnDatas"
       :key="item.label"
       @click="goTo(item.url)"
@@ -39,3 +43,10 @@ export default class DefaultBottomNav extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "~/assets/styles/index.scss";
+::v-deep .v-btn__content {
+  color: $color-primary;
+}
+</style>

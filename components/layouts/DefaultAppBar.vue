@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar class="app-bar" color="#19334d" dense dark>
+  <v-app-bar class="app-bar" color="#fff" dense elevation="0">
     <v-icon class="back" @click="back">mdi-arrow-left</v-icon>
     <v-toolbar-title>
       <span class="title">{{ title }}</span>
@@ -25,16 +25,14 @@ export default class DefaultAppBar extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/styles/index.scss';
-
+@import "~/assets/styles/index.scss";
 .app-bar {
+  color: $color-primary;
   flex: 0;
 }
-
 .back {
   margin-right: 12px;
 }
-
 .title {
   text-transform: capitalize;
 }
