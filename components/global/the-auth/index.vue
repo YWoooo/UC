@@ -91,6 +91,7 @@ export default class TheAuth extends Vue {
 @import "~/assets/styles/index.scss";
 .the-auth {
   background: $color-background;
+  color: $color-primary;
   font-size: $font-size-normal;
   padding: 48px 20px 1px;
 }
@@ -108,9 +109,9 @@ export default class TheAuth extends Vue {
 }
 .tab {
   align-items: center;
-  border: 1px solid $color-black;
+  border: 1px solid $color-border;
   border-radius: 36px;
-  color: $color-white;
+  color: $color-primary;
   cursor: pointer;
   display: inline-flex;
   height: 32px;

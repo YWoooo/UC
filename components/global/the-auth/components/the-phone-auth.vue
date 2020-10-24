@@ -18,9 +18,5 @@ import TheInputPhone from '@/components/global/the-input-phone/index.vue';
 export default class ThePhoneAuth extends Vue {
   public areaCode = '886'
   public phone = "911927419";
-
-  public updated() {
-    console.log(this.areaCode, this.phone)
-  }
 }
 </script>

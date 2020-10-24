@@ -34,6 +34,7 @@
       </div>
       <v-btn
         class="input-btn"
+        :class="{ inputBtn__disabled: isBtnDisabled }"
         v-if="isBtn"
         :depressed="true"
         :loading="isBtnLoading"
@@ -205,6 +206,9 @@ export default class TheInput extends Vue {
   margin-left: $normal-spacing;
   width: 100px;
   z-index: 9999;
+}
+.inputBtn__disabled {
+  border-color: transparent;
 }
 .inputReadOnly {
   opacity: 0.4;
