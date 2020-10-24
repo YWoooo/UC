@@ -7,17 +7,18 @@
         :key="index"
         @click="onOptionClick(item)"
       >${{item.toLocaleString()}}</div>
+      <div class="input">
+        <TheInput
+          v-model="amountString"
+          :isNumberOnly="true"
+          :isLocaleString="true"
+          :isDollar="true"
+          :maxLength="10"
+          :errMsg="errMsg"
+          @enter="submit"
+        />        
+      </div>
     </div>
-    <TheInput
-      v-model="amountString"
-      :isNumberOnly="true"
-      :isLocaleString="true"
-      :isDollar="true"
-      :placeholder="'Deposit amount (USD)'"
-      :maxLength="10"
-      :errMsg="errMsg"
-      @enter="submit"
-    />
   </div>
 </template>
 
@@ -30,7 +31,7 @@ import TheInput from "@/components/global/the-input/index.vue";
 export default class DepositAmount extends Vue {
   public amountString = "";
   public errMsg = "";
-  public options = [100, 300, 500, 1000, 3000];
+  public options = [100, 300, 500, 1000, 3000, 5000, 10000];
   public get amountNumber() {
     return +this.amountString.replace(/\D/g, "");
   }
@@ -57,11 +58,13 @@ export default class DepositAmount extends Vue {
 .options {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   width: 100%;
 }
 .option {
   border: 1px solid $color-black;
   border-radius: 36px;
+  height: 34px;
   margin-bottom: 16px;
   padding: 4px;
   text-align: center;
@@ -72,16 +75,6 @@ export default class DepositAmount extends Vue {
   }
 }
 .input {
-  border-bottom: 1px solid $color-white;
-  font-size: 20px;
-  padding-bottom: 6px;
-  width: 100%;
-  &:focus {
-    outline-style: none;
-  }
-  &::placeholder {
-    color: inherit;
-    opacity: 0.6;
-  }
+  width: 65%;
 }
 </style>
