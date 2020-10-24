@@ -45,7 +45,7 @@ export default class UcSelect extends Vue {
   font-size: $font-size-normal;
 }
 ::v-deep .v-select {
-  color: $color-black;
+  color: $color-font-normal;
   height: 36px;
   padding: 6px 0;
 }
@@ -60,14 +60,17 @@ export default class UcSelect extends Vue {
 }
 ::v-deep .theme--light.v-text-field > .v-input__control > .v-input__slot {
   &::before {
-    border-color: $color-black;
+    color: $color-font-normal;
   }
 }
+::v-deep .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
+  color: $color-font-normal !important;
+}
 .ucReadOnly {
-  border-bottom: 1px solid $color-black;
+  border-bottom: 1px solid $color-border;
 }
 .msg {
-  font-size: $font-size-sm;
+  font-size: $font-size-small;
   height: 18px;
   margin-top: 4px;
 }

@@ -69,13 +69,15 @@ export default class UcBtmSheet extends Vue {
 
 <style lang='scss' scoped>
 @import "~/assets/styles/index.scss";
+.uc-btm-sheet {
+  color: $color-font-normal;
+}
 .label {
   font-size: $font-size-normal;
 }
 .input-inner {
   align-items: center;
-  border-bottom: 1px solid $color-black;
-  color: $color-black;
+  border-bottom: 1px solid $color-border;
   display: flex;
   font-size: $font-size-normal;
   height: 37px;
@@ -83,7 +85,7 @@ export default class UcBtmSheet extends Vue {
   width: 100%;
 }
 .msg {
-  font-size: $font-size-sm;
+  font-size: $font-size-small;
   height: 18px;
   margin-top: 4px;
 }
@@ -94,6 +96,7 @@ export default class UcBtmSheet extends Vue {
 }
 .option {
   align-items: center;
+  color: $color-font-normal;
   display: flex;
   font-size: 20px;
   height: 80px;
