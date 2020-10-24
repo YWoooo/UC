@@ -3,7 +3,7 @@
     <div>
       <TransferInfo />
       <TransferAccounts />
-      <TransferAmount @submit="submit" />
+      <TransferAmount @submit="submit" />        
     </div>
     <TransferSubmit @submit="submit" />
   </div>
@@ -30,7 +30,6 @@ export default class Transfer extends Vue {
       amount: transferStore.amount,
     };
     this.$alert("success", `Transfer ${transferStore.amount} success.`);
-    console.log(sendData)
   }
 }
 </script>

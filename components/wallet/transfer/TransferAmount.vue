@@ -5,7 +5,6 @@
       :isNumberOnly="true"
       :isLocaleString="true"
       :isDollar="true"
-      :placeholder="'Transfer amount (USD)'"
       :maxLength="10"
       :errMsg="errMsg"
       @enter="submit"
@@ -44,6 +43,7 @@ export default class TransferAmount extends Vue {
 @import "~/assets/styles/index.scss";
 .transfer-amount {
   margin-top: 40px;
+  padding: 0 60px;
 }
 .input {
   border-bottom: 1px solid $color-white;
