@@ -8,4 +8,4 @@ export const menu2Data = [
     { label: "Withdrawal Record", routeName: "wallet-withdrawal-record" },
     { label: "Transfer Record", routeName: "wallet-transfer-record" },
 ];
-export const menu3Data = [{ label: "Bind Card", routeName: "wallet-bind-card" }];
+export const menu3Data = [{ label: "Bank Account Binding", routeName: "wallet-bank-account-binding" }];
