@@ -15,7 +15,7 @@ export default class DefaultAppBar extends Vue {
   public nameOfRoutes = nameOfRoutes;
   public get title() {
     return this.$route.name
-      ? nameOfRoutes[this.$route.name.replace("-", "") as keyof NameOfRoutes]
+      ? nameOfRoutes[this.$route.name.replace(/-/g, "") as keyof NameOfRoutes]
       : "";
   }
   public back() {
