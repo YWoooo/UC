@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <div class="label" v-if="label">{{ label }}</div>
+  <div :class="{ inputError: isError }">
+    <div class="label" v-if="label">
+      {{ label }}<sup>*</sup>
+    </div>
     <div class="input-outer">
       <div class="input-wrapper" :class="{ inputReadOnly: isReadOnly }">
         <span v-if="isDollar && isLocalValue">$</span>
@@ -13,7 +15,7 @@
           :maxLength="maxLength"
           @input="onInput"
           @focus="isClearBtnShow = true"
-          @blur="isClearBtnShow = false"
+          @blur="onBlur"
           @keypress.enter="onEnter"
         />
         <span class="input-icon" @click="togglePwd" v-if="type === 'password'">
@@ -70,6 +72,9 @@ export default class TheInput extends Vue {
   public isNumberOnly!: boolean;
 
   @Prop({ required: false, default: false })
+  public isRequired!: boolean;
+
+  @Prop({ required: false, default: false })
   public isDollar!: boolean;
 
   @Prop({ required: false, default: false })
@@ -115,6 +120,10 @@ export default class TheInput extends Vue {
     return this.localValue && this.localValue !== "0";
   }
 
+  public get isError() {
+    return this.errMsg?.length !== 0;
+  }
+
   public get isClearBtn() {
     return !this.isReadOnly && this.isLocalValue && this.isClearBtnShow;
   }
@@ -137,8 +146,22 @@ export default class TheInput extends Vue {
   }
 
   public onInput(event: InputEvent) {
+    this.$emit('update:errMsg', '')
     const value: string = (event.currentTarget as HTMLInputElement).value;
     this.setLocalValue(value);
+  }
+
+  public onBlur() {
+    this.isClearBtnShow = false
+    if (this.isRequired) {
+      this.requiredTest()
+    }
+  }
+
+  public requiredTest() {
+    if (!this.localValue) {
+      this.$emit('update:errMsg', 'Required.')
+    }
   }
 
   @Watch("value")
@@ -217,5 +240,20 @@ export default class TheInput extends Vue {
   color: $color-error;
   font-size: $font-size-sm;
   height: 24px;
+}
+.inputError {
+  .label {
+    color: $color-error;
+  }
+  .input-wrapper {
+    border-bottom-color: $color-error;
+  }
+  .input {
+    color: $color-error;
+  }
+  .input-btn {
+    border-color: $color-error;
+    color: $color-error;
+  }
 }
 </style>
