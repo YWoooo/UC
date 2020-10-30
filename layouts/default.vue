@@ -20,7 +20,7 @@ import DefaultBottomNav from "@/components/layouts/DefaultBottomNav.vue";
 import TheAuth from "@/components/global/the-auth/index.vue";
 
 @Component({ components: { DefaultBottomNav, DefaultAppBar, TheAuth } })
-export default class defaultLayout extends Vue {}
+export default class DefaultLayout extends Vue {}
 </script>
 
 <style lang="scss" scoped>
@@ -32,9 +32,10 @@ export default class defaultLayout extends Vue {}
   flex-direction: column;
   font-weight: 400;
   justify-content: space-between;
-  min-height: 100%;
 }
 .nuxt {
   flex: 1;
+  height: calc(100vh - 48px - 56px); // 48px & 56px as the height of DefaultAppBar & DefaultBottomNav.
+  overflow: scroll;
 }
 </style>

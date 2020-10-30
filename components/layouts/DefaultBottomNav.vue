@@ -46,6 +46,10 @@ export default class DefaultBottomNav extends Vue {
 
 <style lang="scss" scoped>
 @import "~/assets/styles/index.scss";
+.bottom-nav {
+  bottom: 0;
+  position: fixed;
+}
 ::v-deep .v-btn__content {
   color: $color-primary;
 }
