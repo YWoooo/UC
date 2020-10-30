@@ -8,15 +8,21 @@
         <the-input
             class="form-input"
             :label="'Bank Name'"
-            v-model="formData.bankName" />
+            v-model="formData.bankName"
+            :isRequired="true"
+            :errMsg.sync="errMsg.bankName" />
         <the-input
             class="form-input"
             :label="'Branch Name'"
-            v-model="formData.branchName" />
+            v-model="formData.branchName"
+            :isRequired="true"
+            :errMsg.sync="errMsg.branchName" />
         <the-input
             class="form-input"
             :label="'Bank Location'" 
-            v-model="formData.bankLocation" />
+            v-model="formData.bankLocation"
+            :isRequired="true"
+            :errMsg.sync="errMsg.bankLocation" />
         <the-input
             class="form-input"
             :label="'Currency'" 
@@ -26,12 +32,16 @@
             class="form-input"
             :label="'Account Number'" 
             v-model="formData.accountNumber"
-            :isNumberOnly="true" />
+            :isRequired="true"
+            :isNumberOnly="true"
+            :errMsg.sync="errMsg.accountNumber" />
         <the-input
             class="form-input"
             :label="'Swift Code'" 
             v-model="formData.swiftCode"
-            :isNumberOnly="true" />
+            :isRequired="true"
+            :isNumberOnly="true"
+            :errMsg.sync="errMsg.swiftCode" />
     </div>
 </template>
 
@@ -50,6 +60,13 @@ export default class BankAccountBindingForm extends Vue {
         accountNumber: '',
         swiftCode: ''
     }
+    public errMsg = {
+        bankName: '',
+        branchName: '',
+        bankLocation: '',
+        accountNumber: '',
+        swiftCode: ''
+    }
 }
 </script>
 
@@ -57,7 +74,6 @@ export default class BankAccountBindingForm extends Vue {
 @import "~/assets/styles/index.scss";
 .form {
   margin-top: $normal-spacing;
-  padding: 0 $normal-spacing;
 }
 .form-input {
   margin-top: 12px;
