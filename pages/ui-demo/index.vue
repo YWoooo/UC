@@ -8,6 +8,7 @@
       :options="theSelect.options"
       @change="onChange"
     />
+    <TheUploadImg />
   </div>
 </template>
 
@@ -15,8 +16,9 @@
 import { Component, Vue } from "nuxt-property-decorator";
 import TheInput from "@/components/global/the-input/index.vue";
 import TheSelect from "@/components/global/the-select/index.vue";
+import TheUploadImg from "@/components/global/the-upload-img/index.vue";
 
-@Component({ components: { TheInput, TheSelect } })
+@Component({ components: { TheInput, TheSelect, TheUploadImg } })
 export default class UiDemo extends Vue {
   public theSelect = {
     options: [

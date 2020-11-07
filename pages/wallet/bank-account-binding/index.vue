@@ -2,6 +2,7 @@
     <div class="bank-account-binding">
         <Description />
         <Form />
+        <UploadCard />
     </div>
 </template>
 
