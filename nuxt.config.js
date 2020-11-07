@@ -36,7 +36,6 @@ export default {
    */
   plugins: [
     "~/plugins/api.ts",
-    "~/plugins/registerAll.ts",
     "~/plugins/message.ts",
     "~/plugins/vuetify.ts",
   ],

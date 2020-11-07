@@ -1,7 +1,6 @@
 import { Store } from 'vuex'
 import { getModule } from 'vuex-module-decorators'
 
-import GAlert from '~/store/GAlertStore'
 import TheMessageStore from '~/store/TheMessageStore'
 import TheAuthStore from '~/store/TheAuthStore'
 import LayoutStore from '~/store/LayoutStore'
@@ -12,7 +11,6 @@ import WithdrawalStore from '~/store/WithdrawalStore'
 import TransferStore from '~/store/TransferStore'
 
 let theMessageStore: TheMessageStore;
-let gAlertStore: GAlert
 let theAuthStore: TheAuthStore
 let layoutStore: LayoutStore
 let loginStore: LoginStore
@@ -23,7 +21,6 @@ let transferStore: TransferStore
 
 function initialiseStores(store: Store<any>): void {
   theMessageStore = getModule(TheMessageStore, store);
-  gAlertStore = getModule(GAlert, store)
   theAuthStore = getModule(TheAuthStore, store)
   layoutStore = getModule(LayoutStore, store)
   loginStore = getModule(LoginStore, store)
@@ -36,7 +33,6 @@ function initialiseStores(store: Store<any>): void {
 export {
   initialiseStores,
   theMessageStore,
-  gAlertStore,
   theAuthStore,
   layoutStore,
   loginStore,

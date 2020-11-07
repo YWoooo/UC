@@ -4,15 +4,15 @@
       <NotLoginNav />
       <nuxt />
     </div>
-    <GAlert />
+    <TheMessage />
   </v-app>
 </template>
 
 <script lang='ts'>
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Vue } from "nuxt-property-decorator";
 import NotLoginNav from "@/components/layouts/NotLoginNav.vue";
+import TheMessage from "@/components/global/the-message/index.vue";
 
-@Component({ components: { NotLoginNav } })
+@Component({ components: { NotLoginNav, TheMessage } })
 export default class notLogin extends Vue {}
 </script>
