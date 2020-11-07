@@ -24,7 +24,7 @@ export default class Deposit extends Vue {
     const sendData = {
       amount: depositStore.amount,
     };
-    this.$alert("success", `Deposit ${depositStore.amount} success.`);
+    this.$message(`Deposit ${depositStore.amount} success.`, 'success');
   }
 }
 </script>

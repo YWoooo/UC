@@ -7,19 +7,19 @@
       </div>
       <DefaultBottomNav />
     </div>
-    <GAlert />
+    <TheMessage />
     <TheAuth />
   </v-app>
 </template>
 
 <script lang='ts'>
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Vue } from "nuxt-property-decorator";
 import DefaultAppBar from "@/components/layouts/DefaultAppBar.vue";
 import DefaultBottomNav from "@/components/layouts/DefaultBottomNav.vue";
+import TheMessage from "@/components/global/the-message/index.vue";
 import TheAuth from "@/components/global/the-auth/index.vue";
 
-@Component({ components: { DefaultBottomNav, DefaultAppBar, TheAuth } })
+@Component({ components: { DefaultAppBar, DefaultBottomNav, TheMessage, TheAuth } })
 export default class DefaultLayout extends Vue {}
 </script>
 

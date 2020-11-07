@@ -29,7 +29,7 @@ export default class Transfer extends Vue {
       toAccount: transferStore.toAccount,
       amount: transferStore.amount,
     };
-    this.$alert("success", `Transfer ${transferStore.amount} success.`);
+    this.$message(`Transfer ${transferStore.amount} success.`, 'success');
   }
 }
 </script>

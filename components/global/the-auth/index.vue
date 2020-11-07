@@ -81,7 +81,7 @@ export default class TheAuth extends Vue {
     theAuthStore.onPass();
   }
   public onFail() {
-    this.$alert("error", "Please input the right verification code.");
+    this.$message("Please input the right verification code.", "error");
     theAuthStore.setCode("");
   }
 }

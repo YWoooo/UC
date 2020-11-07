@@ -36,7 +36,7 @@ export default class UiDemo extends Vue {
     console.log(val);
   }
   public sendAlert() {
-    this.$alert('error', 'aaaaaaaaaaaaaaaaaaaaaaaa' + this.count)
+    this.$message('aaaaaaaaaaaaaaaaaaaaaaaa', 'error')
     this.count++
   }
 }

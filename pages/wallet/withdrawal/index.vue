@@ -35,7 +35,7 @@ export default class Withdrawal extends Vue {
     const sendData = {
       amount: withdrawalStore.amount,
     };
-    this.$alert("success", `Deposit $${withdrawalStore.amount} success.`);
+    this.$message(`Deposit $${withdrawalStore.amount} success.`, 'success');
   }
 }
 </script>
