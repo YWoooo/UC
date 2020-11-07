@@ -14,6 +14,9 @@ const options = {
         themes: {
             light: {
                 primary: '#0a1e3d',
+                success: '#0a1e3d',
+                info: '#0a1e3d',
+                warning: '#db351f',
                 error: '#db351f',
             },
         },

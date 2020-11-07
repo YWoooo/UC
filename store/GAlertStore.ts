@@ -23,6 +23,6 @@ export default class GAlertStore extends VuexModule {
     @Action
     sendAlert(options: IGAlert) {
         this.context.commit('setAlert', options)
-        setTimeout(() => this.context.commit('close'), 8000);
+        // setTimeout(() => this.context.commit('close'), 4000);
     }
 }

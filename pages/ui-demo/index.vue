@@ -9,6 +9,7 @@
       @change="onChange"
     />
     <TheUploadImg />
+    <div class="testing" @click="sendAlert">AAAAAAAAAAA</div>
   </div>
 </template>
 
@@ -20,6 +21,7 @@ import TheUploadImg from "@/components/global/the-upload-img/index.vue";
 
 @Component({ components: { TheInput, TheSelect, TheUploadImg } })
 export default class UiDemo extends Vue {
+  public count = 1
   public theSelect = {
     options: [
       { label: "M123456", value: 111 },
@@ -33,6 +35,10 @@ export default class UiDemo extends Vue {
   public onChange(val: any) {
     console.log(val);
   }
+  public sendAlert() {
+    this.$alert('error', 'aaaaaaaaaaaaaaaaaaaaaaaa' + this.count)
+    this.count++
+  }
 }
 </script>
 
@@ -40,5 +46,10 @@ export default class UiDemo extends Vue {
 @import "~/assets/styles/index.scss";
 .ui-demo {
   padding: $normal-spacing;
+}
+.testing {
+  height: 60px;
+  margin-top: 60px;
+  text-align: center;
 }
 </style>

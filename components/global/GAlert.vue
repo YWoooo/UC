@@ -3,9 +3,9 @@
     v-if="isShow"
     class="v-alert"
     :type="type"
-    outlined
-    dismissible
-    transition="scale-transition"
+    dense
+    text
+    transition="scroll-y-transition"
   >{{msg}}</v-alert>
 </template>
 
@@ -39,9 +39,9 @@ export default class GAlert extends Vue {
 <style lang='scss' scoped>
 @import "~/assets/styles/index.scss";
 .v-alert {
-  margin: 0 16px;
+  border-radius: 0;
   position: fixed;
-  top: 24px;
-  width: calc(100% - 32px);
+  top: 0;
+  width: 100%;
 }
 </style>
