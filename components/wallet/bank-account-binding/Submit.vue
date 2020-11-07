@@ -1,5 +1,8 @@
 <template>
-    <the-submit @click="submit" />
+  <the-submit 
+    @click="submit"
+    :isBtnLoading="false"
+    :isDisabled="false" />
 </template>
 
 <script lang="ts">
@@ -8,9 +11,9 @@ import TheSubmit from "@/components/global/the-submit/index.vue";
 
 @Component({ components: { TheSubmit } })
 export default class BankAccountBindingSubmit extends Vue {
-    public submit() {
-        
-    }
+  public submit() {
+      
+  }
 }
 </script>
 

@@ -3,6 +3,7 @@
         <Description />
         <Form />
         <UploadCard />
+        <Submit />
     </div>
 </template>
 
