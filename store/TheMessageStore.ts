@@ -1,5 +1,5 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
-import { MsgType, MessageOptions } from '@/interfaces/TheMessage';
+import { Msg } from '@/interfaces/TheMessage';
 
 @Module({
   name: 'TheMessageStore',
@@ -7,22 +7,19 @@ import { MsgType, MessageOptions } from '@/interfaces/TheMessage';
   namespaced: true,
 })
 export default class TheMessageStore extends VuexModule {
-  public msg = ''
-  public msgType: MsgType = 'success'
-  public isShow = false
+  public msgs: Msg[] = [];
+  public duration = 4000;
   @Mutation
-  setIsShow(val: boolean) {
-    this.isShow = val
+  setMsg(msg: Msg) {
+    this.msgs.push(msg)
   }
   @Mutation
-  setMsg(options: MessageOptions) {
-    this.msg = options.msg
-    this.msgType = options.msgType
+  disappearMsg() {
+    this.msgs.shift()
   }
   @Action
-  sendMsg(options: MessageOptions) {
-    this.context.commit('setMsg', options)
-    this.context.commit('setIsShow', true)
-    setTimeout(() => this.context.commit('setMsg', false), 4000);
+  sendMsg(msg: Msg) {
+    this.context.commit('setMsg', msg)
+    setTimeout(() => this.context.commit('disappearMsg'), this.duration);
   }
 }

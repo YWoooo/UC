@@ -9,7 +9,6 @@
       @change="onChange"
     />
     <TheUploadImg />
-    <div class="testing" @click="sendAlert">AAAAAAAAAAA</div>
   </div>
 </template>
 
@@ -34,10 +33,6 @@ export default class UiDemo extends Vue {
   };
   public onChange(val: any) {
     console.log(val);
-  }
-  public sendAlert() {
-    this.$message('aaaaaaaaaaaaaaaaaaaaaaaa', 'error')
-    this.count++
   }
 }
 </script>

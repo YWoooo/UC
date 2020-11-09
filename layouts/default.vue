@@ -6,21 +6,37 @@
         <nuxt />
       </div>
       <DefaultBottomNav />
+      <div class="mask">
+        <v-slide-y-transition :group="true" >
+          <TheMessage 
+            v-for="(msg, index) in msgs" 
+            :key="index"
+            :msg="msg"
+            transition="slide-x-transition" />           
+        </v-slide-y-transition>
+      </div>    
     </div>
-    <TheMessage />
     <TheAuth />
   </v-app>
 </template>
 
 <script lang='ts'>
 import { Component, Vue } from "nuxt-property-decorator";
+// Layout components.
 import DefaultAppBar from "@/components/layouts/DefaultAppBar.vue";
 import DefaultBottomNav from "@/components/layouts/DefaultBottomNav.vue";
+// Globle components.
 import TheMessage from "@/components/global/the-message/index.vue";
 import TheAuth from "@/components/global/the-auth/index.vue";
+// For the-message.
+import { theMessageStore } from "~/store";
 
 @Component({ components: { DefaultAppBar, DefaultBottomNav, TheMessage, TheAuth } })
-export default class DefaultLayout extends Vue {}
+export default class DefaultLayout extends Vue {
+  public get msgs() {
+    return theMessageStore.msgs
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -37,5 +53,10 @@ export default class DefaultLayout extends Vue {}
   flex: 1;
   height: calc(100vh - 48px - 56px); // 48px & 56px as the height of DefaultAppBar & DefaultBottomNav.
   overflow: scroll;
+}
+.mask {
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 </style>
