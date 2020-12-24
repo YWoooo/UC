@@ -13,19 +13,32 @@ import { Component, Vue } from "nuxt-property-decorator";
 import { loginStore } from "~/store";
 import LoginForm from "@/components/login/LoginForm.vue";
 import LoginSubmit from "@/components/login/LoginSubmit.vue";
+import { authApi } from '@/request/api/auth';
+import cookiejs from 'cookiejs'
+import { Login } from '@/interfaces/login'
 
 @Component({ components: { LoginForm, LoginSubmit }})
-export default class Login extends Vue {
+export default class LoginPage extends Vue {
   public layout() {
     return "notLogin";
   }
-  public submit() {
+  public setSendData() {
     const { email, password } = loginStore.formData;
-    const sendData = {
+    return {
       email,
       password,
-    };
+    }
+  }
+  public async submit() {
+    const sendData: Login.SendData  = this.setSendData()
     loginStore.setIsBtnLoading(true);
+    try {
+      const res: Login.Res = await authApi.login(sendData)
+      cookiejs.set('token', res.token)
+      this.$router.push('/')
+    } catch (e) {} finally{
+      loginStore.setIsBtnLoading(false)
+    }
   }
 }
 </script>

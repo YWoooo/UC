@@ -4,13 +4,15 @@
       <NotLoginNav />
       <nuxt />
     </div>
-    <v-slide-y-transition :group="true" >
-      <TheMessage 
-        v-for="(msg, index) in msgs" 
-        :key="index"
-        :msg="msg"
-        transition="slide-x-transition" />           
-    </v-slide-y-transition>
+    <div class="mask">
+      <v-slide-y-transition :group="true" >
+        <TheMessage 
+          v-for="(msg, index) in msgs" 
+          :key="index"
+          :msg="msg"
+          transition="slide-x-transition" />           
+      </v-slide-y-transition>
+      </div> 
   </v-app>
 </template>
 
@@ -27,3 +29,11 @@ export default class notLogin extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.mask {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+</style>
