@@ -9,11 +9,23 @@ export const onResponseErr = (err: AxiosError) => {
   if (code === 401) {
     return on401()
   }
+  if (code === 500) {
+    return on500()
+  }
   onOthers(code)
 }
 
 const on401 = () => {
-  throw new Error('401')
+  window.location.replace('/login')
+}
+
+const on500 = () => {
+  const content = errMsggs[0]
+  theMessageStore.sendMsg({
+    content,
+    type: 'error'
+  })
+  throw new Error('500')
 }
 
 const onOthers = (code: number) => {
