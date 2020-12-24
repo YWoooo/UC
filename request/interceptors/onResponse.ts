@@ -2,7 +2,7 @@ import { AxiosResponse, AxiosError } from 'axios'
 import { theMessageStore } from "~/store";
 import { errMsggs } from '../configs/errMsgs'
 
-export const onResponseSuccess = (res: AxiosResponse) => res
+export const onResponseSuccess = (res: AxiosResponse) => res.data.data
 
 export const onResponseErr = (err: AxiosError) => {
   const code = err.response?.data.code
