@@ -15,6 +15,7 @@
     "@types/axios": "^0.14.0",
     "@types/validator": "^13.0.0",
     "axios": "^0.19.2",
+    "cookie-universal-nuxt": "^2.1.4",
     "cookiejs": "^1.0.26",
     "nuxt": "^2.0.0",
     "nuxt-property-decorator": "^2.7.2",
