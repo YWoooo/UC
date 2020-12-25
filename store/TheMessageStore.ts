@@ -8,7 +8,7 @@ import { Msg } from '@/interfaces/TheMessage';
 })
 export default class TheMessageStore extends VuexModule {
   public msgs: Msg[] = [];
-  public duration = 4000;
+  public duration = 2000;
   @Mutation
   setMsg(msg: Msg) {
     this.msgs.push(msg)
