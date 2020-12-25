@@ -31,7 +31,10 @@ import TheAuth from "@/components/global/the-auth/index.vue";
 // For the-message.
 import { theMessageStore } from "~/store";
 
-@Component({ components: { DefaultAppBar, DefaultBottomNav, TheMessage, TheAuth } })
+@Component({ 
+  components: { DefaultAppBar, DefaultBottomNav, TheMessage, TheAuth },
+  middleware: 'checkIsLogin',
+})
 export default class DefaultLayout extends Vue {
   public get msgs() {
     return theMessageStore.msgs
