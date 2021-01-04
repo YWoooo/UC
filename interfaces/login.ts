@@ -3,7 +3,4 @@ export namespace Login {
     email: string
     password: string
   }
-  export interface Res {
-    token: string
-  }
 }

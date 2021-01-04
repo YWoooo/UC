@@ -1,8 +1,17 @@
 import { AxiosResponse, AxiosError } from 'axios'
 import { theMessageStore } from "~/store";
 import { errMsggs } from '../configs/errMsgs'
+import cookiejs from 'cookiejs'
 
-export const onResponseSuccess = (res: AxiosResponse) => res.data.data
+export const onResponseSuccess = (res: AxiosResponse) => {
+  if (res.headers.accesstoken) {
+    cookiejs.set('accessToken', res.headers.accesstoken)
+  }
+  if (res.headers.refreshtoken) {
+    cookiejs.set('refreshToken', res.headers.refreshtoken)
+  }
+  return res.data.data
+}
 
 export const onResponseErr = (err: AxiosError) => {
   const code = err.response?.data.code

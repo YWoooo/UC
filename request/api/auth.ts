@@ -4,7 +4,7 @@ import qs from 'qs'
 import { Login } from '@/interfaces/login'
 
 export const authApi = {
-  login(sendData: Login.SendData): Promise<Login.Res> {
+  login(sendData: Login.SendData) {
     return axios.post(`${baseUrl.local}/login`, qs.stringify(sendData))
   },
   register(sendData: any) {

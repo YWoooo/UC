@@ -1,8 +1,8 @@
 import { Middleware } from '@nuxt/types'
 
 const checkIsLogin: Middleware = ({ app, redirect }) => {
-  const token = app.$cookies.get('token')
-  if (!token) {
+  const accessToken = app.$cookies.get('accessToken')
+  if (!accessToken) {
     return redirect('/login')
   }
 }

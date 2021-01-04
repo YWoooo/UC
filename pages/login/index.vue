@@ -33,8 +33,7 @@ export default class LoginPage extends Vue {
     const sendData: Login.SendData  = this.setSendData()
     loginStore.setIsBtnLoading(true);
     try {
-      const res: Login.Res = await authApi.login(sendData)
-      cookiejs.set('token', res.token)
+      await authApi.login(sendData)
       this.$router.push('/')
     } catch (e) {} finally{
       loginStore.setIsBtnLoading(false)
