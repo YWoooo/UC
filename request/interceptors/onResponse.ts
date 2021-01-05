@@ -9,6 +9,7 @@ export const onResponseSuccess = (res: AxiosResponse) => {
   }
   if (res.headers.refreshtoken) {
     cookiejs.set('refreshToken', res.headers.refreshtoken)
+    cookiejs.set('refreshTime', Math.floor(Date.now() / 1000) + '')
   }
   return res.data.data
 }
