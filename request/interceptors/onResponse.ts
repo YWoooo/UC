@@ -39,7 +39,7 @@ const on500 = () => {
 }
 
 const onOthers = (code: number) => {
-  const content = errMsggs[code] || errMsggs[0]
+  const content = `${errMsggs[code] || errMsggs[0]} (code ${code})`
   theMessageStore.sendMsg({
     content,
     type: 'error'

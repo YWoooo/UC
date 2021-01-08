@@ -30,6 +30,7 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    '~/plugins/axios.ts',
     "~/plugins/message.ts",
     "~/plugins/vuetify.ts",
   ],

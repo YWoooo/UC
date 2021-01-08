@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from 'axios'
+import { AxiosRequestConfig } from '@nuxtjs/axios/node_modules/axios'
 import cookiejs from 'cookiejs'
 
 export const onRequest = (reqConfig: AxiosRequestConfig) => {
@@ -22,7 +22,7 @@ const setRefreshToken = (reqConfig: AxiosRequestConfig) => {
     const refreshToken: any = cookiejs.get('refreshToken')
 
     if (refreshToken) {
-      reqConfig.headers.RefreshToken = 'Bearer ' + refreshToken
+      reqConfig.headers.RefreshToken = refreshToken
     }
   }
 }
