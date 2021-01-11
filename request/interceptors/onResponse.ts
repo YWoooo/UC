@@ -1,4 +1,4 @@
-import { AxiosResponse, AxiosError } from 'axios'
+import { AxiosResponse, AxiosError } from '@nuxtjs/axios/node_modules/axios'
 import { theMessageStore } from "~/store";
 import { errMsggs } from '../configs/errMsgs'
 import cookiejs from 'cookiejs'
@@ -26,6 +26,8 @@ export const onResponseErr = (err: AxiosError) => {
 }
 
 const on401 = () => {
+  cookiejs.remove('accessToken')
+  cookiejs.remove('refreshToken')
   window.location.replace('/login')
 }
 
