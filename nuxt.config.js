@@ -31,6 +31,7 @@ export default {
    */
   plugins: [
     '~/plugins/axios.ts',
+    '~/plugins/api.ts',
     "~/plugins/message.ts",
     "~/plugins/vuetify.ts",
   ],
