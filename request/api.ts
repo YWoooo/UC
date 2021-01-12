@@ -1,4 +1,7 @@
 import { Plugin } from '@nuxt/types'
+import { AxiosRequestConfig, AxiosResponse, AxiosError } from '@nuxtjs/axios/node_modules/axios'
+import { onRequest } from './interceptors/onRequest'
+import { onResponseSuccess, onResponseErr } from './interceptors/onResponse'
 
 declare module 'vue/types/vue' {
   interface Vue {
@@ -34,8 +37,10 @@ export const api: Plugin = ({ $axios }, inject) => {
     }
   })
 
-  // Set baseURL to something different
   api.setBaseURL('http://localhost:3001')
+  api.onRequest((config: AxiosRequestConfig) => onRequest(config))
+  api.onResponse((res: AxiosResponse) => onResponseSuccess(res))
+  api.onResponseError((err: AxiosError) => onResponseErr(err))
 
   // Inject to context as $api
   inject('api', api)
