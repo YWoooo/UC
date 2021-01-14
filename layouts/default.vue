@@ -7,20 +7,21 @@
       </div>
       <DefaultBottomNav />
       <div class="mask">
-        <v-slide-y-transition :group="true" >
-          <TheMessage 
-            v-for="(msg, index) in msgs" 
+        <v-slide-y-transition :group="true">
+          <TheMessage
+            v-for="(msg, index) in msgs"
             :key="index"
             :msg="msg"
-            transition="slide-x-transition" />           
+            transition="slide-x-transition"
+          />
         </v-slide-y-transition>
-      </div>    
+      </div>
     </div>
     <TheAuth />
   </v-app>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 // Layout components.
 import DefaultAppBar from "@/components/layouts/DefaultAppBar.vue";
@@ -31,13 +32,13 @@ import TheAuth from "@/components/global/the-auth/index.vue";
 // For the-message.
 import { theMessageStore } from "~/store";
 
-@Component({ 
+@Component({
   components: { DefaultAppBar, DefaultBottomNav, TheMessage, TheAuth },
-  middleware: 'checkIsLogin',
+  middleware: "checkIsLogin",
 })
 export default class DefaultLayout extends Vue {
   public get msgs() {
-    return theMessageStore.msgs
+    return theMessageStore.msgs;
   }
 }
 </script>
