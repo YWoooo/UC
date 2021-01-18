@@ -1,17 +1,15 @@
 import { AxiosRequestConfig } from '@nuxtjs/axios/node_modules/axios'
+import { NuxtAppOptions } from '@nuxt/types'
 
-export interface CookiesAboutRequest {
-  accessToken: string | undefined
-  refreshTime: string | undefined
-  refreshToken: string | undefined
-}
-
-export const onRequest = (reqConfig: AxiosRequestConfig, cookies: CookiesAboutRequest) => {
-  if (cookies.accessToken) {
-    setAccessToken(reqConfig, cookies.accessToken)
+export const onRequest = (reqConfig: AxiosRequestConfig, app: NuxtAppOptions) => {
+  const accessToken = app.$cookies.get('accessToken')
+  if (accessToken) {
+    setAccessToken(reqConfig, accessToken)
   }
-  if (cookies.refreshTime && cookies.refreshToken) {
-    setRefreshToken(reqConfig, cookies.refreshTime, cookies.refreshToken)
+  const refreshTime = app.$cookies.get('refreshTime')
+  const refreshToken = app.$cookies.get('refreshToken')
+  if (refreshTime && refreshToken) {
+    setRefreshToken(reqConfig, refreshTime, refreshToken)
   }
   return reqConfig
 }

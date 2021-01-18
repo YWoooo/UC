@@ -1,6 +1,6 @@
-import { Plugin } from '@nuxt/types'
+import { Plugin, NuxtAppOptions } from '@nuxt/types'
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from '@nuxtjs/axios/node_modules/axios'
-import { onRequest, CookiesAboutRequest } from './interceptors/onRequest'
+import { onRequest } from './interceptors/onRequest'
 import { onResponseSuccess, onResponseErr } from './interceptors/onResponse'
 
 declare module 'vue/types/vue' {
@@ -36,15 +36,10 @@ export const api: Plugin = ({ $axios, app }, inject) => {
       }
     }
   })
-  const cookies: CookiesAboutRequest = {
-    accessToken: app.$cookies.get('accessToken'),
-    refreshTime: app.$cookies.get('refreshTime'),
-    refreshToken: app.$cookies.get('refreshToken')
-  }
 
   axios.setBaseURL('http://localhost:3001')
-  axios.onRequest((config: AxiosRequestConfig) => onRequest(config, cookies))
-  axios.onResponse((res: AxiosResponse) => onResponseSuccess(res))
+  axios.onRequest((config: AxiosRequestConfig) => onRequest(config, app))
+  axios.onResponse((res: AxiosResponse) => onResponseSuccess(res, app))
   axios.onResponseError((err: AxiosError) => onResponseErr(err))
 
   const api = {
