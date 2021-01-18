@@ -1,15 +1,17 @@
 import { AxiosResponse, AxiosError } from '@nuxtjs/axios/node_modules/axios'
+import { NuxtAppOptions } from '@nuxt/types'
 import { theMessageStore } from "~/store";
 import { errMsggs } from '../configs/errMsgs'
+// Change cookiejs into cookie-universal-nuxt now.
 import cookiejs from 'cookiejs'
 
-export const onResponseSuccess = (res: AxiosResponse) => {
+export const onResponseSuccess = (res: AxiosResponse, app: NuxtAppOptions) => {
   if (res.headers.accesstoken) {
-    cookiejs.set('accessToken', res.headers.accesstoken)
+    app.$cookies.set('accessToken', res.headers.accesstoken)
   }
   if (res.headers.refreshtoken) {
-    cookiejs.set('refreshToken', res.headers.refreshtoken)
-    cookiejs.set('refreshTime', Math.floor(Date.now() / 1000) + '')
+    app.$cookies.set('refreshToken', res.headers.refreshtoken)
+    app.$cookies.set('refreshTime', Math.floor(Date.now() / 1000) + '')
   }
   return res.data
 }
@@ -17,12 +19,12 @@ export const onResponseSuccess = (res: AxiosResponse) => {
 export const onResponseErr = (err: AxiosError) => {
   const code = err.response?.data.code
   if (code === 401) {
-    return on401()
+    // return on401()
   }
   if (code === 500) {
     return on500()
   }
-  onOthers(code)
+  // onOthers(code)
 }
 
 const on401 = () => {
