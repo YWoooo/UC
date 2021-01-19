@@ -10,8 +10,11 @@ export const onResponseSuccess = (res: AxiosResponse, app: NuxtAppOptions) => {
     app.$cookies.set('accessToken', res.headers.accesstoken)
   }
   if (res.headers.refreshtoken) {
-    app.$cookies.set('refreshToken', res.headers.refreshtoken)
-    app.$cookies.set('refreshTime', Math.floor(Date.now() / 1000) + '')
+    const options = {
+      expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+    }
+    app.$cookies.set('refreshToken', res.headers.refreshtoken, options)
+    app.$cookies.set('refreshTime', Math.floor(Date.now() / 1000) + '', options)
   }
   return res.data
 }
