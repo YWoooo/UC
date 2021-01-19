@@ -20,14 +20,14 @@ export const onResponseSuccess = (res: AxiosResponse, app: NuxtAppOptions) => {
 }
 
 export const onResponseErr = (err: AxiosError) => {
-  const code = err.response?.data.code
+  const code: number = err.response?.status || 0
   if (code === 401) {
-    // return on401()
+    return on401()
   }
   if (code === 500) {
     return on500()
   }
-  // onOthers(code)
+  onOthers(code)
 }
 
 const on401 = () => {
