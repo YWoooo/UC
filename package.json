@@ -32,6 +32,7 @@
     "@nuxt/typescript-build": "^0.6.0",
     "@nuxtjs/vuetify": "^1.11.2",
     "@types/cookiejs": "^1.2.0",
+    "@types/webpack-env": "^1.16.0",
     "node-sass": "^4.14.0",
     "sass-loader": "^8.0.2",
     "stylelint": "^13.6.1",

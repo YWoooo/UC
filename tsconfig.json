@@ -15,7 +15,7 @@
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": ["@types/node", "@nuxt/types", "@nuxtjs/axios", "vuetify"]
+    "types": ["@types/node", "@nuxt/types", "@nuxtjs/axios", "vuetify", "webpack-env"]
   },
   "exclude": ["node_modules", ".nuxt", "dist"]
 }
