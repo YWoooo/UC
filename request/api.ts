@@ -55,5 +55,5 @@ function registingApis(axios: any) {
     return { ...apiObjs, ...apiObj }
   }
 
-  return apiNames.reduce(reducer)
+  return apiNames.reduce(reducer, {})
 };
