@@ -2,6 +2,7 @@ import { Plugin, NuxtAppOptions } from '@nuxt/types'
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from '@nuxtjs/axios/node_modules/axios'
 import { onRequest } from './interceptors/onRequest'
 import { onResponseSuccess, onResponseErr } from './interceptors/onResponse'
+import apis from './apis/index'
 
 declare module 'vue/types/vue' {
   interface Vue {
@@ -42,17 +43,17 @@ export const api: Plugin = ({ $axios, app }, inject) => {
   axios.onResponse((res: AxiosResponse) => onResponseSuccess(res, app))
   axios.onResponseError((err: AxiosError) => onResponseErr(err))
 
-  const api = {
-    async login(sendData: any) {
-      const res = await axios.$post('/login', sendData)
-      return res
-    },
-    async getUserInfo() {
-      const res = await axios.$get('/userInfo')
-      return res
-    },
-  }
-
-  // Inject to context as $api
+  const api = registingApis(axios)
   inject('api', api)
 }
+
+function registingApis(axios: any) {
+  const apiNames = Object.keys(apis)
+
+  const reducer = (apiObjs: any, apiName: string) => {
+    const apiObj = apis[apiName](axios)
+    return { ...apiObjs, ...apiObj }
+  }
+
+  return apiNames.reduce(reducer)
+};
