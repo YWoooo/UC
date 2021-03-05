@@ -13,7 +13,6 @@ import { Component, Vue } from "nuxt-property-decorator";
 import { loginStore } from "~/store";
 import LoginForm from "@/components/login/LoginForm.vue";
 import LoginSubmit from "@/components/login/LoginSubmit.vue";
-import cookiejs from 'cookiejs'
 import { Login } from '@/interfaces/login'
 
 @Component({ components: { LoginForm, LoginSubmit }})
@@ -32,7 +31,7 @@ export default class LoginPage extends Vue {
     const sendData: Login.SendData  = this.setSendData()
     loginStore.setIsBtnLoading(true);
     try {
-      await this.$axios.$post('/login', sendData)
+      await this.$api.login(sendData)
       this.$router.push('/')
     } catch (e) {
       console.log(e)
