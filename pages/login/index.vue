@@ -10,11 +10,22 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
+// Components.
 import LoginForm from "@/components/login/LoginForm.vue";
 import LoginSubmit from "@/components/login/LoginSubmit.vue";
+// Types.
 import { Login } from '@/interfaces/login'
+import { Middleware } from '@nuxt/types'
 
-@Component({ components: { LoginForm, LoginSubmit }})
+const checkIsLogin: Middleware = ({ app, redirect }) => {
+  const refreshToken = app.$cookies.get('refreshToken')
+  if (refreshToken) return redirect('/')
+}
+
+@Component({ 
+  components: { LoginForm, LoginSubmit },
+  middleware: checkIsLogin
+})
 export default class LoginPage extends Vue {
   public layout() {
     return "notLogin";
