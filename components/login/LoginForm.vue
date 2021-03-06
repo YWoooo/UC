@@ -14,7 +14,6 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "nuxt-property-decorator";
-import { loginStore } from "~/store";
 import TheInput from "@/components/global/the-input/index.vue";
 import isEmail from "validator/lib/isEmail";
 import { regs } from "@/utils/regs";
@@ -40,12 +39,12 @@ export default class LoginForm extends Vue {
   @Watch("formData.email")
   public onEmail() {
     const { email } = this.formData;
-    loginStore.setFormData({
+    this.$store.commit('LoginStore/setFormData', {
       key: "email",
       val: email,
-    });
+    })
     this.validateEmail();
-    loginStore.setIsFormValid(this.isFormValid);
+    this.$store.commit('LoginStore/setIsFormValid', this.isFormValid)
   }
   public validateEmail() {
     const { email } = this.formData;
@@ -56,12 +55,12 @@ export default class LoginForm extends Vue {
   @Watch("formData.password")
   public onPassword() {
     const { password } = this.formData;
-    loginStore.setFormData({
+    this.$store.commit('LoginStore/setFormData', {
       key: "password",
       val: password,
-    });
+    })
     this.validatePassword();
-    loginStore.setIsFormValid(this.isFormValid);
+    this.$store.commit('LoginStore/setIsFormValid', this.isFormValid)
   }
   public validatePassword() {
     const { password } = this.formData;

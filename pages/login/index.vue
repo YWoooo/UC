@@ -10,7 +10,6 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import { loginStore } from "~/store";
 import LoginForm from "@/components/login/LoginForm.vue";
 import LoginSubmit from "@/components/login/LoginSubmit.vue";
 import { Login } from '@/interfaces/login'
@@ -21,7 +20,7 @@ export default class LoginPage extends Vue {
     return "notLogin";
   }
   public setSendData() {
-    const { email, password } = loginStore.formData;
+    const { email, password } = this.$store.state.LoginStore.formData;
     return {
       email,
       password,
@@ -29,14 +28,14 @@ export default class LoginPage extends Vue {
   }
   public async submit() {
     const sendData: Login.SendData  = this.setSendData()
-    loginStore.setIsBtnLoading(true);
+    this.$store.commit('LoginStore/setIsBtnLoading', true)
     try {
       await this.$api.login(sendData)
       this.$router.push('/')
     } catch (e) {
       console.log(e)
     } finally{
-      loginStore.setIsBtnLoading(false)
+      this.$store.commit('LoginStore/setIsBtnLoading', false)
     }
   }
 }

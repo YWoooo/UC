@@ -9,16 +9,15 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import { loginStore } from "~/store";
 import TheSubmit from "@/components/global/the-submit/index.vue";
 
 @Component({ components: { TheSubmit } })
 export default class LoginSubmit extends Vue {
   public get isBtnLoading() {
-    return loginStore.isBtnLoading;
+    return this.$store.state.LoginStore.isBtnLoading
   }
   public get isDisabled() {
-    return !loginStore.isFormValid;
+    return !this.$store.state.LoginStore.isFormValid
   }
   public submit() {
     this.$emit("submit");
