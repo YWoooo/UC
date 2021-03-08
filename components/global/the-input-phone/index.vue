@@ -15,6 +15,7 @@
       class="the-input" 
       v-model="phoneLocal"
       type="tel"
+      inputmode="tel"
       isNumberOnly="true"
       :isReadOnly="isReadOnly" />
   </div>

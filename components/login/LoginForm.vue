@@ -1,6 +1,6 @@
 <template>
   <div class="login-form">
-    <TheInput :label="'Email'" v-model="formData.email" :type="'email'" :errMsg="errMsg.email" />
+    <TheInput :label="'Email'" v-model="formData.email" :type="'email'" inputmode="email" :errMsg="errMsg.email" />
     <TheInput
       :label="'Password'"
       v-model="formData.password"

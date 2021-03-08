@@ -1,9 +1,10 @@
 <template>
   <div class="register-form">
-    <TheInput :label="'Email'" v-model="formData.email" :type="'email'" :errMsg="errMsg.email" />
+    <TheInput :label="'Email'" v-model="formData.email" :type="'email'" inputmode="email" :errMsg="errMsg.email" />
     <TheInput
       :label="'Validation Code'"
       v-model="formData.validationCode"
+      inputmode="numeric"
       :isNumberOnly="true"
       :isLocaleString="false"
       :errMsg="errMsg.validationCode"
