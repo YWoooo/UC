@@ -1,5 +1,6 @@
 import { Login } from '@/interfaces/login'
 import { Register } from '@/interfaces/Register'
+import { VerifyCode } from '@/interfaces/VerifyCode'
 
 export default function authApi(axios: any) {
   return {
@@ -9,6 +10,9 @@ export default function authApi(axios: any) {
     },
     async register(sendData: Register.SendData) {
       return await axios.$post('/register', sendData)
+    },
+    async getVerifyCode(params: VerifyCode.Params) {
+      return await axios.$get('/verifyCode', { params })
     },
   }
 }
