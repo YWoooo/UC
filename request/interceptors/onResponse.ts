@@ -48,7 +48,6 @@ const on500 = () => {
 }
 
 const onOthers = (code: number) => {
-  console.log(code)
   const content = `${errMsggs[code] || errMsggs[0]} (code ${code})`
   theMessageStore.sendMsg({
     content,

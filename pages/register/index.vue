@@ -10,7 +10,6 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import { registerStore } from "~/store";
 // Components.
 import RegisterForm from "@/components/register/RegisterForm.vue";
 import RegisterSubmit from "@/components/register/RegisterSubmit.vue";
