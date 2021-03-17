@@ -5,6 +5,7 @@
   </div>
 </template>
 <script lang="ts">
+
 import { Component, Vue } from "nuxt-property-decorator";
 @Component
 export default class WalletCard extends Vue {
@@ -13,15 +14,14 @@ export default class WalletCard extends Vue {
   };
 }
 </script>
-<style lang='scss' scoped>
-@import '~/assets/styles/index.scss';
 
+<style lang='scss' scoped>
+@import "~/assets/styles/index.scss";
 .overview {
   margin-top: 36px;
   padding: $normal-spacing;
   text-align: center;
 }
-
 .balance-value {
   font-size: 54px;
 }

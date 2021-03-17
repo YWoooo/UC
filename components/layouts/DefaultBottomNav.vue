@@ -3,15 +3,16 @@
     class="bottom-nav"
     :value="$route.name" 
     background-color="#fff">
-    <v-btn
+    <nuxt-link 
       class="btn"
       v-for="item in btnDatas"
       :key="item.label"
-      @click="goTo(item.url)"
-    >
-      <span>{{ item.label }}</span>
-      <v-icon>{{ item.icon }}</v-icon>
-    </v-btn>
+      :to="item.path">
+      <v-btn>
+        <span>{{ item.label }}</span>
+        <v-icon>{{ item.icon }}</v-icon>
+      </v-btn>
+    </nuxt-link>
   </v-bottom-navigation>
 </template>
 
@@ -25,7 +26,7 @@ export default class DefaultBottomNav extends Vue {
     {
       label: "Home",
       icon: "mdi-home",
-      path: "/home",
+      path: "/",
     },
     {
       label: "Wallet",
@@ -38,9 +39,6 @@ export default class DefaultBottomNav extends Vue {
       path: "/settings",
     },
   ];
-  public goTo(url: string) {
-    this.$router.push(url);
-  }
 }
 </script>
 
@@ -49,6 +47,9 @@ export default class DefaultBottomNav extends Vue {
 .bottom-nav {
   bottom: 0;
   position: fixed;
+}
+.btn {
+  height: 100%;
 }
 ::v-deep .v-btn__content {
   color: $color-primary;

@@ -10,19 +10,28 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import { loginStore } from "~/store";
+// Components.
 import LoginForm from "@/components/login/LoginForm.vue";
 import LoginSubmit from "@/components/login/LoginSubmit.vue";
-import cookiejs from 'cookiejs'
+// Types.
 import { Login } from '@/interfaces/login'
+import { Middleware } from '@nuxt/types'
 
-@Component({ components: { LoginForm, LoginSubmit }})
+const checkIsLogin: Middleware = ({ app, redirect }) => {
+  const refreshToken = app.$cookies.get('refreshToken')
+  if (refreshToken) return redirect('/')
+}
+
+@Component({ 
+  components: { LoginForm, LoginSubmit },
+  middleware: checkIsLogin
+})
 export default class LoginPage extends Vue {
   public layout() {
     return "notLogin";
   }
   public setSendData() {
-    const { email, password } = loginStore.formData;
+    const { email, password } = this.$store.state.LoginStore.formData;
     return {
       email,
       password,
@@ -30,14 +39,14 @@ export default class LoginPage extends Vue {
   }
   public async submit() {
     const sendData: Login.SendData  = this.setSendData()
-    loginStore.setIsBtnLoading(true);
+    this.$store.commit('LoginStore/setIsBtnLoading', true)
     try {
-      await this.$axios.$post('/login', sendData)
+      await this.$api.login(sendData)
       this.$router.push('/')
     } catch (e) {
       console.log(e)
     } finally{
-      loginStore.setIsBtnLoading(false)
+      this.$store.commit('LoginStore/setIsBtnLoading', false)
     }
   }
 }

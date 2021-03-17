@@ -2,6 +2,7 @@
   <div class="transfer-amount">
     <TheInput
       v-model="amountString"
+      inputmode="numeric"
       :isNumberOnly="true"
       :isLocaleString="true"
       :isDollar="true"

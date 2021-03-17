@@ -20,7 +20,9 @@ export const onResponseSuccess = (res: AxiosResponse, app: NuxtAppOptions) => {
 }
 
 export const onResponseErr = (err: AxiosError) => {
-  const code: number = err.response?.status || 0
+  const codeFromData = err.response?.data?.code
+  const statusCode = err.response?.status
+  const code: number = codeFromData || statusCode || 0
   if (code === 401) {
     return on401()
   }

@@ -1,15 +1,19 @@
 <template>
   <div class="register-form">
-    <TheInput :label="'Email'" v-model="formData.email" :type="'email'" :errMsg="errMsg.email" />
+    <TheInput :label="'Email'" v-model="formData.email" :type="'email'" inputmode="email" :errMsg="errMsg.email" />
     <TheInput
       :label="'Validation Code'"
       v-model="formData.validationCode"
+      inputmode="numeric"
       :isNumberOnly="true"
       :isLocaleString="false"
       :errMsg="errMsg.validationCode"
       :maxLength="6"
       :isBtn="true"
       :btnText="'GET'"
+      :isBtnDisabled="isInputBtnDisabled"
+      :isBtnLoading="isInputBtnLoading"
+      @btnClick="getVerifyCode"
     />
     <TheInput
       :label="'Password'"
@@ -34,6 +38,7 @@ import { regs } from "~/utils/regs";
 })
 export default class RegisterForm extends Vue {
   public showPassword = false;
+  public isInputBtnLoading = false
   public formData = {
     email: "",
     validationCode: "",
@@ -44,6 +49,9 @@ export default class RegisterForm extends Vue {
     validationCode: "",
     password: "",
   };
+  public get isInputBtnDisabled() {
+    return this.isInputBtnLoading || !this.formData.email || !!this.errMsg.email
+  }
   public get isFormValid() {
     const isEmpty = Object.values(this.formData).some((e) => !e);
     if (isEmpty) return false;
@@ -53,10 +61,9 @@ export default class RegisterForm extends Vue {
 
   @Watch("formData.email")
   public onEmail() {
-    const { email } = this.formData;
     registerStore.setFormData({
       key: "email",
-      val: email,
+      val: this.formData.email,
     });
     this.validateEmail();
     registerStore.setIsFormValid(this.isFormValid);
@@ -69,10 +76,9 @@ export default class RegisterForm extends Vue {
 
   @Watch("formData.validationCode")
   public onValidationCode() {
-    const { validationCode } = this.formData;
     registerStore.setFormData({
       key: "validationCode",
-      val: validationCode,
+      val: this.formData.validationCode,
     });
     this.validateValidationCode();
     registerStore.setIsFormValid(this.isFormValid);
@@ -85,10 +91,9 @@ export default class RegisterForm extends Vue {
 
   @Watch("formData.password")
   public onPassword() {
-    const { password } = this.formData;
     registerStore.setFormData({
       key: "password",
-      val: password,
+      val: this.formData.password,
     });
     this.validatePassword();
     registerStore.setIsFormValid(this.isFormValid);
@@ -99,6 +104,21 @@ export default class RegisterForm extends Vue {
     this.errMsg.password = regs.password.test(password)
       ? ""
       : "6-15 digit, with uppercase, lowercase, and number.";
+  }
+
+  public async getVerifyCode() {
+    try {
+      this.isInputBtnLoading = true
+      this.$api.getVerifyCode({
+        receiver: this.formData.email,
+        receiverType: 'email'
+      })
+    } catch(e) {
+      console.error(e)
+    } finally {
+      this.isInputBtnLoading = false
+    }
+
   }
 
   public submit() {

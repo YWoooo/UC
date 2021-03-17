@@ -8,6 +8,7 @@
         <span v-if="isDollar && isLocalValue">$</span>
         <input
           :type="inputType"
+          :inputmode="inputmode"
           class="input"
           v-model="localValue"
           :readonly="isReadOnly"
@@ -66,7 +67,10 @@ export default class TheInput extends Vue {
   public value!: string;
 
   @Prop({ required: false, default: "text" })
-  public type!: "text" | "tel" | "email" | "password";
+  public type!: "text" | "email" | "password";
+
+  @Prop({ required: false, default: 'text'})
+  public inputmode!: 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url'
 
   @Prop({ required: false, default: false })
   public isNumberOnly!: boolean;

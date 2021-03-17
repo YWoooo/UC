@@ -2,6 +2,7 @@
   <TheInput
     v-model="valiCode"
     :isNumberOnly="true"
+    inputmode="numeric"
     :isLocaleString="false"
     :errMsg="errMsg"
     :maxLength="6"

@@ -10,24 +10,37 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import { registerStore } from "~/store";
+// Components.
 import RegisterForm from "@/components/register/RegisterForm.vue";
 import RegisterSubmit from "@/components/register/RegisterSubmit.vue";
+// Types.
+import { Register } from '@/interfaces/Register'
+
 
 @Component({ components: { RegisterForm, RegisterSubmit } })
-export default class Login extends Vue {
+export default class RegisterPage extends Vue {
   public layout() {
     return "notLogin";
   }
-  public submit() {
-    const { email, validationCode, password } = registerStore.formData;
-    const sendData = {
+  public setSendData(): Register.SendData {
+    const { email, validationCode, password } = this.$store.state.RegisterStore.formData;
+    return {
       email,
       validationCode,
       password,
-    };
-    registerStore.setIsBtnLoading(true);
-    console.log(sendData);
+    }
+  }
+  public async submit() {
+    const sendData = this.setSendData();
+    this.$store.commit('RegisterStore/setIsBtnLoading', true)
+    try {
+      await this.$api.register(sendData)
+      this.$router.push('/')
+    } catch (e) {
+      console.log(e)
+    } finally{
+      this.$store.commit('RegisterStore/setIsBtnLoading', false)
+    }
   }
 }
 </script>
