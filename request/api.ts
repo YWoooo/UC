@@ -38,7 +38,6 @@ export const api: Plugin = ({ $axios, app }, inject) => {
     }
   })
 
-  axios.setBaseURL('http://localhost:3001')
   axios.onRequest((config: AxiosRequestConfig) => onRequest(config, app))
   axios.onResponse((res: AxiosResponse) => onResponseSuccess(res, app))
   axios.onResponseError((err: AxiosError) => onResponseErr(err))
