@@ -1,5 +1,3 @@
-console.log(process.env, 111111111111111)
-
 export default {
   mode: "universal",
   /*
@@ -19,6 +17,9 @@ export default {
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }
     ],
+  },
+  env: {
+    ucapi: process.env.ucapi || 'http://localhost:3001'
   },
   /*
    ** Customize the progress-bar color
@@ -49,7 +50,7 @@ export default {
   ],
 
   axios: {
-    baseURL: process.env.ucapi_url || "http://localhost:3001",
+    baseURL: process.env.ucapi || "http://localhost:3001",
   },
   /*
    ** Build configuration
