@@ -1,3 +1,5 @@
+console.log(process.env, 111111111111111)
+
 export default {
   mode: "universal",
   /*
@@ -47,7 +49,7 @@ export default {
   ],
 
   axios: {
-    baseURL: 'http://localhost:3001'
+    baseURL: process.env.ucapi_url || "http://localhost:3001",
   },
   /*
    ** Build configuration
