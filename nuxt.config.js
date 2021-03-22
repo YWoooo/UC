@@ -22,7 +22,7 @@ export default {
     ucapi: process.env.UCAPI
   },
   axios: {
-    baseURL: process.env.ucapi || 'http://localhost:3001',
+    baseURL: process.env.UCAPI || 'http://localhost:3001',
   },
   /*
    ** Customize the progress-bar color
