@@ -22,7 +22,7 @@ export default {
     ucapi: process.env.UCAPI
   },
   axios: {
-    baseURL: process.env.UCAPI,
+    baseURL: process.env.ucapi,
   },
   /*
    ** Customize the progress-bar color
