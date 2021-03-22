@@ -18,8 +18,11 @@ export default {
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }
     ],
   },
-  env: {
-    ucapi: process.env.ucapi || 'http://localhost:3001'
+  env:{
+    ucapi: process.env.UCAPI
+  },
+  axios: {
+    baseURL: process.env.UCAPI,
   },
   /*
    ** Customize the progress-bar color
@@ -48,10 +51,6 @@ export default {
     '@nuxtjs/axios',
     'cookie-universal-nuxt',
   ],
-
-  axios: {
-    baseURL: process.env.ucapi || "http://localhost:3001",
-  },
   /*
    ** Build configuration
    */
