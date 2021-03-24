@@ -28,7 +28,6 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "nuxt-property-decorator";
-import { registerStore } from "~/store";
 import TheInput from "@/components/global/the-input/index.vue";
 import isEmail from "validator/lib/isEmail";
 import { regs } from "~/utils/regs";
@@ -61,12 +60,12 @@ export default class RegisterForm extends Vue {
 
   @Watch("formData.email")
   public onEmail() {
-    registerStore.setFormData({
+    this.$store.commit('RegisterStore/setFormData',{
       key: "email",
       val: this.formData.email,
     });
     this.validateEmail();
-    registerStore.setIsFormValid(this.isFormValid);
+    this.$store.commit("RegisterStore/setIsFormValid", this.isFormValid)
   }
   public validateEmail() {
     const { email } = this.formData;
@@ -76,12 +75,12 @@ export default class RegisterForm extends Vue {
 
   @Watch("formData.validationCode")
   public onValidationCode() {
-    registerStore.setFormData({
+    this.$store.commit('RegisterStore/setFormData', {
       key: "validationCode",
       val: this.formData.validationCode,
-    });
+    })
     this.validateValidationCode();
-    registerStore.setIsFormValid(this.isFormValid);
+    this.$store.commit("RegisterStore/setIsFormValid", this.isFormValid)
   }
   public validateValidationCode() {
     if (!this.formData.validationCode) {
@@ -91,12 +90,12 @@ export default class RegisterForm extends Vue {
 
   @Watch("formData.password")
   public onPassword() {
-    registerStore.setFormData({
+    this.$store.commit('RegisterStore/setFormData', {
       key: "password",
       val: this.formData.password,
-    });
+    })
     this.validatePassword();
-    registerStore.setIsFormValid(this.isFormValid);
+    this.$store.commit("RegisterStore/setIsFormValid", this.isFormValid)
   }
   public validatePassword() {
     const { password } = this.formData;
@@ -118,7 +117,6 @@ export default class RegisterForm extends Vue {
     } finally {
       this.isInputBtnLoading = false
     }
-
   }
 
   public submit() {
