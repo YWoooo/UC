@@ -23,10 +23,10 @@ export default class RegisterPage extends Vue {
     return "notLogin";
   }
   public setSendData(): Register.SendData {
-    const { email, validationCode, password } = this.$store.state.RegisterStore.formData;
+    const { email, verifycode, password } = this.$store.state.RegisterStore.formData;
     return {
       email,
-      validationCode,
+      verifycode,
       password,
     }
   }

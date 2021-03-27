@@ -3,11 +3,11 @@
     <TheInput :label="'Email'" v-model="formData.email" :type="'email'" inputmode="email" :errMsg="errMsg.email" />
     <TheInput
       :label="'Validation Code'"
-      v-model="formData.validationCode"
+      v-model="formData.verifycode"
       inputmode="numeric"
       :isNumberOnly="true"
       :isLocaleString="false"
-      :errMsg="errMsg.validationCode"
+      :errMsg="errMsg.verifycode"
       :maxLength="6"
       :isBtn="true"
       :btnText="'GET'"
@@ -32,6 +32,8 @@ import TheInput from "@/components/global/the-input/index.vue";
 import isEmail from "validator/lib/isEmail";
 import { regs } from "~/utils/regs";
 
+// TODO: Chrome password suggestion.
+
 @Component({
   components: { TheInput },
 })
@@ -40,12 +42,12 @@ export default class RegisterForm extends Vue {
   public isInputBtnLoading = false
   public formData = {
     email: "",
-    validationCode: "",
+    verifycode: "",
     password: "",
   };
   public errMsg = {
     email: "",
-    validationCode: "",
+    verifycode: "",
     password: "",
   };
   public get isInputBtnDisabled() {
@@ -73,19 +75,18 @@ export default class RegisterForm extends Vue {
     this.errMsg.email = isEmail(email) ? "" : "Wrong format of email.";
   }
 
-  @Watch("formData.validationCode")
+  @Watch("formData.verifycode")
   public onValidationCode() {
     this.$store.commit('RegisterStore/setFormData', {
-      key: "validationCode",
-      val: this.formData.validationCode,
+      key: "verifycode",
+      val: this.formData.verifycode,
     })
     this.validateValidationCode();
     this.$store.commit("RegisterStore/setIsFormValid", this.isFormValid)
   }
   public validateValidationCode() {
-    if (!this.formData.validationCode) {
-      return (this.errMsg.validationCode = "Required.");
-    }
+    this.errMsg.verifycode =
+      this.formData.verifycode ? "" : "Required."
   }
 
   @Watch("formData.password")
@@ -108,7 +109,7 @@ export default class RegisterForm extends Vue {
   public async getVerifyCode() {
     try {
       this.isInputBtnLoading = true
-      this.$api.getVerifyCode({
+      await this.$api.getVerifyCode({
         receiver: this.formData.email,
         receiverType: 'email'
       })

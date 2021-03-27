@@ -1,7 +1,7 @@
 export namespace Register {
   export interface SendData {
     email: string
-    validationCode: string;
+    verifycode: string;
     password: string
   }
 }

@@ -2,7 +2,7 @@ import { Module, VuexModule, Mutation } from 'vuex-module-decorators'
 
 interface FormData {
   email: string;
-  validationCode: string;
+  verifycode: string;
   password: string;
 }
 interface FormItem {
@@ -18,7 +18,7 @@ interface FormItem {
 export default class RegisterStore extends VuexModule {
   public formData = {
     email: '',
-    validationCode: '',
+    verifycode: '',
     password: ''
   }
   public isFormValid = false;

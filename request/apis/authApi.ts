@@ -12,7 +12,7 @@ export default function authApi(axios: any) {
       return await axios.$post('/register', sendData)
     },
     async getVerifyCode(params: VerifyCode.Params) {
-      return await axios.$get('/verifyCode', { params })
+      return await axios.$post('/verifyCode', params)
     },
   }
 }
