@@ -34,7 +34,7 @@ import { theMessageStore } from "~/store";
 
 @Component({
   components: { DefaultAppBar, DefaultBottomNav, TheMessage, TheAuth },
-  middleware: "checkIsLogin",
+  middleware: ["checkIsLogin", "getUserInfo"],
 })
 export default class DefaultLayout extends Vue {
   public get msgs() {
