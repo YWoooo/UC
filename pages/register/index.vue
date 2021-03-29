@@ -16,7 +16,6 @@ import RegisterSubmit from "@/components/register/RegisterSubmit.vue";
 // Types.
 import { Register } from '@/interfaces/Register'
 
-
 @Component({ components: { RegisterForm, RegisterSubmit } })
 export default class RegisterPage extends Vue {
   public layout() {

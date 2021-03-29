@@ -96,6 +96,8 @@ export default class TheInput extends Vue {
   @Prop({ required: false, default: 30 })
   public maxLength!: number;
 
+  // TODO: wrap all btn prop into an option object.
+
   @Prop({ required: false, default: false })
   public isBtn!: boolean;
 
