@@ -1,8 +1,7 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
+import { $api } from '@/utils/apiForStore'
 import { User } from '@/interfaces/User'
-
 @Module({
-  // name: 'UserInfoStore',
   stateFactory: true,
   namespaced: true,
 })
@@ -15,7 +14,8 @@ export default class UserInfoStore extends VuexModule {
   }
 
   @Action({ rawError: true })
-  public initUserInfo(userInfo: User.Info) {
+  public async init() {
+    const userInfo = await $api.getUserInfo()
     this.context.commit('setUserInfo', userInfo)
   }
 }

@@ -1,10 +1,7 @@
 import { Middleware } from '@nuxt/types'
 
 const getUserInfo: Middleware = async ({ app }) => {
-  const userInfo = await app.$api.getUserInfo()
-  if (userInfo) {
-    app.store?.dispatch('UserInfoStore/initUserInfo', userInfo)
-  }
+  await app.store?.dispatch('UserInfoStore/init')
 }
 
 export default getUserInfo
