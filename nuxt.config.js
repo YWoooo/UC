@@ -36,7 +36,8 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    '~/plugins/api.ts',
+    '~/plugins/request/injectApis.ts',
+    '~/plugins/initAxiosForStore.ts',
     "~/plugins/message.ts",
     "~/plugins/vuetify.ts",
   ],
