@@ -58,3 +58,5 @@ function registApisForAxios(axios: any) {
   const axiosWithApis = apiNames.reduce(reducer, {})
   return axiosWithApis
 };
+
+export default injectApis
