@@ -9,7 +9,6 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import { Context } from '@nuxt/types'
 import WalletOverview from "@/components/wallet/WalletOverview.vue";
 import WalletMenu from "@/components/wallet/WalletMenu.vue";
 
@@ -17,10 +16,6 @@ import WalletMenu from "@/components/wallet/WalletMenu.vue";
   components: { WalletOverview, WalletMenu },
 })
 export default class Wallet extends Vue {
-  public async asyncData({ app }: Context) {
-    const user = await app.$api.getUserInfo()
-    return { user }
-  }
 }
 </script>
 <style lang="scss" scoped>

@@ -9,9 +9,14 @@
 import { Component, Vue } from "nuxt-property-decorator";
 @Component
 export default class WalletCard extends Vue {
-  public cardData = {
-    balance: 12345.564,
-  };
+  public get userInfo() {
+    return this.$store.state.UserInfoStore.userInfo
+  }
+  public get cardData() {
+    return {
+      balance: this.userInfo.balance
+    }
+  }
 }
 </script>
 
