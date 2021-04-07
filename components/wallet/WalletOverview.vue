@@ -14,7 +14,7 @@ export default class WalletCard extends Vue {
   }
   public get cardData() {
     return {
-      balance: this.userInfo.balance
+      balance: this.userInfo?.balance || 0
     }
   }
 }

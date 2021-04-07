@@ -34,11 +34,18 @@ import { theMessageStore } from "~/store";
 
 @Component({
   components: { DefaultAppBar, DefaultBottomNav, TheMessage, TheAuth },
-  middleware: ["checkIsLogin", "getUserInfo"],
+  middleware: ["checkIsLogin"],
 })
 export default class DefaultLayout extends Vue {
   public get msgs() {
     return theMessageStore.msgs;
+  }
+  public async fetch() {
+    try {
+      await this.$store.dispatch('UserInfoStore/init')
+    } catch(e) {
+      console.error(e)
+    }
   }
 }
 </script>
