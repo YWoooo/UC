@@ -7,12 +7,16 @@
       {{ successPageConfig.subtitle2 }}
       </div>
     <div class="btns">
-      <NuxtLink :to="successPageConfig.btnPri.url">
-        <v-btn class="btn btn-pri">{{ successPageConfig.btnPri.text }}</v-btn>
-      </NuxtLink>
-      <NuxtLink :to="successPageConfig.btnSub.url">
-        <v-btn class="btn btn-sub">{{ successPageConfig.btnSub.text }}</v-btn>  
-      </NuxtLink>
+      <v-btn 
+        class="btn btn-pri"
+        @click="successPageConfig.btnPri.onClick">
+        {{ successPageConfig.btnPri.text }}
+      </v-btn>
+      <v-btn 
+        class="btn btn-sub"
+        @click="successPageConfig.btnSub.onClick">
+        {{ successPageConfig.btnSub.text }}
+      </v-btn>  
     </div>
   </div>
 </template>

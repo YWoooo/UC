@@ -8,5 +8,5 @@ export interface SuccessPageConfig {
 }
 type Btn = {
     text: string;
-    url: string;
+    onClick: Function;
 }
