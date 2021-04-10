@@ -17,11 +17,11 @@ export default class WithdrawalSuccess extends Vue {
         subtitle2: 'application of bank account binding.',
         btnPri: {
             text: 'To Wallet',
-            url: '/wallet'
+             onClick: () => this.$router.push('/wallet') 
         },
         btnSub: {
             text: 'To Home',
-            url: '/'
+          onClick: () => this.$router.push('/') 
         }
     }
 }

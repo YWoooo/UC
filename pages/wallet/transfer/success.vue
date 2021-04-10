@@ -17,11 +17,11 @@ export default class TransferSuccess extends Vue {
         subtitle2: 'form ****** to ******',
         btnPri: {
             text: 'To Wallet',
-            url: '/wallet'
+            onClick: () => this.$router.push('/wallet') 
         },
         btnSub: {
             text: 'To Home',
-            url: '/'
+            onClick: () => this.$router.push('/') 
         }
     }
 }

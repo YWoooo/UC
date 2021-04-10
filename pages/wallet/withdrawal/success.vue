@@ -17,11 +17,12 @@ export default class WithdrawalSuccess extends Vue {
         subtitle2: '6000 USD form your wallet.',
         btnPri: {
             text: 'To Wallet',
-            url: '/wallet'
+            onClick: () => this.$router.push('/wallet') 
+
         },
         btnSub: {
             text: 'To Home',
-            url: '/'
+            onClick: () => this.$router.push('/') 
         }
     }
 }
