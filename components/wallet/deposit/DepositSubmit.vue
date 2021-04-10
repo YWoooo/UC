@@ -1,22 +1,29 @@
 <template>
   <div class="deposit-submit">
-    <TheSubmit :isBtnLoading="isBtnLoading" :isDisabled="isBtnDisabled" @submit="submit" />
+    <TheSubmit 
+      :isBtnLoading="isBtnLoading" 
+      :isDisabled="isBtnDisabled" 
+      @submit="submit" 
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "nuxt-property-decorator";
-import { depositStore } from "~/store";
+import { Component, Vue } from "nuxt-property-decorator";
 import TheSubmit from "@/components/global/the-submit/index.vue";
 
 @Component({ components: { TheSubmit } })
 export default class DepositSubmit extends Vue {
+  public get DepositStore() {
+    return this.$store.state.DepositStore
+  }
   public get isBtnDisabled() {
-    return depositStore.isBtnDisabled;
+    return this.$store.getters['DepositStore/isBtnDisabled']
   }
   public get isBtnLoading() {
-    return depositStore.isBtnLoading;
+    return this.DepositStore.isBtnLoading;
   }
+
   public submit() {
     this.$emit("submit");
   }

@@ -11,20 +11,50 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import { depositStore } from "~/store";
+// Components.
 import DepositInfo from "@/components/wallet/deposit/DepositInfo.vue";
 import DepositAmount from "@/components/wallet/deposit/DepositAmount.vue";
 import DepositSubmit from "@/components/wallet/deposit/DepositSubmit.vue";
+// Types.
+import { Deposit } from '@/interfaces/Deposit'
 
 @Component({ components: { DepositInfo, DepositAmount, DepositSubmit } })
-export default class Deposit extends Vue {
-  public submit() {
-    if (depositStore.isBtnDisabled || depositStore.isBtnLoading) {
+export default class DepositPage extends Vue {
+  public get UserInfo() {
+    return this.$store.state.UserInfoStore.userInfo
+  }
+  public get DepositStore() {
+    return this.$store.state.DepositStore
+  }
+  
+  public async submit() {
+    if (this.DepositStore.isBtnDisabled) {
       return;
     }
-    const sendData = {
-      amount: depositStore.amount,
-    };
-    this.$message(`Deposit ${depositStore.amount} success.`, 'success');
+    try {
+      this.$store.commit('UserInfoStore/setIsBtnLoading', true)
+      const sendData = this.setSendData()
+      await this.$api.deposit(sendData)
+      this.$router.push({
+        path: '/wallet/deposit/success',
+        query: {
+          a: sendData.toAmount + ''
+        }
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }
+  public setSendData(): Deposit.SendData {
+    return {
+      account: this.UserInfo.account,
+      fromAmount: this.DepositStore.amount,
+      fromCcy: 'USD',
+      toAmount: this.DepositStore.amount,
+      toCcy: 'USD',
+      rate: 1,
+      channel: 1
+    }
   }
 }
 </script>

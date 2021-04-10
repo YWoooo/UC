@@ -1,15 +1,23 @@
-import { VuexModule, Mutation } from 'vuex-module-decorators'
+import { VuexModule, Mutation, Module } from 'vuex-module-decorators'
 
+@Module({
+    stateFactory: true,
+    namespaced: true,
+})
 export default class PaymentStore extends VuexModule {
     public amount = 0;
+    public isBtnLoading = false
+
     public get isBtnDisabled() {
-        return this.amount <= 0;
+        return this.isBtnLoading || this.amount <= 0;
     }
-    public get isBtnLoading() {
-        return false
-    }
+
     @Mutation
     public setAmount(value: number) {
         this.amount = value
+    }
+    @Mutation
+    public setIsBtnLoading(isBtnLoading: boolean) {
+        this.isBtnLoading = isBtnLoading
     }
 }
