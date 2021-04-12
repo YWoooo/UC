@@ -26,13 +26,17 @@ export default class DepositPage extends Vue {
   public get DepositStore() {
     return this.$store.state.DepositStore
   }
+
+  public destroyed () {
+    this.$store.commit('DepositStore/reset')
+  }
   
   public async submit() {
     if (this.DepositStore.isBtnDisabled) {
       return;
     }
     try {
-      this.$store.commit('UserInfoStore/setIsBtnLoading', true)
+      this.$store.commit('DepositStore/setIsBtnLoading', true)
       const sendData = this.setSendData()
       await this.$api.deposit(sendData)
       this.$router.push({
@@ -47,7 +51,7 @@ export default class DepositPage extends Vue {
   }
   public setSendData(): Deposit.SendData {
     return {
-      account: this.UserInfo.account,
+      account: this.UserInfo.account, // TODO: accounat return UserNotFoundError instead of MissingParamsError?
       fromAmount: this.DepositStore.amount,
       fromCcy: 'USD',
       toAmount: this.DepositStore.amount,
