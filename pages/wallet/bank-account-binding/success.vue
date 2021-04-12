@@ -26,8 +26,3 @@ export default class WithdrawalSuccess extends Vue {
     }
 }
 </script>
-
-<style lang='scss' scoped>
-@import "~/assets/styles/index.scss";
-
-</style>

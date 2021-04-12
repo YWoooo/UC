@@ -9,6 +9,7 @@ import TheSuccessPage from '@/components/layouts/the-success-page/index.vue';
 import { SuccessPageConfig } from '@/interfaces/TheSuccessPage';
 
 @Component({ components: { TheSuccessPage }})
+// TODO: access.
 export default class TransferSuccess extends Vue {
     public successPageConfig: SuccessPageConfig =  {
         mdiIcon: 'transfer',
@@ -26,8 +27,3 @@ export default class TransferSuccess extends Vue {
     }
 }
 </script>
-
-<style lang='scss' scoped>
-@import "~/assets/styles/index.scss";
-
-</style>
