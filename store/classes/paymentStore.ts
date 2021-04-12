@@ -20,4 +20,9 @@ export default class PaymentStore extends VuexModule {
     public setIsBtnLoading(isBtnLoading: boolean) {
         this.isBtnLoading = isBtnLoading
     }
+    @Mutation
+    public reset() {
+        this.amount = 0
+        this.isBtnLoading = false
+    }
 }
