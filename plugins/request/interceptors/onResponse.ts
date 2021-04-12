@@ -20,14 +20,15 @@ export const onResponseSuccess = (res: AxiosResponse, app: NuxtAppOptions) => {
 }
 
 export const onResponseErr = (err: AxiosError) => {
+  const isPublicErr = err.response?.data.error.isPublic || false
+  if (isPublicErr) {
+    return err.response // Public error should be handle by each caller itself.
+  }
   const codeFromData = err.response?.data?.code
   const statusCode = err.response?.status
   const code: number = codeFromData || statusCode || 0
   if (code === 401) {
     return on401()
-  }
-  if (code === 500) {
-    return on500()
   }
   onOthers(code)
 }
@@ -36,15 +37,6 @@ const on401 = () => {
   cookiejs.remove('accessToken')
   cookiejs.remove('refreshToken')
   window.location.replace('/login')
-}
-
-const on500 = () => {
-  const content = errMsggs[0]
-  theMessageStore.sendMsg({
-    content,
-    type: 'error'
-  })
-  throw new Error('500')
 }
 
 const onOthers = (code: number) => {
