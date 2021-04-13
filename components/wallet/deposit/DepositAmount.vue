@@ -6,7 +6,7 @@
         v-for="(item, index) in options"
         :key="index"
         @click="onOptionClick(item)"
-      >${{item.toLocaleString()}}</div>
+      >${{formatter.number(item)}}</div>
       <div class="input">
         <TheInput
           v-model="amountString"
@@ -27,9 +27,11 @@
 import { Component, Vue, Watch } from "nuxt-property-decorator";
 import { depositStore } from "~/store";
 import TheInput from "@/components/global/the-input/index.vue";
+import formatter from '@/utils/formatter';
 
 @Component({ components: { TheInput } })
 export default class DepositAmount extends Vue {
+  public formatter = formatter;
   public amountString = "";
   public errMsg = "";
   public options = [100, 300, 500, 1000, 3000, 5000, 10000];

@@ -7,6 +7,9 @@
 import { Component, Vue } from "nuxt-property-decorator";
 import TheSuccessPage from '@/components/layouts/the-success-page/index.vue';
 import { SuccessPageConfig } from '@/interfaces/TheSuccessPage';
+import formatter from '@/utils/formatter'
+
+// TODO: user still can go to this page by url or click to last page button.
 
 @Component({ components: { TheSuccessPage }})
 export default class DepositSuccess extends Vue {
@@ -17,7 +20,7 @@ export default class DepositSuccess extends Vue {
     return {
       mdiIcon: 'credit-card-check-outline',
       title: 'Deposit success.',
-      subtitle1: `You\'ve deposited ${this.toAmount} USD `,
+      subtitle1: `You\'ve deposited ${this.toAmountText} USD `,
       subtitle2: `to your account ${this.UserInfo.account}`,
       btnPri: {
         text: 'To Wallet',
@@ -29,8 +32,9 @@ export default class DepositSuccess extends Vue {
       }
     }
   }
-  public get toAmount() {
-    return this.$route.query?.a || ''
+  public get toAmountText() {
+    const toAmount = this.$route.query?.a
+    return toAmount ? formatter.number(+toAmount) : ''
   }
 
   public beforeDestroy() {

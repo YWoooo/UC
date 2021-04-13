@@ -10,7 +10,6 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import { depositStore } from "~/store";
 // Components.
 import DepositInfo from "@/components/wallet/deposit/DepositInfo.vue";
 import DepositAmount from "@/components/wallet/deposit/DepositAmount.vue";

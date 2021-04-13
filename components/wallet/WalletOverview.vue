@@ -1,14 +1,18 @@
 <template>
   <div class="overview">
-    <div class="balance-value">{{ cardData.balance.toFixed(2)}}</div>
+    <div class="balance-value">{{ balanceText }}</div>
     <div class="balance-key">Balance (USD)</div>
   </div>
 </template>
 <script lang="ts">
 
 import { Component, Vue } from "nuxt-property-decorator";
+import formatter from '@/utils/formatter';
+
 @Component
 export default class WalletCard extends Vue {
+  public formatter = formatter;
+
   public get userInfo() {
     return this.$store.state.UserInfoStore.userInfo
   }
@@ -16,6 +20,9 @@ export default class WalletCard extends Vue {
     return {
       balance: this.userInfo?.balance || 0
     }
+  }
+  public get balanceText() {
+    return this.formatter.number(this.cardData.balance, true)
   }
 }
 </script>
