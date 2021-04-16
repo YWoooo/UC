@@ -26,27 +26,28 @@ export default class DepositPage extends Vue {
     return this.$store.state.DepositStore
   }
 
+  public mounted() {
+    this.$store.commit('AccessStore/checkAccess')
+  }
   public destroyed () {
     this.$store.commit('DepositStore/reset')
   }
   
   public async submit() {
-    if (this.DepositStore.isBtnDisabled) {
-      return;
-    }
     try {
-      this.$store.commit('DepositStore/setIsBtnLoading', true)
+      this.beforeSubmit()
       const sendData = this.setSendData()
       await this.$api.deposit(sendData)
-      this.$router.push({
-        path: '/wallet/deposit/success',
-        query: {
-          a: sendData.toAmount + ''
-        }
-      })
+      this.afterSubmit()
     } catch (e) {
       console.error(e)
     }
+  }
+  public beforeSubmit() {
+    if (this.DepositStore.isBtnDisabled) {
+      throw new Error('this.DepositStore.isBtnDisabled is false.')
+    }
+    this.$store.commit('DepositStore/setIsBtnLoading', true)
   }
   public setSendData(): Deposit.SendData {
     return {
@@ -58,6 +59,15 @@ export default class DepositPage extends Vue {
       rate: 1,
       channel: 1
     }
+  }
+  public afterSubmit() {
+    this.$store.commit('AccessStore/enable', 'wallet-deposit-success')
+    this.$router.push({
+      path: '/wallet/deposit/success',
+      query: {
+        a: this.DepositStore.amount + ''
+      }
+    })
   }
 }
 </script>
