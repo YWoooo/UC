@@ -233,6 +233,7 @@ export default class TheInput extends Vue {
   font-size: $font-size-normal;
   height: 42px;
   margin-left: $normal-spacing;
+  text-transform: unset;
   width: 100px;
   z-index: 9999;
 }
