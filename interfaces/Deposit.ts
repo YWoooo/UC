@@ -11,7 +11,7 @@ export namespace Deposit {
   export type Currency = 'USD'
 }
 
-enum Channel {
+export enum Channel {
   Bank = 1,
   USDT = 2
 }

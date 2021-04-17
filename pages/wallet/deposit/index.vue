@@ -15,7 +15,7 @@ import DepositInfo from "@/components/wallet/deposit/DepositInfo.vue";
 import DepositAmount from "@/components/wallet/deposit/DepositAmount.vue";
 import DepositSubmit from "@/components/wallet/deposit/DepositSubmit.vue";
 // Types.
-import { Deposit } from '@/interfaces/Deposit'
+import { Deposit, Channel } from '@/interfaces/Deposit'
 
 @Component({ components: { DepositInfo, DepositAmount, DepositSubmit } })
 export default class DepositPage extends Vue {
@@ -51,13 +51,13 @@ export default class DepositPage extends Vue {
   }
   public setSendData(): Deposit.SendData {
     return {
-      account: this.UserInfo.account, // TODO: accounat return UserNotFoundError instead of MissingParamsError?
+      account: this.UserInfo.account,
       fromAmount: this.DepositStore.amount,
       fromCcy: 'USD',
       toAmount: this.DepositStore.amount,
       toCcy: 'USD',
       rate: 1,
-      channel: 1
+      channel: Channel.Bank
     }
   }
   public afterSubmit() {
