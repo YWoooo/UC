@@ -47,6 +47,18 @@ export default class DefaultLayout extends Vue {
       console.error(e)
     }
   }
+  public beforeMount() {
+    this.initAccessStore()
+  }
+
+  public initAccessStore() {
+    this.$store.commit('AccessStore/getAccessFromSession')
+    const cb = () => this.$store.commit('AccessStore/storeAccessToSession')
+
+    window.addEventListener('beforeunload', cb)
+    this.$on('hook:beforeDestroy', () =>
+      window.removeEventListener('beforeunload', cb))
+  }
 }
 </script>
 
