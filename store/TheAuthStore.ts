@@ -1,5 +1,5 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
-type Cb = () => any;
+type Cb = Function
 
 @Module({
   name: 'TheAuthStore',

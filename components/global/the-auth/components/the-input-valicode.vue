@@ -15,31 +15,61 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "nuxt-property-decorator";
-import { theAuthStore } from "~/store";
+import { Component, Vue, Watch, Prop } from "nuxt-property-decorator";
 import TheInput from "@/components/global/the-input/index.vue";
+import { VerifyCode } from '@/interfaces/VerifyCode'
 
 @Component({ components: { TheInput } })
 export default class TheInputValicode extends Vue {
+  @Prop({ required: true, default: 'email' })
+  public receiverType!: VerifyCode.ReceiverType
+
   public valiCode = "";
   public errMsg = "";
   public isBtnLoading = false;
   public cd = 0;
+
+  public get UserInfo() {
+    return this.$store.state.UserInfoStore.userInfo
+  }
   public get isBtnDisabled() {
     return this.errMsg !== "" || this.cd > 0;
   }
   public get btnText() {
     return this.cd > 0 ? `${this.cd}s` : "Get";
   }
-  public getCode() {
+  public get receiver() {
+    const { email, phoneAreaCode, phone } = this.UserInfo
+    return this.receiverType === 'email'
+      ? email
+      : `${phoneAreaCode} ${phone}`
+  }
+  
+  public async getCode() {
     if (this.isBtnDisabled) {
       return;
     }
+    try {
+      const { receiver, receiverType } = this
+      await this.$api.getVerifyCode({
+        receiver,
+        receiverType
+      })
+      this.$message(this.setMsg(), 'success', 6000)
+    } catch (e) {
+      console.error(e)
+    }
     this.countDown();
   }
+  public setMsg() {
+    return this.receiverType === 'email'
+      ? `A verify code has been sent to ${this.receiver}, please checkout your email.`
+      : `A verify code has been sent to +${this.UserInfo.phoneAreaCode}-${this.UserInfo.phone} by message, please checkout your phone.`
+  }
+
   @Watch("valiCode")
   public onvaliCode() {
-    theAuthStore.setCode(this.valiCode);
+    this.$store.commit('TheAuthStore/setCode', this.valiCode)
     this.testValiCode();
   }
   public testValiCode() {
@@ -53,7 +83,7 @@ export default class TheInputValicode extends Vue {
   }
 
   public countDown() {
-    this.cd = 10;
+    this.cd = 60;
     const timer = setInterval(() => {
       this.cd > 0 ? this.cd-- : clearInterval(timer);
     }, 1000);

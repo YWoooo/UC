@@ -1,17 +1,20 @@
 <template>
   <div>
     <TheInput v-model="email" :isReadOnly="true" />
-    <TheInputValicode />
+    <TheInputValicode :receiverType="'email'" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "nuxt-property-decorator";
+import { Component, Vue } from "nuxt-property-decorator";
 import TheInput from "@/components/global/the-input/index.vue";
 import TheInputValicode from "./the-input-valicode.vue";
 
 @Component({ components: { TheInput, TheInputValicode } })
 export default class TheEmailAuth extends Vue {
-  public email = "test1@gmail.com";
+  public email = "";
+  public mounted() {
+    this.email = this.$store.state.UserInfoStore.userInfo.email
+  }
 }
 </script>

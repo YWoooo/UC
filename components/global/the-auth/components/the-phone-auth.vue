@@ -4,7 +4,7 @@
       :areaCode.sync="areaCode"
       :phone.sync="phone"
       :isReadOnly="true" />
-    <TheInputValicode />
+    <TheInputValicode :receiverType="'phone'" />
   </div>
 </template>
 
@@ -16,7 +16,12 @@ import TheInputPhone from '@/components/global/the-input-phone/index.vue';
 
 @Component({ components: { TheInput, TheInputValicode, TheInputPhone } })
 export default class ThePhoneAuth extends Vue {
-  public areaCode = '886'
-  public phone = "911927419";
+  public areaCode = ''
+  public phone = "";
+
+  public created() {
+    this.areaCode = this.$store.state.UserInfoStore.userInfo.phoneAreaCode
+    this.phone = this.$store.state.UserInfoStore.userInfo.phone
+  }
 }
 </script>
