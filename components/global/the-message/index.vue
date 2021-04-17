@@ -8,7 +8,6 @@
 
 <script lang='ts'>
 import { Component, Vue, Prop } from "nuxt-property-decorator";
-import { theMessageStore } from "~/store";
 import { Msg } from '@/interfaces/TheMessage';
 
 @Component
