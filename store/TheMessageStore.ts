@@ -8,7 +8,6 @@ import { Msg } from '@/interfaces/TheMessage';
 })
 export default class TheMessageStore extends VuexModule {
   public msgs: Msg[] = [];
-  public duration = 2000;
   @Mutation
   setMsg(msg: Msg) {
     this.msgs.push(msg)
@@ -20,6 +19,6 @@ export default class TheMessageStore extends VuexModule {
   @Action
   sendMsg(msg: Msg) {
     this.context.commit('setMsg', msg)
-    setTimeout(() => this.context.commit('disappearMsg'), this.duration);
+    setTimeout(() => this.context.commit('disappearMsg'), msg.duration);
   }
 }
