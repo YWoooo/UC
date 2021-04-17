@@ -6,10 +6,11 @@
 <script lang='ts'>
 import { Component, Vue } from "nuxt-property-decorator";
 import TheSuccessPage from '@/components/layouts/the-success-page/index.vue';
-import { SuccessPageConfig } from '@/interfaces/TheSuccessPage';
 import formatter from '@/utils/formatter'
+// Types.
+import { SuccessPageConfig } from '@/interfaces/TheSuccessPage';
+import { Route, NavigationGuardNext } from 'vue-router'
 
-// TODO: user still can go to this page by url or click to last page button.
 
 @Component({ components: { TheSuccessPage }})
 export default class DepositSuccess extends Vue {
@@ -37,7 +38,16 @@ export default class DepositSuccess extends Vue {
     return toAmount ? formatter.number(+toAmount) : ''
   }
 
-  public beforeDestroy() {
+  public mounted() {
+    this.$store.commit('AccessStore/checkAccess')
+  }
+  public beforeRouteLeave(to: Route, from: Route, next: NavigationGuardNext) {
+    this.$store.commit('AccessStore/disable', 'wallet-deposit-success')
+    this.inituserInfo()
+    next()
+  }
+
+  public inituserInfo() {
     try {
       this.$store.dispatch('UserInfoStore/init')
     } catch (e) {
