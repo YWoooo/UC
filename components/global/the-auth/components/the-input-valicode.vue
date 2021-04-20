@@ -51,20 +51,29 @@ export default class TheInputValicode extends Vue {
     }
     try {
       const { receiver, receiverType } = this
-      await this.$api.getVerifyCode({
+      const res = await this.$api.getVerifyCode({
         receiver,
         receiverType
       })
+      if (res?.error?.name) {
+        throw new Error(res.error.name)
+      }
       this.$message(this.setMsg(), 'success', 6000)
+      this.countDown();
     } catch (e) {
-      console.error(e)
+      this.onGetCodeError(e)
     }
-    this.countDown();
   }
   public setMsg() {
     return this.receiverType === 'email'
       ? `A verify code has been sent to ${this.receiver}, please checkout your email.`
       : `A verify code has been sent to +${this.UserInfo.phoneAreaCode}-${this.UserInfo.phone} by message, please checkout your phone.`
+  }
+  public onGetCodeError(e: Error) {
+    if (e.message === 'InCooldownError') {
+      this.$message('Sorry, but please wait about 60 seconds.', 'error')
+    }
+    console.error(e)
   }
 
   @Watch("valiCode")
