@@ -65,9 +65,10 @@ export default class TheInputValicode extends Vue {
     }
   }
   public setMsg() {
+    const in10mins = 'it only valid in 10 minutes.'
     return this.receiverType === 'email'
-      ? `A verify code has been sent to ${this.receiver}, please checkout your email.`
-      : `A verify code has been sent to +${this.UserInfo.phoneAreaCode}-${this.UserInfo.phone} by message, please checkout your phone.`
+      ? `A verify code has been sent to ${this.receiver},` + in10mins
+      : `A verify code has been sent to +${this.UserInfo.phoneAreaCode}-${this.UserInfo.phone} by message,` + in10mins
   }
   public onGetCodeError(e: Error) {
     if (e.message === 'InCooldownError') {
