@@ -10,21 +10,21 @@
           <div class="tabs">
             <div
               class="tab"
-              :class="{ tabActive: receiverType === 'email' }"
+              :class="{ tabActive: isEmailAuth }"
               @click="setReceiverType('email')"
             >
               <v-icon>mdi-email-outline</v-icon>
             </div>
             <div
               class="tab"
-              :class="{ tabActive: receiverType !== 'email' }"
+              :class="{ tabActive: !isEmailAuth }"
               @click="setReceiverType('phone')"
             >
               <v-icon>mdi-cellphone-iphone</v-icon>
             </div>
           </div>
           <Transition mode="out-in">
-            <The-email-auth key="email" v-if="receiverType === 'email'" />
+            <The-email-auth key="email" v-if="isEmailAuth" />
             <The-phone-auth key="phone" v-else />
           </Transition>
           <TheSubmit
@@ -54,6 +54,12 @@ export default class TheAuth extends Vue {
   public get TheAuthStore() {
     return this.$store.state.TheAuthStore
   }
+  public get userInfo() {
+    return this.$store.state.UserInfoStore.userInfo
+  }
+  public get isEmailAuth() {
+    return this.receiverType === 'email'
+  }
   public get isShow() {
     return this.TheAuthStore.isShow
   }
@@ -68,11 +74,17 @@ export default class TheAuth extends Vue {
     this.receiverType = receiverType;
   }
   public submitAuth() {
-    const code = this.TheAuthStore.valicode
-    const receiverType = this.receiverType
+    const { valicode: code } = this.TheAuthStore
+    const { email, phoneAreaCode, phone } = this.userInfo
+    const receiver = this.isEmailAuth
+      ? email 
+      : `${phoneAreaCode} ${phone}`
+    const { receiverType } = this
+
     this.$emit('submitAuth', {
       code,
-      receiverType
+      receiver,
+      receiverType,
     })
   }
 }
