@@ -3,5 +3,9 @@ export namespace VerifyCode {
     receiver: string;
     receiverType: ReceiverType;
   }
+  export interface EmitData { // TODO: better naming?
+    receiverType: ReceiverType;
+    verifycode: string;
+  }
   export type ReceiverType = 'email' | 'phone'
 }

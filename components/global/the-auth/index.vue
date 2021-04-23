@@ -10,28 +10,28 @@
           <div class="tabs">
             <div
               class="tab"
-              :class="{ tabActive: isEmailAuth }"
-              @click="setAuthType(1)"
+              :class="{ tabActive: receiverType === 'email' }"
+              @click="setReceiverType('email')"
             >
               <v-icon>mdi-email-outline</v-icon>
             </div>
             <div
               class="tab"
-              :class="{ tabActive: !isEmailAuth }"
-              @click="setAuthType(2)"
+              :class="{ tabActive: receiverType !== 'email' }"
+              @click="setReceiverType('phone')"
             >
               <v-icon>mdi-cellphone-iphone</v-icon>
             </div>
           </div>
           <Transition mode="out-in">
-            <The-email-auth key="email" v-if="isEmailAuth" />
+            <The-email-auth key="email" v-if="receiverType === 'email'" />
             <The-phone-auth key="phone" v-else />
           </Transition>
           <TheSubmit
             :text="'Verify'"
             :isBtnLoading="isBtnLoading"
             :isDisabled="isDisabled"
-            @submit="submit"
+            @submit="submitAuth"
           />
         </div>
       </div>
@@ -41,48 +41,39 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import { theAuthStore } from "~/store";
 import TheEmailAuth from "./components/the-email-auth.vue";
 import ThePhoneAuth from "./components/the-phone-auth.vue";
 import TheSubmit from "@/components/global/the-submit/index.vue";
+import { VerifyCode } from '@/interfaces/VerifyCode'
 
 @Component({ components: { TheEmailAuth, ThePhoneAuth, TheSubmit } })
 export default class TheAuth extends Vue {
   public isBtnLoading = false;
-  public authType = 1;
-  public get isShow() {
-    return theAuthStore.isShow;
+  public receiverType: VerifyCode.ReceiverType = 'email';
+
+  public get TheAuthStore() {
+    return this.$store.state.TheAuthStore
   }
-  public get isEmailAuth() {
-    return this.authType === 1;
+  public get isShow() {
+    return this.TheAuthStore.isShow
   }
   public get isDisabled() {
-    return theAuthStore.isDisabled;
+    return !this.$store.getters['TheAuthStore/canSubmit']
   }
+
   public closeAuth() {
-    theAuthStore.closeAuth();
+    this.$store.dispatch('TheAuthStore/closeAuth');
   }
-  public setAuthType(type: 1 | 2) {
-    this.authType = type;
+  public setReceiverType(receiverType: VerifyCode.ReceiverType) {
+    this.receiverType = receiverType;
   }
-  public submit() {
-    const sendData = this.packing();
-    this.onPass();
-  }
-  public packing() {
-    return {
-      type: this.authType,
-      email: "test1@gmail.com",
-      phone: "919927419",
-      code: theAuthStore.valicode,
-    };
-  }
-  public onPass() {
-    theAuthStore.onPass();
-  }
-  public onFail() {
-    this.$message("Please input the right verification code.", "error");
-    theAuthStore.setCode("");
+  public submitAuth() {
+    const code = this.TheAuthStore.valicode
+    const receiverType = this.receiverType
+    this.$emit('submitAuth', {
+      code,
+      receiverType
+    })
   }
 }
 </script>

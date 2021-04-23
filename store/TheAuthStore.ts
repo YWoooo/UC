@@ -1,6 +1,4 @@
-import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
-type Cb = Function
-
+import { Module, VuexModule, Mutation } from 'vuex-module-decorators';
 @Module({
   name: 'TheAuthStore',
   stateFactory: true,
@@ -8,27 +6,15 @@ type Cb = Function
 })
 export default class TheAuthStore extends VuexModule {
   public isShow = false
-  public isPass: boolean | null = null
   public valicode = ''
-  public cb: Cb | null = null
 
-  public get isDisabled() {
-    return !(this.valicode?.length === 6)
+  public get canSubmit() {
+    return this.valicode?.length === 6
   }
 
   @Mutation
-  public askAuth(cb: Cb) {
+  public askAuth() {
     this.isShow = true
-    this.cb = cb
-  }
-
-  @Action
-  public onPass() {
-    if (this.cb) {
-      this.cb()
-    }
-    this.closeAuth()
-    this.reset()
   }
 
   @Mutation
