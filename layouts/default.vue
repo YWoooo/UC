@@ -17,7 +17,6 @@
         </v-slide-y-transition>
       </div>
     </div>
-    <TheAuth />
   </v-app>
 </template>
 
@@ -28,12 +27,11 @@ import DefaultAppBar from "@/components/layouts/DefaultAppBar.vue";
 import DefaultBottomNav from "@/components/layouts/DefaultBottomNav.vue";
 // Globle components.
 import TheMessage from "@/components/global/the-message/index.vue";
-import TheAuth from "@/components/global/the-auth/index.vue";
 // For the-message.
 import { theMessageStore } from "~/store";
 
 @Component({
-  components: { DefaultAppBar, DefaultBottomNav, TheMessage, TheAuth },
+  components: { DefaultAppBar, DefaultBottomNav, TheMessage },
   middleware: ["checkIsLogin"],
 })
 export default class DefaultLayout extends Vue {
