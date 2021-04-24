@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from '@nuxtjs/axios/node_modules/axios'
 import { NuxtAppOptions } from '@nuxt/types'
 
-export const onRequest = (reqConfig: AxiosRequestConfig, app: NuxtAppOptions) => {
+export default (reqConfig: AxiosRequestConfig, app: NuxtAppOptions) => {
   const accessToken = app.$cookies.get('accessToken')
   if (accessToken) {
     setAccessToken(reqConfig, accessToken)

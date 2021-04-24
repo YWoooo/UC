@@ -1,7 +1,8 @@
 import { Plugin, Context } from '@nuxt/types'
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from '@nuxtjs/axios/node_modules/axios'
-import { onRequest } from './interceptors/onRequest'
-import { onResponseSuccess, onResponseErr } from './interceptors/onResponse'
+import onRequest from './interceptors/onRequest'
+import onResponse from './interceptors/onResponse'
+import onResponseError from './interceptors/onResponseError'
 import apis from './apis/index'
 
 declare module 'vue/types/vue' {
@@ -41,8 +42,8 @@ export const initAxios = (context: Context) => {
     }
   })
   axios.onRequest((config: AxiosRequestConfig) => onRequest(config, context.app))
-  axios.onResponse((res: AxiosResponse) => onResponseSuccess(res, context.app))
-  axios.onResponseError((err: AxiosError) => onResponseErr(err))
+  axios.onResponse((res: AxiosResponse) => onResponse(res, context.app))
+  axios.onResponseError((err: AxiosError) => onResponseError(err))
   const axiosWithApis = registApisForAxios(axios)
   return axiosWithApis
 }
