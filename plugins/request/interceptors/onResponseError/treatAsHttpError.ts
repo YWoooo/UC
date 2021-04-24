@@ -20,8 +20,10 @@ const on401 = () => {
   window.location.replace('/login')
 }
 const treatAsSystemError = () => {
-  window.$nuxt.$message(
-    'System error occurred, please contact us.',
-    'error'
-  )
+  if (process.client) {
+    window.$nuxt.$message(
+      'System error occurred, please contact us.',
+      'error'
+    )
+  }
 }
