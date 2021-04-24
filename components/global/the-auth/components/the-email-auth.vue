@@ -1,7 +1,9 @@
 <template>
   <div>
     <TheInput v-model="email" :isReadOnly="true" />
-    <TheInputValicode :receiverType="'email'" />
+    <TheInputValicode 
+      :receiverType="'email'" 
+      @enter="$emit('enter')" />
   </div>
 </template>
 

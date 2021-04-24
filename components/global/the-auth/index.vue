@@ -24,8 +24,8 @@
             </div>
           </div>
           <Transition mode="out-in">
-            <The-email-auth key="email" v-if="isEmailAuth" />
-            <The-phone-auth key="phone" v-else />
+            <The-email-auth key="email" v-if="isEmailAuth" @enter="submitAuth" />
+            <The-phone-auth key="phone" v-else @enter="submitAuth" />
           </Transition>
           <TheSubmit
             :text="'Verify'"

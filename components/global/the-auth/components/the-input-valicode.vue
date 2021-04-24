@@ -11,6 +11,7 @@
     :isBtnDisabled="isBtnDisabled"
     :btnText="btnText"
     @btnClick="getCode"
+    @enter="$emit('enter')"
   />
 </template>
 

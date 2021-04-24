@@ -4,7 +4,9 @@
       :areaCode.sync="areaCode"
       :phone.sync="phone"
       :isReadOnly="true" />
-    <TheInputValicode :receiverType="'phone'" />
+    <TheInputValicode 
+      :receiverType="'phone'"
+      @enter="$emit('enter')" />
   </div>
 </template>
 
