@@ -11,7 +11,7 @@ export default (error: AxiosError) => {
 
   if (isPublicCustomError) {
     onPublicCustomError(customError)
-    return customError // In case we need to do something else in page.
+    return error.response // In case we need to do something else in page.
   }
   treatAsHttpError(error)
 }
