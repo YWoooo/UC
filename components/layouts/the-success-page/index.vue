@@ -37,7 +37,7 @@ export default class TheSuccessPage extends Vue {
 .the-success-page {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: $inner-height-sm;
   justify-content: center;
   text-align: center;
   width: 100%;
