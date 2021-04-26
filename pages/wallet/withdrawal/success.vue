@@ -1,29 +1,28 @@
 <template>
-    <the-success-page 
-        :successPageConfig="successPageConfig"/>
+  <the-success-page 
+    :successPageConfig="successPageConfig" />
 </template>
 
 <script lang='ts'>
-import { Component, Vue, Prop } from "nuxt-property-decorator";
+import { Component, Vue } from "nuxt-property-decorator";
 import TheSuccessPage from '@/components/layouts/the-success-page/index.vue';
 import { SuccessPageConfig } from '@/interfaces/TheSuccessPage';
 
 @Component({ components: { TheSuccessPage }})
 export default class WithdrawalSuccess extends Vue {
-    public successPageConfig: SuccessPageConfig =  {
-        mdiIcon: 'cash-check',
-        title: 'Withdrawal success',
-        subtitle1: 'You\'ve withdrawaled ',
-        subtitle2: '6000 USD form your wallet.',
-        btnPri: {
-            text: 'To Wallet',
-            onClick: () => this.$router.push('/wallet') 
-
-        },
-        btnSub: {
-            text: 'To Home',
-            onClick: () => this.$router.push('/') 
-        }
+  public successPageConfig: SuccessPageConfig =  {
+    mdiIcon: 'cash-check',
+    title: 'Withdrawal success',
+    subtitle1: 'You\'ve withdrawaled ',
+    subtitle2: '6000 USD form your wallet.',
+    btnPri: {
+      text: 'To Wallet',
+      onClick: () => this.$router.push('/wallet') 
+    },
+    btnSub: {
+      text: 'To Home',
+      onClick: () => this.$router.push('/') 
     }
+  }
 }
 </script>

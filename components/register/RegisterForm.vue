@@ -32,7 +32,7 @@ import TheInput from "@/components/global/the-input/index.vue";
 import isEmail from "validator/lib/isEmail";
 import { regs } from "~/utils/regs";
 
-// TODO: Chrome password suggestion.
+// TODO: deal with Chrome password auto complete.
 
 @Component({
   components: { TheInput },
