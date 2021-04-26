@@ -4,20 +4,12 @@
 </template>
 
 <script lang='ts'>
-import { Component, Vue } from "nuxt-property-decorator";
-import TheSuccessPage from '@/components/layouts/the-success-page/index.vue';
-import formatter from '@/utils/formatter'
-// Types.
-import { SuccessPageConfig } from '@/interfaces/TheSuccessPage';
-import { Route, NavigationGuardNext } from 'vue-router'
+import { Component } from "nuxt-property-decorator";
+import PaySuccess from '../PaySuccess'
 
-
-@Component({ components: { TheSuccessPage }})
-export default class DepositSuccess extends Vue {
-  public get UserInfo() {
-    return this.$store.state.UserInfoStore.userInfo
-  }
-  public get successPageConfig(): SuccessPageConfig {
+@Component
+export default class DepositSuccess extends PaySuccess {
+  public get successPageConfig() {
     return {
       mdiIcon: 'credit-card-check-outline',
       title: 'Deposit success.',
@@ -31,27 +23,6 @@ export default class DepositSuccess extends Vue {
         text: 'To Home',
         onClick: () => this.$router.push('/') 
       }
-    }
-  }
-  public get toAmountText() {
-    const toAmount = this.$route.query?.a
-    return toAmount ? formatter.number(+toAmount) : ''
-  }
-
-  public mounted() {
-    this.$store.commit('AccessStore/checkAccess')
-  }
-  public beforeRouteLeave(to: Route, from: Route, next: NavigationGuardNext) {
-    this.$store.commit('AccessStore/disable', 'wallet-deposit-success')
-    this.inituserInfo()
-    next()
-  }
-
-  public inituserInfo() {
-    try {
-      this.$store.dispatch('UserInfoStore/init')
-    } catch (e) {
-      console.error(e)
     }
   }
 }
