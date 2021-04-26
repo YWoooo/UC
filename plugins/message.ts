@@ -15,7 +15,7 @@ declare module 'vue/types/vue' {
 Vue.prototype.$message = (
   content: string,
   type: MsgType = 'success',
-  duration = 2000
+  duration = 6000
 ): void => {
   theMessageStore.sendMsg({ content, type, duration })
 }

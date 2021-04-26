@@ -59,7 +59,7 @@ export default class TheInputValicode extends Vue {
       if (res?.error?.name) {
         throw new Error(res.error.name)
       }
-      this.$message(this.setMsg(), 'success', 6000)
+      this.$message(this.setMsg(), 'success')
       this.countDown();
     } catch (e) {
       this.onGetCodeError(e)
