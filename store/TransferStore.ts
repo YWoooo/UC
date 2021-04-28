@@ -7,8 +7,8 @@ import PaymentStore from './classes/paymentStore';
     namespaced: true,
 })
 export default class TransferStore extends PaymentStore {
-    public fromAccount = "TEST123"
-    public toAccount = "TEST223"
+    public fromAccount = ""
+    public toAccount = ""
 
     @Mutation
     public setFromAccount(fromAccount: string) {
