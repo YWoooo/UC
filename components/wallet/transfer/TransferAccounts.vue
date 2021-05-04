@@ -1,83 +1,60 @@
 <template>
-  <div class="transfer-accounts">
-    <the-select 
-      class="account"
+  <div class="wrapper">
+    <TheInput
+      label="From Account"
       v-model="fromAccount"
-      :options="fromAccountList"
-      :msg="fromAccountMsg"
-      @change="onFromAccountChange" />
-    &rarr;
-    <the-select
-      class="account"
+      :isReadOnly="true"
+    /> 
+    <TheInput
+      label="To Account"
       v-model="toAccount"
-      :options="toAccountList"
-      :msg="toAccountMsg"
-      @change="onToAccountChange" />
+      :maxLength="lengthOfAccount"
+      :errMsg="toAccountErrMsg"
+      @input="onToAccountInput"
+    />       
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import { transferStore } from "~/store";
-import TheSelect from '@/components/global/the-select/index.vue';
+import TheInput from "@/components/global/the-input/index.vue";
 
-@Component({ components: { TheSelect }})
+@Component({ components: { TheInput }})
 export default class TransferInfo extends Vue {
-  public ccy = "USD";
-  public fromAccountMsg = ''
-  public toAccountMsg = ''
-  public accountList = [
-    { label: 'TEST123 (USD)', value: 'TEST123', balance: 123 },
-    { label: 'TEST223 (USD)', value: 'TEST223', balance: 1234 },
-    { label: 'TEST323 (USD)', value: 'TEST323', balance: 12345 },
-    { label: 'TEST423 (USD)', value: 'TEST423', balance: 123456 },
-    { label: 'TEST523 (USD)', value: 'TEST523', balance: 123 },
-    { label: 'TEST623 (USD)', value: 'TEST623', balance: 12 },
-    { label: 'TEST723 (USD)', value: 'TEST723', balance: 12 },
-    { label: 'TEST823 (USD)', value: 'TEST823', balance: 123 },
-  ]
-  
-  public get fromAccount() {
-    return transferStore.fromAccount;
-  }
-  public set fromAccount(account: string) {
-    transferStore.setFromAccount(account)
+  public fromAccount = ''
+  public toAccount = ''
+  public toAccountErrMsg = ''
+  public lengthOfAccount = 7
+
+  public created() {
+    this.fromAccount = this.$store.state.UserInfoStore.userInfo.account
+    this.$store.commit('TransferStore/setFromAccount', this.fromAccount)
+    // TODO: why the Transferstore.toAccount will be undefined while we don't commit here in the beginning?
+    this.$store.commit('TransferStore/setToAccount', this.toAccount)
   }
 
-  public get toAccount() {
-    return transferStore.toAccount;
-  }
-  public set toAccount(account: string) {
-    transferStore.setToAccount(account)
+  public onToAccountInput() {
+    this.testToAccount()
+    this.$store.commit('TransferStore/setToAccount', this.toAccount)
   }
 
-  public get fromAccountList() {
-    return this.accountList.filter((e) => e.value !== this.toAccount)
-  }
-  public get toAccountList() {
-    return this.accountList.filter((e) => e.value !== this.fromAccount)
-  }
-
-  public onFromAccountChange(account: string) {
-    const fromAccount = this.accountList.find((e) => e.value === account)
-    this.fromAccountMsg = `Balance: ${fromAccount?.balance.toLocaleString()}`
-  }
-  public onToAccountChange(account: string) {
-    const toAccount = this.accountList.find((e) => e.value === account)
-    this.toAccountMsg = `Balance: ${toAccount?.balance.toLocaleString()}`
+  public testToAccount() {
+    const reg = /^[A-Z][0-9]{6}$/
+    const isToAccountValid = reg.test(this.toAccount)
+    
+    this.toAccountErrMsg = ''
+    if (!this.toAccount) {
+      return this.toAccountErrMsg = 'Required'
+    }
+    this.toAccountErrMsg = isToAccountValid
+      ? '' 
+      : 'Start with A-Z, and follow by 6 numbers.'
   }
 }
 </script>
 
 <style lang='scss' scoped>
-@import "~/assets/styles/index.scss";
-.transfer-accounts {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
+.wrapper {
   margin-top: 40px;
-}
-.account {
-  width: 45%;
 }
 </style>

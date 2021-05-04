@@ -2,25 +2,29 @@
   <div class="transfer-info">
     <div class="amount" v-if="amount<=0">-</div>
     <div class="amount" v-else>$ {{amount.toLocaleString()}}</div>
-    <div class="subtitle">{{ fromAccount }} (USD) &rarr; {{ toAccount }} (USD)</div>
+    <div :class="['subtitle', { visible: toAccount }]">
+      {{ fromAccount }} &rarr; {{ toAccount }}
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import { transferStore } from "~/store";
 
 @Component
 export default class TransferInfo extends Vue {
-  public ccy = "USD";
+  public get TransferStore() {
+    return this.$store.state.TransferStore
+  }
+
   public get fromAccount() {
-    return transferStore.fromAccount;
+    return this.TransferStore.fromAccount;
   }
   public get toAccount() {
-    return transferStore.toAccount;
+    return this.TransferStore.toAccount;
   }
   public get amount() {
-    return transferStore.amount;
+    return this.TransferStore.amount;
   }
 }
 </script>
@@ -37,5 +41,9 @@ export default class TransferInfo extends Vue {
 .subtitle {
   font-size: 12px;
   margin-top: 20px;
+  opacity: 0;
+}
+.visible {
+  opacity: 1;
 }
 </style>

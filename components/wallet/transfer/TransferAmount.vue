@@ -1,6 +1,7 @@
 <template>
   <div class="transfer-amount">
     <TheInput
+      label="Amount"
       v-model="amountString"
       inputmode="numeric"
       :isNumberOnly="true"
@@ -39,24 +40,3 @@ export default class TransferAmount extends Vue {
   }
 }
 </script>
-
-<style lang='scss' scoped>
-@import "~/assets/styles/index.scss";
-.transfer-amount {
-  margin-top: 40px;
-  padding: 0 60px;
-}
-.input {
-  border-bottom: 1px solid $color-white;
-  font-size: 20px;
-  padding-bottom: 6px;
-  width: 100%;
-  &:focus {
-    outline-style: none;
-  }
-  &::placeholder {
-    color: inherit;
-    opacity: 0.6;
-  }
-}
-</style>
