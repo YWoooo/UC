@@ -40,12 +40,16 @@ export default class TransferPage extends Vue {
     try {
       this.beforeSubmit()
       const sendData = this.setSendData()
-      await this.$api.transfer(sendData)
+      const res = await this.$api.transfer(sendData)
+      if (res.error) {
+        this.handleCustomError(res?.error?.name);
+      }
+      this.afterSubmit()
     } catch(e) {
       console.error(e)
+    } finally {
+      this.$store.commit('TransferStore/setIsBtnLoading', false)
     }
-
-    this.$message(`Transfer ${transferStore.amount} success.`, 'success');
   }
   public beforeSubmit() {
     if (this.TransferStore.isBtnDisabled) {
@@ -61,12 +65,27 @@ export default class TransferPage extends Vue {
       ccy: 'USD'
     }
   }
+  public handleCustomError(errorName: string) {
+    let errMsg = ''
+    switch(errorName) {
+      case ('ToAccountNotExistError'):
+        errMsg = 'Sorry, but the to Account doesn\'t exist. Please choose another account.'
+        break
+      default:
+        break
+    }
+    this.$message(errMsg, 'error')
+    throw new Error(errorName)
+  }
   public afterSubmit() {
     this.$store.commit('AccessStore/enable', 'wallet-transfer-success')
+    const { amount, fromAccount, toAccount } = this.TransferStore
     this.$router.push({
       path: '/wallet/transfer/success',
       query: {
-        a: this.TransferStore.amount + ''
+        a: amount + '',
+        f: fromAccount,
+        t: toAccount,
       }
     })
   }
