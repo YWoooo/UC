@@ -39,8 +39,7 @@ export default class TransferInfo extends Vue {
   }
 
   public testToAccount() {
-    const reg = /^[A-Z][0-9]{6}$/
-    const isToAccountValid = reg.test(this.toAccount)
+    const isToAccountValid = this.$store.getters['TransferStore/isToAccountValid']
     
     this.toAccountErrMsg = ''
     if (!this.toAccount) {
