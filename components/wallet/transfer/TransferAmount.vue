@@ -16,7 +16,6 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "nuxt-property-decorator";
-import { transferStore } from "~/store";
 import TheInput from "@/components/global/the-input/index.vue";
 
 @Component({ components: { TheInput } })
@@ -28,12 +27,8 @@ export default class TransferAmount extends Vue {
   }
   @Watch("amountString")
   public onAmountChanged() {
-    transferStore.setAmount(this.amountNumber);
+    this.$store.commit('TransferStore/setAmount', this.amountNumber)
     this.errMsg = this.amountNumber <= 0 ? "Required." : "";
-  }
-  public onOptionClick(option: number) {
-    this.amountString = option.toString();
-    transferStore.setAmount(this.amountNumber);
   }
   public submit() {
     this.$emit("submit");
