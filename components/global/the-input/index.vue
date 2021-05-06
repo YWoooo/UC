@@ -46,9 +46,10 @@
         >{{ btnText }}</v-btn
       >
     </div>
-    <div class="err-msg">
-      <transition>
-        <div v-if="errMsg">{{ errMsg }}</div>
+    <div class="msg">
+      <transition mode="out-in">
+        <div v-if="errMsg" class="err" key="errMsg">{{ errMsg }}</div>
+        <div v-if="msg && !errMsg" key="msg">{{ msg }}</div>
       </transition>
     </div>
   </div>
@@ -89,6 +90,9 @@ export default class TheInput extends Vue {
 
   @Prop({ required: false, default: "" })
   public placeholder!: string;
+
+  @Prop({ required: false, default: "" })
+  public msg!: string;
 
   @Prop({ required: false, default: "" })
   public errMsg!: string;
@@ -243,10 +247,12 @@ export default class TheInput extends Vue {
 .inputReadOnly {
   opacity: 0.4;
 }
-.err-msg {
-  color: $color-error;
+.msg {
   font-size: $font-size-sm;
   height: 24px;
+}
+.err { // TODO: some global classes, like .err?
+  color: $color-error;
 }
 .inputError {
   .label {
