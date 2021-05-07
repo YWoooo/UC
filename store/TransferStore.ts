@@ -9,6 +9,7 @@ import PaymentStore from './classes/paymentStore';
 export default class TransferStore extends PaymentStore {
     public fromAccount = ""
     public toAccount = ""
+    public amountLimit = 10000
 
     public get isBtnDisabled() {
         return this.isBtnLoading || this.amount <= 0 || !this.isToAccountValid;
