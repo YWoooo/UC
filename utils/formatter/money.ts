@@ -20,4 +20,3 @@ interface Options {
   ccy: string
   isFloat: boolean
 }
-

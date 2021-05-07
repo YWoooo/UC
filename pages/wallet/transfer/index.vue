@@ -11,7 +11,6 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
-import { transferStore } from "~/store";
 // Components.
 import TransferInfo from "@/components/wallet/transfer/TransferInfo.vue";
 import TransferAccounts from "@/components/wallet/transfer/TransferAccounts.vue";
