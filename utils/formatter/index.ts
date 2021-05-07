@@ -1,5 +1,7 @@
 import number from './number'
+import money from './money'
 
 export default {
-  number
+  number,
+  money
 }
