@@ -39,6 +39,7 @@ export default {
     '~/plugins/request/injectApis.ts',
     '~/plugins/initAxiosForStore.ts',
     "~/plugins/message.ts",
+    "~/plugins/formatter.ts",
     "~/plugins/vuetify.ts",
   ],
   /*
