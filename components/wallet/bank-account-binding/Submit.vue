@@ -1,6 +1,6 @@
 <template>
   <the-submit 
-    @click="submit"
+    @submit="submit"
     :isBtnLoading="false"
     :isDisabled="false" />
 </template>
@@ -12,7 +12,7 @@ import TheSubmit from "@/components/global/the-submit/index.vue";
 @Component({ components: { TheSubmit } })
 export default class BankAccountBindingSubmit extends Vue {
   public submit() {
-      
+    this.$emit('submit')
   }
 }
 </script>
